@@ -15,7 +15,7 @@ git submodule update
 
 cd ./externals/$DIR
 
-git pull
+git pull origin master
 git checkout master
 
 
@@ -26,10 +26,12 @@ VER=`next`
 
 
 
-../../etc/write_info.py  -o build_docs/html/ -v "$VER" -d $DIR -t "TerraGear" -g "$CHECKOUT"
+../../etc/write_info.py  --out=build_docs/ --version="$VER" --dir=$DIR \
+  --title="TerraGear" --git "$CHECKOUT" --color="#C998C9"
 
-#cp -r build_docs/ $ROOT/docs/$DIR/
 
-zip -r -j $ROOT/zips/$DIR.zip build_docs/html/
-
+rm $ROOT/zips/$DIR.zip
+cd build_docs/
+zip -r  $ROOT/zips/$DIR.zip ./
+ 
 

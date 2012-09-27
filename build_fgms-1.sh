@@ -28,11 +28,12 @@ cp INSTALL build_docs/html/
 cp COPYING build_docs/html/
 cp TODO build_docs/html/
 
-../../etc/write_info.py  -o build_docs/html/ -v "$VER" -d $DIR -t "FG MultiPlayer Server (1.x.future)" \
-    -g "$CHECKOUT"
+../../etc/write_info.py  --out=build_docs/ --version="$VER" --dir=$DIR \
+	--title="FGMS-1.x"  --git="$CHECKOUT" --color="#BA6271"
 
-
-zip -r -j $ROOT/zips/$DIR.zip build_docs/html/
+rm $ROOT/zips/$DIR.zip
+cd build_docs/
+zip -r $ROOT/zips/$DIR.zip ./
 
 
 #cp -r build_docs/ $ROOT/docs/$DIR/

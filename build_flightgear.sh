@@ -16,7 +16,8 @@ rm -f -r ./_builds/$DIR
 cd ./externals/$DIR
 rm -f -r build_docs/
 
-git pull origin docs
+git checkout docs
+git pull 
 git checkout docs
 
 #TODO - Make the version from /version ??
@@ -28,10 +29,14 @@ cp README build_docs_fgfs/html/
 cp README.* build_docs_fgfs/html/
 cp INSTALL build_docs_fgfs/html/
 cp COPYING build_docs_fgfs/html/
+mkdir build_docs_fgfs/html/docs-mini/
+cp docs-mini/* build_docs_fgfs/html/docs-mini/
 
-../../etc/write_info.py  -o build_docs_fgfs/html/ -v "$VER" -d $DIR -t "FlightGear" -g "$CHECKOUT"
+../../etc/write_info.py  --out=build_docs_fgfs/ --version="$VER" --dir=$DIR \
+  --title="FlightGear" --git="$CHECKOUT" --color="#6280BA"
 
-
-zip -r -j $ROOT/zips/$DIR.zip build_docs_fgfs/html/
+rm $ROOT/zips/$DIR.zip
+cd build_docs_fgfs/
+zip -r  $ROOT/zips/$DIR.zip ./
 
 

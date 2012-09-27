@@ -14,16 +14,20 @@ mkdir ./externals/nasal/
 #cd ./externals/nasal/
 rm -f -r  ./externals/nasal/build_docs/
 mkdir ./externals/nasal/build_docs/
+mkdir ./externals/nasal/build_docs/html/
 
 ./externals/flightgear/scripts/python/nasal_api_doc.py parse ./externals/fgdata/Nasal
 
 
-mv $ROOT/nasal_api_doc.html ./externals/nasal/build_docs/index.html
+mv $ROOT/nasal_api_doc.html ./externals/nasal/build_docs/html/index.html
 
-./etc/write_info.py  -o ./externals/nasal/build_docs/ -v "head" -d $DIR -t "Nasal" -s "$CHECKOUT"
+./etc/write_info.py  --out ./externals/nasal/build_docs/ --version "$VER" --dir=$DIR \
+--title="Nasal" --svn="$CHECKOUT" --color="#555588"
 
+rm $ROOT/zips/$DIR.zip 
+cd ./externals/nasal/build_docs/
 
-zip -r -j $ROOT/zips/$DIR.zip ./externals/nasal/build_docs/
+zip -r  $ROOT/zips/$DIR.zip ./
 
 
 

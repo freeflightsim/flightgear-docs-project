@@ -1,6 +1,8 @@
 <?php
 error_reporting(E_ALL);
 
+define('HEIGHT', '86');
+
 define('ROOT_DIR', dirname(__FILE__));
 define('DOCS_DIR', ROOT_DIR.'/docs');
 
@@ -11,7 +13,7 @@ $dirs = scandir(DOCS_DIR, 1);
 
 $docs = array();
 
-foreach($dirs as $d){
+foreach($dirs aS $d){
 	#print_r($d);
 	if($d == '.' or $d == '..' or $d == '.gitignore' or substr($d, - 4) === '.zip'){
 		// do nothing
@@ -32,52 +34,46 @@ foreach($dirs as $d){
 ksort($docs)
 #print_r($docs);
 ?>
-
+<!DOCTYPE html>
 <html>
 <head>
-<title>FlightGear Documentation Project (experimental)</title>
+<title>FlightGear Documentation Project (Experimental)</title>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 
 <link rel="stylesheet" href="style.css">
+<style>
+header {
+	height: <?php echo HEIGHT.'px' ?>;
+}
+</style>
+
+
 </head>
 
 <body>
 
 <header>
-	<img src="http://wiki.flightgear.org/skins/common/images/icons-fg-135.png">
-	<h1>FlightGear Docs Project (experimental)</h1>
+		<h1>FlightGear Docs Project (experimental)</h1>
+	
+	<ul id="menu">
+	<li><a href="info.php" target='doc_iframe'>Home</a></li>
+	<?php foreach($docs as $k => $v){ 
+		echo "<li><a target='doc_iframe' href='docs/$k/html/'>".$v['title']."</a></li>";
+	} ?>
+	</ul>
 </header>
-<p class="top">This project is an experiment to automatically generate docs from source files.</p>
 
 
-<table>
-<caption>Docs Index</caption>
-<tr><th>Browse Html</th><th>Zip</th><th>Version</th><th>Updated</th><th>Repo</th><th>Checkout</th></tr>
-<?php foreach($docs as $k => $v){ 
-	echo '<tr><td><a target="'.$k.'" href="docs/'.$k.'/">'.$v['title'].'</a></td>';
-	echo '<td><a target="_blank" href="docs/'.$k.'/'.$k.'.zip">'.$k.'.zip</a></td>';
-	echo	'<td>'.$v['version'].'</td><td>'.$v['last_updated'].'</td>';
-	echo '<td>'.$v['repo'].'</td><td>'.$v['checkout'].'</td></tr>';
+<iframe src="info.php"  id="doc_iframe" name="doc_iframe"></iframe>
 
 
-} ?>
-</table>
-
-<ul>
-	<li>All the projects are spooled out to the <a href="/docs/"><b>docs/</b></a> directory.</li>
-</ul>
-
+<script>
+$(document).ready(function() {
+	$('#doc_iframe').height(window.innerHeight - <?php echo HEIGHT ?> - 10);
+});
+</script>
 
 
-<div class="info">
-<ul>
-<li>This project is work in progress, being developed by irc #peteffs (pete morgan atmo)</li>
-<li>The code for this project is at gitorious <a 
-	href="https://gitorious.org/fgx-xtras/flightgear-docs-build" target="_blank">flightgear-docs-build</a></li>
-<li>View the <a 
-	href="README.txt" target="_blank">README.txt</a> fro more info.</li>
-</ul>
-
-</div>
 </body>
 
 

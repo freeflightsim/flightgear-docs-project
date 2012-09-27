@@ -15,6 +15,7 @@ rm -f -r ./docs/$DIR
 cd ./externals/$DIR
 rm -f -r build_docs/
 
+git checkout next
 git pull
 git checkout next
 
@@ -28,10 +29,10 @@ cp README.* build_docs/html/
 cp INSTALL build_docs/html/
 cp COPYING build_docs/html/
 
+../../etc/write_info.py  --out=build_docs/ --version="$VER" --dir=$DIR \
+   --title="SimGear" --git="$CHECKOUT" --color="#DEDE45"
 
-../../etc/write_info.py  -o build_docs/html/ -v "$VER" -d $DIR -t "SimGear" -g "$CHECKOUT"
-
-
-zip -r -j $ROOT/zips/$DIR.zip build_docs/html/
+cd build_docs/
+zip -r  $ROOT/zips/$DIR.zip ./
 
 
