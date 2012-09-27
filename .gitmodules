@@ -1,3 +1,9 @@
 [submodule "externals/terragear"]
 	path = externals/terragear
 	url = git://gitorious.org/fg/terragear.git
+[submodule "externals/simgear"]
+	path = externals/simgear
+	url = git@gitorious.org:~ffs/fg/ffss-simgear.git
+[submodule "externals/flightgear"]
+	path = externals/flightgear
+	url = git@gitorious.org:~ffs/fg/ffss-flightgear2.git

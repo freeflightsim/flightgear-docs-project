@@ -2,4 +2,8 @@
 
 cd ./_builds/
 
-zip -r -j terragear.zip terragear/html/*
+# TerraGear
+zip -r -j terragear.zip terragear/html/
+
+# SimGear
+zip -r -j simgear.zip simgear/html/
