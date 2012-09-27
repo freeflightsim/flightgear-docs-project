@@ -71,7 +71,7 @@ header h1{
 	border-bottom: 1px solid #dddddd;
 	border-top: 1px solid #dddddd;
 	padding: 5px 10px;
-	color: #333333;
+	color: #427EBF;
 	margin-right: 200px;
 	font-size: 18pt;
 	margin-bottom: 50px;
@@ -130,4 +130,35 @@ p.top {
  line-height: 140%;
  color: #999999;
  font-family: monospace:
+}
+
+h2{
+	font-size: 26pt;
+	font-family: monospace;
+	color: #999999;
+	border-bottom: 3px dotted #dddddd;
+}
+
+p{
+	
+	padding: 10px;
+	line-height: 140%;
+	font-size: 12pt;
+	font-family: sans-serif;
+}
+
+.info{
+	background-color: #dddddd;
+	border-radius: 10px;
+	margin: 30px 400px 20px 100px;
+	padding: 20px;
+}
+
+ul{
+	list-style-type: disc;
+	margin-left: 20px;
+}
+li{
+	padding: 5px;
+	line-height: 140%;
 }

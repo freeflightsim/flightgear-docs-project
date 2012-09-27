@@ -37,7 +37,7 @@ foreach($dirs as $d){
 <body>
 
 <header>
-	<img src="fg.png">
+	<img src="http://wiki.flightgear.org/skins/common/images/icons-fg-135.png">
 	<h1>FlightGear Docs Project (experimental)</h1>
 </header>
 <p class="top">This project is an experiment to automatically generate docs from source files.</p>
@@ -45,22 +45,35 @@ foreach($dirs as $d){
 
 <table>
 <caption>Docs Index</caption>
-<tr><th>Title</th><th>Version</th><th>Updated</th><th>Repo</th><th>Checkout</th></tr>
+<tr><th>Browse Html</th><th>Zip</th><th>Version</th><th>Updated</th><th>Repo</th><th>Checkout</th></tr>
 <?php foreach($docs as $k => $v){ 
-	echo '<tr><td><a href="/docs/'.$k.'/">'.$v['title'].'</a></td><td>'.$v['version'].'</td><td>'.$v['last_updated'].'</td>';
+	echo '<tr><td><a href="/docs/'.$k.'/html/">'.$v['title'].'</a></td>';
+	echo '<td><a href="/docs/'.$k.'/'.$k.'.zip">'.$k.'.zip</a></td>';
+	echo	'<td>'.$v['version'].'</td><td>'.$v['last_updated'].'</td>';
 	echo '<td>'.$v['repo'].'</td><td>'.$v['checkout'].'</td></tr>';
 
 
 } ?>
 </table>
-<p >All the projects are spooled out to the <a href="/docs/">docs/</a> directory.<p>
 
 <ul>
-	<li><a href="/docs/simgear/html/">SimGear</li>
-	<li><a href="/docs/flightgear/html/">FlightGear</li>
-	<li><a href="/docs/terragear/html/">FlightGear</li>
+	<li>All the projects are spooled out to the <a href="/docs/"><b>docs/</b></a> directory.</li>
+	<li>A project's directory have the html/ directory (but proobably not others).</li>
+
 </ul>
 
+
+
+<div class="info">
+<ul>
+<li>This project is work in progress, being developed by irc #peteffs (pete morgan atmo)</li>
+<li>The code for this project is at gitorious <a 
+	href="https://gitorious.org/fgx-xtras/flightgear-docs-build" target="_blank">flightgear-docs-build</a></li>
+<li>View the <a 
+	href="README.txt" target="_blank">README.txt</a> fro more info.</li>
+</ul>
+
+</div>
 </body>
 
 
