@@ -24,10 +24,12 @@ VER=`next`
 #echo "VER=$VER" -return @version@.. umm
 ( cat $CONF ; echo "PROJECT_NUMBER=$VER" ) | doxygen -
 
-#doxygen -w html media/header media/footer media/style.css  $CONF
 
 
-../../etc/write_info.py  -o build_docs/ -v "$VER" -d $DIR -t "TerraGear" -g "git://gitorious.org/fg/terragear.git"
+../../etc/write_info.py  -o build_docs/html/ -v "$VER" -d $DIR -t "TerraGear" -g "git://gitorious.org/fg/terragear.git"
 
-cp -r build_docs/ $ROOT/docs/$DIR/
+#cp -r build_docs/ $ROOT/docs/$DIR/
+# SimGear
+zip -r -j $ROOT/zips/$DIR.zip build_docs/html/
+
 

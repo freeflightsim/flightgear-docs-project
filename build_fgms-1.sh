@@ -28,9 +28,12 @@ cp INSTALL build_docs/html/
 cp COPYING build_docs/html/
 cp TODO build_docs/html/
 
-../../etc/write_info.py  -o build_docs/ -v "$VER" -d $DIR -t "FG MultiPlayer Server (1.x.future)" \
+../../etc/write_info.py  -o build_docs/html/ -v "$VER" -d $DIR -t "FG MultiPlayer Server (1.x.future)" \
     -g "git@gitorious.org:~ffs/fgms/ffs-docs-fgms-1-x.git"
 
+# SimGear
+zip -r -j $ROOT/zips/$DIR.zip build_docs/html/
 
-cp -r build_docs/ $ROOT/docs/$DIR/
+
+#cp -r build_docs/ $ROOT/docs/$DIR/
 

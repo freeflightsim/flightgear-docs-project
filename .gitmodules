@@ -1,3 +1,9 @@
 [submodule "externals/fgms-1"]
 	path = externals/fgms-1
 	url = https://git.gitorious.org/~ffs/fgms/ffs-docs-fgms-1-x.git
+[submodule "externals/simgear"]
+	path = externals/simgear
+	url = https://git.gitorious.org/~ffs/fg/ffss-simgear.git
+[submodule "externals/terragear"]
+	path = externals/terragear
+	url = https://git.gitorious.org/~ffs/fg/ffss-terragear.git

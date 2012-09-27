@@ -29,8 +29,10 @@ cp README.* build_docs_fgfs/html/
 cp INSTALL build_docs_fgfs/html/
 cp COPYING build_docs_fgfs/html/
 
-../../etc/write_info.py  -o build_docs_fgfs/ -v "$VER" -d $DIR -t "FlightGear" -g "git@gitorious.org:~ffs/fg/ffss-flightgear2.git"
+../../etc/write_info.py  -o build_docs_fgfs/html/ -v "$VER" -d $DIR -t "FlightGear" -g "git@gitorious.org:~ffs/fg/ffss-flightgear2.git"
 
 
-cp -r build_docs_fgfs/ $ROOT/docs/$DIR/
+# SimGear
+zip -r -j $ROOT/zips/$DIR.zip build_docs_fgfs/html/
+
 
