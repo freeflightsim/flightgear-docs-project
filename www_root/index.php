@@ -24,7 +24,7 @@ foreach($dirs as $d){
 			$data = json_decode($info_str, true);
 		#print_r($data);
 		}else{
-			$data = array();
+			$data = array('title' => $d, 'version' => '-', 'last_updated'=> '', 'checkout'=>'', 'repo'=>'');
 		}
 		$docs[$d] = $data;
 	}
