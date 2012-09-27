@@ -73,7 +73,8 @@ ksort($docs);
 
 <div class="info">
 <ul>
-<li>This project is an experiment to automatically generate docs from source files (ta Jenkins)</li>
+<li>This project is an experiment to automatically generate docs from source files (ta Jenkins).</li>
+<li>The goal is to automate the process completely, and make all the docs link together. eg FlightGear docs currently link to Simgear docs. TODO is osg, plib, OpenAL, etc.</li>
 <li>The code for this project is at gitorious <a 
 	href="https://gitorious.org/fgx-xtras/flightgear-docs-build" target="_blank"><b>flightgear-docs-build</b></a></li>
 <li>View the <a 

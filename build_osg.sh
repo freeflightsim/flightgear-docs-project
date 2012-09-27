@@ -14,6 +14,7 @@ CHECKOUT="http://www.openscenegraph.org/svn/osg/OpenSceneGraph/tags/OpenSceneGra
 echo "===================================================="
 echo "Building OSG docs from ./externals/$DIR"
 
+rm ./externals/$DIR/doxy-osg.conf
 cp ./etc/doxy-osg.conf ./externals/$DIR/doxy-osg.conf
 
 rm -f -r ./docs/$DIR
@@ -24,7 +25,7 @@ rm -f -r build_docs/
 
 
 #TODO - Make the version from /version ??
-VER="3.01"
+VER="3.0.1"
 echo "VER=$VER" 
 doxygen doxy-osg.conf
 
