@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-files=("simgear" "terragear" "fgms-1") # "simgear" "flightgear")
+files=("nasal", "flightgear", "simgear" "terragear" "fgms-1") 
 
 for F in "${files[@]}"
 do
