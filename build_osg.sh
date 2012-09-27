@@ -15,7 +15,9 @@ echo "===================================================="
 echo "Building OSG docs from ./externals/$DIR"
 
 rm ./externals/$DIR/doxy-osg.conf
+rm ./externals/$DIR/src/DoxyMain-osg.cpp
 cp ./etc/doxy-osg.conf ./externals/$DIR/doxy-osg.conf
+cp ./etc/DoxyMain-osg.cpp ./externals/$DIR/src/DoxyMain-osg.cpp
 
 rm -f -r ./docs/$DIR
 
@@ -28,6 +30,8 @@ rm -f -r build_docs/
 VER="3.0.1"
 echo "VER=$VER" 
 doxygen doxy-osg.conf
+
+cp AUTHORS.txt LICENSE.txt NEWS.txt README.txt build_docs/html/
 
 ../../etc/write_info.py  --out=build_docs/ --version="$VER" --dir=$DIR \
   --title="OSG" --svn="$CHECKOUT" --color="blue"

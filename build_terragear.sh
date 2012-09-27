@@ -27,7 +27,7 @@ VER=`next`
 
 
 ../../etc/write_info.py  --out=build_docs/ --version="$VER" --dir=$DIR \
-  --title="TerraGear" --git "$CHECKOUT" --color="#C998C9"
+  --title="TerraGear" --git "$CHECKOUT" --color="#9ECC9E"
 
 
 rm $ROOT/zips/$DIR.zip
