@@ -17,9 +17,10 @@ foreach($dirs as $d){
 		// do nothing
 	}else{
 		$fn = DOCS_DIR."/$d/info.json";
+		
 		## Read the info.json in each folder
-		if(file_exists($fn) ){
-			$info_str = file_get_contents();
+		if( file_exists($fn) ){
+			$info_str = file_get_contents($fn);
 			$data = json_decode($info_str, true);
 		#print_r($data);
 		}else{
@@ -52,8 +53,8 @@ foreach($dirs as $d){
 <caption>Docs Index</caption>
 <tr><th>Browse Html</th><th>Zip</th><th>Version</th><th>Updated</th><th>Repo</th><th>Checkout</th></tr>
 <?php foreach($docs as $k => $v){ 
-	echo '<tr><td><a target="'.$k.'" href="/docs/'.$k.'/">'.$v['title'].'</a></td>';
-	echo '<td><a target="_blank" href="/docs/'.$k.'/'.$k.'.zip">'.$k.'.zip</a></td>';
+	echo '<tr><td><a target="'.$k.'" href="docs/'.$k.'/">'.$v['title'].'</a></td>';
+	echo '<td><a target="_blank" href="docs/'.$k.'/'.$k.'.zip">'.$k.'.zip</a></td>';
 	echo	'<td>'.$v['version'].'</td><td>'.$v['last_updated'].'</td>';
 	echo '<td>'.$v['repo'].'</td><td>'.$v['checkout'].'</td></tr>';
 
@@ -63,8 +64,6 @@ foreach($dirs as $d){
 
 <ul>
 	<li>All the projects are spooled out to the <a href="/docs/"><b>docs/</b></a> directory.</li>
-	<li>A project's directory have the html/ directory (but proobably not others).</li>
-
 </ul>
 
 

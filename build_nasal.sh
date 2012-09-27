@@ -3,7 +3,7 @@
 ROOT=`pwd`
 DIR="nasal"
 #CONF="Doxyfile"
-CHECKOUT="svn.freeflightsim.orgfgdata/master/"
+CHECKOUT="http://svn.freeflightsim.org/fgdata/master/"
 
 echo "===================================================="
 echo "Building Nasal docs from ./externals/$DIR"
