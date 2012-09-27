@@ -1,0 +1,3 @@
+[submodule "externals/terragear"]
+	path = externals/terragear
+	url = git://gitorious.org/fg/terragear.git
