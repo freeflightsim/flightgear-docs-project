@@ -29,7 +29,7 @@ foreach($dirs as $d){
 		$docs[$d] = $data;
 	}
 }
-
+ksort($docs)
 #print_r($docs);
 ?>
 
