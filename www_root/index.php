@@ -16,11 +16,15 @@ foreach($dirs as $d){
 	if($d == '.' or $d == '..' or $d == '.gitignore' or substr($d, - 4) === '.zip'){
 		// do nothing
 	}else{
+		$fn = DOCS_DIR."/$d/info.json";
 		## Read the info.json in each folder
-		
-		$info_str = file_get_contents(DOCS_DIR."/$d/info.json");
-		$data = json_decode($info_str, true);
+		if(file_exists($fn) ){
+			$info_str = file_get_contents();
+			$data = json_decode($info_str, true);
 		#print_r($data);
+		}else{
+			$data = array();
+		}
 		$docs[$d] = $data;
 	}
 }
