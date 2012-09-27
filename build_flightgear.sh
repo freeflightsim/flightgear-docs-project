@@ -3,7 +3,7 @@
 ROOT=`pwd`
 DIR="flightgear"
 CONF="doxygen-fgfs-src.conf"
-
+CHECKOUT="git://gitorious.org/~ffs/fg/ffss-flightgear2.git"
 
 echo "===================================================="
 echo "Building FlightGear docs from ./externals/$DIR"
@@ -29,10 +29,9 @@ cp README.* build_docs_fgfs/html/
 cp INSTALL build_docs_fgfs/html/
 cp COPYING build_docs_fgfs/html/
 
-../../etc/write_info.py  -o build_docs_fgfs/html/ -v "$VER" -d $DIR -t "FlightGear" -g "git@gitorious.org:~ffs/fg/ffss-flightgear2.git"
+../../etc/write_info.py  -o build_docs_fgfs/html/ -v "$VER" -d $DIR -t "FlightGear" -g "$CHECKOUT"
 
 
-# SimGear
 zip -r -j $ROOT/zips/$DIR.zip build_docs_fgfs/html/
 
 

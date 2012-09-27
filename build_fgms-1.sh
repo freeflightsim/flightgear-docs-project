@@ -3,7 +3,7 @@
 ROOT=`pwd`
 DIR="fgms-1"
 CONF="Doxyfile"
-
+CHECKOUT="https://git.gitorious.org/~ffs/fgms/ffs-docs-fgms-1-x.git"
 
 echo "===================================================="
 echo "Building fgms-1 docs from ./externals/$DIR"
@@ -29,9 +29,9 @@ cp COPYING build_docs/html/
 cp TODO build_docs/html/
 
 ../../etc/write_info.py  -o build_docs/html/ -v "$VER" -d $DIR -t "FG MultiPlayer Server (1.x.future)" \
-    -g "git@gitorious.org:~ffs/fgms/ffs-docs-fgms-1-x.git"
+    -g "$CHECKOUT"
 
-# SimGear
+
 zip -r -j $ROOT/zips/$DIR.zip build_docs/html/
 
 

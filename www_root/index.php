@@ -47,7 +47,7 @@ foreach($dirs as $d){
 <caption>Docs Index</caption>
 <tr><th>Browse Html</th><th>Zip</th><th>Version</th><th>Updated</th><th>Repo</th><th>Checkout</th></tr>
 <?php foreach($docs as $k => $v){ 
-	echo '<tr><td><a href="/docs/'.$k.'/html/">'.$v['title'].'</a></td>';
+	echo '<tr><td><a href="/docs/'.$k.'/">'.$v['title'].'</a></td>';
 	echo '<td><a href="/docs/'.$k.'/'.$k.'.zip">'.$k.'.zip</a></td>';
 	echo	'<td>'.$v['version'].'</td><td>'.$v['last_updated'].'</td>';
 	echo '<td>'.$v['repo'].'</td><td>'.$v['checkout'].'</td></tr>';

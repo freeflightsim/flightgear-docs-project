@@ -3,7 +3,7 @@
 ROOT=`pwd`
 DIR="terragear"
 CONF="doxygen-src.conf"
-
+CHECKOUT="https://git.gitorious.org/~ffs/fg/ffss-terragear.git"
 
 echo "===================================================="
 echo "Building TerraGear docs from ./externals/$DIR"
@@ -26,10 +26,10 @@ VER=`next`
 
 
 
-../../etc/write_info.py  -o build_docs/html/ -v "$VER" -d $DIR -t "TerraGear" -g "git://gitorious.org/fg/terragear.git"
+../../etc/write_info.py  -o build_docs/html/ -v "$VER" -d $DIR -t "TerraGear" -g "$CHECKOUT"
 
 #cp -r build_docs/ $ROOT/docs/$DIR/
-# SimGear
+
 zip -r -j $ROOT/zips/$DIR.zip build_docs/html/
 
 

@@ -29,8 +29,9 @@ cp INSTALL build_docs/html/
 cp COPYING build_docs/html/
 
 
-../../etc/write_info.py  -o build_docs/ -v "$VER" -d $DIR -t "SimGear" -g "git@gitorious.org:~ffs/fg/ffss-simgear.git"
+../../etc/write_info.py  -o build_docs/ -v "$VER" -d $DIR -t "SimGear" -g "https://git.gitorious.org/~ffs/fg/ffss-simgear.git"
 
 
-cp -r build_docs/ $ROOT/docs/$DIR/
+zip -r -j $ROOT/zips/$DIR.zip build_docs/html/
+
 
