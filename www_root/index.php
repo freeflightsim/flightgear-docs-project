@@ -13,7 +13,7 @@ $docs = array();
 
 foreach($dirs as $d){
 	#print_r($d);
-	if($d == '.' or $d == '..' or $d == '.gitignore' or substr($d, - 4) === '.zip')){
+	if($d == '.' or $d == '..' or $d == '.gitignore' or substr($d, - 4) === '.zip'){
 		// do nothing
 	}else{
 		## Read the info.json in each folder
