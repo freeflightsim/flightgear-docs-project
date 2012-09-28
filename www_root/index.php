@@ -74,7 +74,7 @@ header {
 </header>
 
 
-<iframe src="info.php"  id="doc_iframe" name="doc_iframe"></iframe>
+<iframe src="info.php?frame=1"  id="doc_iframe" name="doc_iframe"></iframe>
 
 
 <script>
