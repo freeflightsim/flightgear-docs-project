@@ -10,3 +10,6 @@
 [submodule "externals/flightgear"]
 	path = externals/flightgear
 	url = git://gitorious.org/~ffs/fg/ffss-flightgear2.git
+[submodule "externals/fgms-0"]
+	path = externals/fgms-0
+	url = https://git.gitorious.org/~ffs/fgms/ffss-fgms-0-x.git
