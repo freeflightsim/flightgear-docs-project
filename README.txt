@@ -3,7 +3,7 @@
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Project Code:
-https://gitorious.org/fgx-xtras/flightgear-docs-build
+https://gitorious.org/fgx-xtras/flightgear-docs-project
 
 Author:
 Pete Morgan - #peteffs on irc  <pete at freeflightsim dot org>
