@@ -6,7 +6,7 @@
  * 
  * OpenSceneGraph
  * 
- * Home Page:
+ * Website:
  *  - http://www.openscenegraph.org/
  *  - http://www.openscenegraph.org/projects/osg/wiki/Downloads 
  * 

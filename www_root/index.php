@@ -1,38 +1,48 @@
 <?php
-error_reporting(E_ALL);
 
-define('HEIGHT', '86');
+require_once('config.php');
 
-define('ROOT_DIR', dirname(__FILE__));
-define('DOCS_DIR', ROOT_DIR.'/docs');
+if(isset($_GET['update'])){
+	echo "UPDATE<br>";
+	## Get list of dirs
+	$dirs = scandir(DOCS_DIR, 1);
+	#echo DOCS_DIR;
+	#print_r($dirs);
 
-## Get list of dirs
-$dirs = scandir(DOCS_DIR, 1);
-#echo DOCS_DIR;
-#print_r($dirs);
+	$docs = array();
 
-$docs = array();
-
-foreach($dirs aS $d){
-	#print_r($d);
-	if($d == '.' or $d == '..' or $d == '.gitignore' or substr($d, - 4) === '.zip'){
-		// do nothing
-	}else{
-		$fn = DOCS_DIR."/$d/info.json";
+	foreach($dirs aS $d){
+		#print_r($d);
 		
-		## Read the info.json in each folder
-		if( file_exists($fn) ){
-			$info_str = file_get_contents($fn);
-			$data = json_decode($info_str, true);
-		#print_r($data);
-		}else{
-			$data = array('title' => $d, 'version' => '-', 'last_updated'=> '', 'checkout'=>'', 'repo'=>'');
+		$fp = DOCS_DIR."/$d";
+		#echo "d=$d  ====== $fp<br>";
+		if(is_dir($fp)){
+			if($d == '.' or $d == '..' or $d == '.gitignore' or substr($d, - 4) === '.zip'){
+				// do nothing
+			}else{
+				$fn = DOCS_DIR."/$d/info.json";
+				#echo "fn=$fn";
+				## Read the info.json in each folder
+				if( file_exists($fn) ){
+					$info_str = file_get_contents($fn);
+					$data = json_decode($info_str, true);
+				#print_r($data);
+				}else{
+					$data = array('title' => $d, 'version' => '-', 'last_updated'=> '', 'checkout'=>'', 'repo'=>'');
+				}
+				$docs[$d] = $data;
+			}
 		}
-		$docs[$d] = $data;
 	}
+	ksort($docs);
+	$json_data = json_encode($docs);
+	echo ROOT_DIR.'/index.json';
+	file_put_contents(IDX_FILE, $json_data, LOCK_EX);
+}else{
+	$docs = get_index();
 }
-ksort($docs)
-#print_r($docs);
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -58,7 +68,7 @@ header {
 	<ul id="menu">
 	<li><a href="info.php" target='doc_iframe'>Home</a></li>
 	<?php foreach($docs as $k => $v){ 
-		echo "<li><a target='doc_iframe' href='docs/$k/html/'>".$v['title']."</a></li>";
+		echo "<li><a target='doc_iframe' href='$k/html/'>".$v['title']."</a></li>";
 	} ?>
 	</ul>
 </header>

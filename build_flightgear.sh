@@ -20,6 +20,18 @@ git checkout docs
 git pull 
 git checkout docs
 
+
+doxygen doxy-fg-extras.conf
+
+../../etc/write_info.py  --out=build_docs_extras/ --version="$VER" --dir=$DIR \
+  --title="FG Extras" --git="flightgear-extras" --color="#6280BA"
+DD="flightgear-extras"
+rm $ROOT/zips/$DD.zip
+cd build_docs_extras/
+zip -r  $ROOT/zips/$DD.zip ./
+exit
+
+
 #TODO - Make the version from /version ??
 VER=`cat version`
 echo "VER=$VER" 

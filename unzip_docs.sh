@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-files=( "fgms-1" "simgear"  "terragear" "nasal" "flightgear" "osg") 
+files=( "fgms-1" "simgear"  "terragear" "fgdata" "flightgear" "osg" "flightgear-extras") 
 
 if [ $1 == "all" ];
 then
@@ -9,16 +9,16 @@ then
 	for F in "${files[@]}"
 	do
 	rm -f -r ./doc_root/$F/
-	unzip -u ../upload_docs/$F.zip   -d ./doc_root/$F/
-	cp ../upload_docs/$F.zip ./doc_root/$F/$F.zip
+	unzip -u ../upload_docs/$F.zip   -d ./$F/
+	cp ../upload_docs/$F.zip ./$F/$F.zip
 	done;
 else
 	echo "Unzip selected"
 	for F
 	do 
 	rm -f -r ./doc_root/$F/
-	unzip -u ../upload_docs/$F.zip   -d ./doc_root/$F/
-	cp ../upload_docs/$F.zip ./doc_root/$F/$F.zip
+	unzip -u ../upload_docs/$F.zip   -d ./www_root/$F/
+	cp ../upload_docs/$F.zip ./www_root/$F/$F.zip
 	done
 fi
 
