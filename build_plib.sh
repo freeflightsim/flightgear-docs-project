@@ -38,7 +38,7 @@ cp -v -r doc/* build_docs/html/doc/
 cp INSTALL README README.* AUTHORS build_docs/html/
 
 ../../../etc/write_info.py  --out=build_docs/ --version="$VER" --dir=$DIR \
-  --title="PLIB" --svn="$CHECKOUT" --color="blue"
+  --title="PLIB" --svn="$CHECKOUT" --color="#539053"
 
 rm $ROOT/zips/$DIR.zip
 cd build_docs/

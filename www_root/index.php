@@ -49,7 +49,7 @@ if(isset($_GET['update'])){
 <head>
 <title>FlightGear Documentation Project (Experimental)</title>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-
+<link rel="shortcut icon" href="favicon.ico" />
 <link rel="stylesheet" href="style.css">
 <style>
 header {

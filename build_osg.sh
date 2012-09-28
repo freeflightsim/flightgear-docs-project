@@ -34,7 +34,7 @@ doxygen doxy-osg.conf
 cp AUTHORS.txt LICENSE.txt NEWS.txt README.txt build_docs/html/
 
 ../../etc/write_info.py  --out=build_docs/ --version="$VER" --dir=$DIR \
-  --title="OSG" --svn="$CHECKOUT" --color="blue"
+  --title="OSG" --svn="$CHECKOUT" --color="#B8C5E0"
 
 rm $ROOT/zips/$DIR.zip
 cd build_docs/
