@@ -29,7 +29,7 @@ mkdir build_docs/
 
 
 
-#TODO - Make the version from /version ??
+
 VER=`cat version`
 echo "VER=$VER" 
 ( cat $DOXY; echo "PROJECT_NUMBER=$VER"; echo "" ) | doxygen -
@@ -38,7 +38,7 @@ echo "VER=$VER"
 
 cp NEWS README ABOUT-NLS COPYING AUTHORS build_docs/html/
 
-../../../etc/write_info.py  --out=build_docs/ --version="$VER" --dir=$DIR \
+$ROOT/etc/write_info.py  --out=build_docs/ --version="$VER" --dir=$DIR \
   --title="FG Run" --svn="$CHECKOUT" --color="#BAC7E1"
 
 rm $ROOT/zips/$DIR.zip

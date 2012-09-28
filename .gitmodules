@@ -13,3 +13,6 @@
 [submodule "externals/fgms-0"]
 	path = externals/fgms-0
 	url = https://git.gitorious.org/~ffs/fgms/ffss-fgms-0-x.git
+[submodule "externals/fgrun"]
+	path = externals/fgrun
+	url = https://git.gitorious.org/~ffs/fg/ffss-fgrun.git
