@@ -33,7 +33,7 @@ $docs = get_index();
 <?php foreach($docs as $k => $v){ 
 	echo '<tr><td><a class="lnk" href="'.$k.'/html/" style="border-left: 10px solid '.$v['color'].';">'.$v['title'].'</a></td>';
 	echo '<td><a target="_blank" href="'.$k.'/'.$k.'.zip">'.$k.'.zip</a></td>';
-	echo	'<td>'.$v['version'].'</td><td>'.$v['last_updated'].'</td>';
+	echo	'<td>'.$v['version'].'</td><td>'.nicetime($v['last_updated']).'</td>';
 	echo '<td>'.$v['repo'].'</td><td>'.$v['checkout'].'</td></tr>';
 } ?>
 </table>

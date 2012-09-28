@@ -19,7 +19,7 @@ git pull
 git checkout master
 
 #TODO - Make the version from /version ??
-VER="1.x"
+VER="1.future"
 echo "VER=$VER" 
 ( cat $CONF ; echo "PROJECT_NUMBER=$VER"; echo "" ) | doxygen -
 
@@ -27,9 +27,12 @@ cp README build_docs/html/
 cp INSTALL build_docs/html/
 cp COPYING build_docs/html/
 cp TODO build_docs/html/
+cp AUTHORS build_docs/html/
+cp src/server/fgms-example.conf build_docs/html/fgms-example.conf.xml
+cp mp-proto-spec.xml build_docs/html/mp-proto-spec.xml
 
 ../../etc/write_info.py  --out=build_docs/ --version="$VER" --dir=$DIR \
-	--title="FGMS-1.x"  --git="$CHECKOUT" --color="#BA6271"
+	--title="FGMS-1"  --git="$CHECKOUT" --color="#A684AC"
 
 rm $ROOT/zips/$DIR.zip
 cd build_docs/
