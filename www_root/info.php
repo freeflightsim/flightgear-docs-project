@@ -41,10 +41,10 @@ $docs = get_index();
 <!-- Put the following javascript before the closing </head> tag. -->
 <script>
   (function() {
-    var cx = '014455812952330413319:oiztngtmppy';
+    var cx = '005020340521889986907:tdsrgbpk9s4';
     var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
     gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
-        '//www.google.co.uk/cse/cse.js?cx=' + cx;
+        '//www.google.com/cse/cse.js?cx=' + cx;
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
   })();
 </script>
