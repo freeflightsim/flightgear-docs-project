@@ -36,11 +36,6 @@ $docs = get_index();
 } ?>
 </table>
 
-<ul>
-	<li>All the docs are spooled out to the <a href="docs/"><b>docs/</b></a> directory.</li>
-</ul>
-
-
 
 <div class="info">
 <ul>
