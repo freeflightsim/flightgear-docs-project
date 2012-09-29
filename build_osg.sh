@@ -3,10 +3,10 @@
 ROOT=`pwd`
 DIR="osg"
 CONF="doxy-osg.conf"
-CHECKOUT="http://www.openscenegraph.org/svn/osg/OpenSceneGraph/tags/OpenSceneGraph-3.0.1"
+CHECKOUT="http://www.openscenegraph.org/svn/osg/OpenSceneGraph/tags/OpenSceneGraph-3.1.1"
 
 
-#svn checkout http://www.openscenegraph.org/svn/osg/OpenSceneGraph/tags/OpenSceneGraph-3.0.1 externals/osg
+svn checkout $CHECKOUT externals/osg
 
 
 
@@ -27,9 +27,9 @@ rm -f -r build_docs/
 
 
 #TODO - Make the version from /version ??
-VER="3.0.1"
-echo "VER=$VER" 
-doxygen doxy-osg.conf
+VER="3.1.3"
+echo "VER=$VER"
+( cat doxy-osg.conf; echo "PROJECT_NUMBER=$VER"; echo "" ) | doxygen -
 
 cp AUTHORS.txt LICENSE.txt NEWS.txt README.txt build_docs/html/
 

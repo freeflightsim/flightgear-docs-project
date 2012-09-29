@@ -2,7 +2,7 @@
 
 ROOT=`pwd`
 DIR="flightgear"
-CONF="doxygen-fgfs-src.conf"
+CONF="doxy-fg.conf"
 CHECKOUT="git://gitorious.org/~ffs/fg/ffss-flightgear2.git"
 
 echo "===================================================="
@@ -24,17 +24,8 @@ git checkout docs
 VER=`cat version`
 echo "VER=$VER" 
 
-( cat doxy-fg-extras.conf ; echo "PROJECT_NUMBER=$VER"; echo "" ) | doxygen -
 
-../../etc/write_info.py  --out=build_docs_extras/ --version="$VER" --dir=$DIR \
-  --title="FG Extras" --git="flightgear-extras" --color="#6280BA"
-DD="flightgear-extras"
-rm $ROOT/zips/$DD.zip
-cd build_docs_extras/
-zip -r  $ROOT/zips/$DD.zip ./
-
-
-( cat $CONF ; echo "PROJECT_NUMBER=$VER"; echo "" ) | doxygen -
+( cat $CONF; echo "PROJECT_NUMBER=$VER"; echo "" ) | doxygen -
 
 cp README build_docs_fgfs/html/
 cp README.* build_docs_fgfs/html/
@@ -48,6 +39,20 @@ cp docs-mini/* build_docs_fgfs/html/docs-mini/
 
 rm $ROOT/zips/$DIR.zip
 cd build_docs_fgfs/
-zip -r  $ROOT/zips/$DIR.zip ./
+#zip -r  $ROOT/zips/$DIR.zip ./
+
+
+echo "###########################################"
+echo "Extras"
+
+( cat doxy-fg-extras.conf ; echo "PROJECT_NUMBER=$VER"; echo "" ) | doxygen -
+
+../../etc/write_info.py  --out=build_docs_extras/ --version="$VER" --dir=$DIR \
+  --title="FG Extras" --git="flightgear-extras" --color="#6280BA"
+DD="flightgear-extras"
+rm $ROOT/zips/$DD.zip
+cd build_docs_extras/
+zip -r  $ROOT/zips/$DD.zip ./
+
 
 

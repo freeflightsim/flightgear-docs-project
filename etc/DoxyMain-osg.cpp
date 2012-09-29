@@ -14,7 +14,7 @@
  *  - http://wiki.flightgear.org/OSG
  * 
  * Source:
- *  - http://www.openscenegraph.org/svn/osg/OpenSceneGraph/tags/OpenSceneGraph-3.0.1
+ *  - http://www.openscenegraph.org/svn/osg/OpenSceneGraph/tags/OpenSceneGraph-3.1.3
  *
  * \section readme Essentials
  *
