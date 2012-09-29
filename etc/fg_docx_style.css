@@ -1174,6 +1174,7 @@ dl.bug
 #nav-tree a{
 	font-size: 9pt;
 	color: #444444;
+	font-family: monospace;
 }
 
 #fg_docx_header {
