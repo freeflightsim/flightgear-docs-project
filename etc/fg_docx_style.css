@@ -1138,8 +1138,8 @@ dl.bug
 /**********************************************************************************************/
 /* top menu nicked from http://line25.com/tutorials/how-to-create-a-pure-css-dropdown-menu */
 #fg_top_nav {
-	margin: 100px auto; 
-	text-align: center;
+	ssmargin: 100px auto; 
+	sstext-align: center;
 	float: left;
 }
 
