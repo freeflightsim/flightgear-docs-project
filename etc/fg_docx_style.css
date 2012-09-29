@@ -51,30 +51,51 @@ table {
 /* The standard CSS for doxygen */
 
 body, table, div, p, dl {
-	font-family: Lucida Grande, Verdana, Geneva, Arial, sans-serif;
-	font-size: 12px;
+	font-family: sans-serif;
+	font-size: 12pt;
 }
 
+b, strong{
+	font-weight: bold;
+}
+i {
+	font-weight: italic;
+}
 
+ul{
+	list-style-type: square;
+	margin-left: 30px;
+}
+ul ul{
+	list-style-type: circle;
+	margin-left: 30px;
+}
 /* @group Heading Levels */
 
 h1 {
-	font-size: 150%;
+	font-size: 1200%;
 }
 
 /* THIS is the header title */
 .title {
-	font-size: 180%;
+	font-size: 15pt;
 	font-weight: bold;
-	smargin: 10px 2px;
+	margin-top: 10px;
 	color: #444444;
-	border: 2px solid #999999;
-	padding: 3px 6px;
+	ssborder-bottom: 2px solid #999999;
+	spadding: 3px 6px;
+	ssbackground-color: pink;
 }
 
 h2 {
-	font-size: 120%;
-	background-color: blue;
+	font-size: 14pt;
+	color: #444444;
+	ssbackground-color: #efefef;
+	border-top: 2px dotted #cccccc;
+	border-right: 10px solid #cccccc;
+	margin: 40px 0 10px 0;
+	padding: 5px 0 5px 25px;
+	
 }
 
 h3 {
@@ -145,13 +166,36 @@ div.navtab {
 /* @group Link Styling */
 
 a {
-	color: #3D578C;
+	DDDcolor: #3D578C;
 	font-weight: normal;
 	text-decoration: none;
 }
 
+/*
 .contents a:visited {
 	color: #4665A2;
+}
+*/
+.contents p {
+	line-height: 130%;
+	font-size: 11pt;
+	margin: 10px 50px 15px 30px;
+}
+.contents .textblock{
+	font-size: 11pt;
+	margin: 10px 50px 10px 30px;
+}
+.contents ul{
+	margin-left: 50px;
+}
+.contents li{
+	padding: 5px 0 5px 0;
+}
+
+.contents table{
+	margin: 10px 40px 10px 30px;
+	border-radius: 6px;
+	border: 1px solid #dddddd;
 }
 
 a:hover {
@@ -242,28 +286,34 @@ div.groupText {
 body {
 	background: white;
 	color: black;
-        margin: 0;
+    margin: 0;
 }
 
 div.contents {
-	margin-top: 10px;
-	margin-left: 10px;
-	margin-right: 5px;
+	mWWargin-top: 15px;
+	WWmargin-left: 10px;
+	WWmargin-right: 10px;
+	margin: 0;
 }
 
 td.indexkey {
-	background-color: #EBEFF6;
+	background-color: #efefef;
 	font-weight: bold;
-	border: 1px solid #C4CFE5;
-	margin: 2px 0px 2px 0;
-	padding: 2px 10px;
+	font-family: monospace;
+	font-size: 10pt;
+	border-bottom: 1px solid #dddddd;
+	ssmargin: 2px 0px 2px 0;
+	sspadding: 2px 10px;
+	padding: 5px;
 }
 
 td.indexvalue {
-	background-color: #EBEFF6;
-	border: 1px solid #C4CFE5;
-	padding: 2px 10px;
-	margin: 2px 0px;
+	background-color: #efefef;
+	font-size: 10pt;
+	border-bottom: 1px solid #dddddd;
+	sspadding: 2px 10px;
+	ssmargin: 2px 0px;
+	padding: 5px;
 }
 
 tr.memlist {
@@ -400,15 +450,16 @@ hr.footer {
 table.memberdecls {
 	border-spacing: 0px;
 	padding: 0px;
+	margin: 0px 20px 0 30px;
+	background-color: red;
 }
 
 .mdescLeft, .mdescRight,
 .memItemLeft, .memItemRight,
 .memTemplItemLeft, .memTemplItemRight, .memTemplParams {
-	background-color: #F9FAFC;
+	background-color: #eeeeee;
 	border: none;
-	margin: 4px;
-	padding: 1px 0 0 8px;
+	padding: 5px;
 }
 
 .mdescLeft, .mdescRight {
@@ -417,7 +468,7 @@ table.memberdecls {
 }
 
 .memItemLeft, .memItemRight, .memTemplParams {
-	border-top: 1px solid #C4CFE5;
+	border-top: 1px solid #dddddd;
 }
 
 .memItemLeft, .memTemplItemLeft {
@@ -463,6 +514,7 @@ table.memberdecls {
 	padding: 0;
 	margin-bottom: 10px;
 	margin-right: 5px;
+	margin: 20px 40px 5px 50px;
 }
 
 .memname {
@@ -472,9 +524,9 @@ table.memberdecls {
 }
 
 .memproto {
-        border-top: 1px solid #A8B8D9;
-        border-left: 1px solid #A8B8D9;
-        border-right: 1px solid #A8B8D9;
+        border-top: 1px solid #dddddd;
+        border-left: 1px solid #dddddd;
+        border-right: 1px solid #dddddd;
         padding: 6px 0px 6px 0px;
         color: #253555;
         font-weight: bold;
@@ -498,11 +550,11 @@ table.memberdecls {
 }
 
 .memdoc {
-        border-bottom: 1px solid #A8B8D9;      
-        border-left: 1px solid #A8B8D9;      
-        border-right: 1px solid #A8B8D9; 
+        border-bottom: 1px solid #dddddd;      
+        border-left: 1px solid #dddddd;      
+        border-right: 1px solid #dddddd; 
         padding: 2px 5px;
-        background-color: #FBFCFD;
+        background-color: #dddddd;
         border-top-width: 0;
         /* opera specific markup */
         border-bottom-left-radius: 8px;
@@ -771,11 +823,11 @@ div.ingroups a
 
 div.header
 {
-        background-image:url('nav_h.png');
-        background-repeat:repeat-x;
+    background-image:url('nav_h.png');
+    background-repeat:repeat-x;
 	background-color: #F9FAFC;
 	margin:  0px;
-	border-bottom: 1px solid #C4CFE5;
+	border-bottom: 2px solid #dddddd;
 }
 
 div.headertitle
@@ -941,7 +993,7 @@ dl.bug
     height: 25px;
     padding: 0 25px;
     color: #999;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     font: bold 12px/25px Arial, Helvetica;
     text-decoration: none;
     text-shadow: 0 1px 0 #000;
@@ -1114,6 +1166,16 @@ dl.bug
 /*********************************************/
 /** FlightGear specific */
 /*********************************************/
+#nav-tree{
+	ssbackground-color: pink;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+#nav-tree a{
+	font-size: 9pt;
+	color: #444444;
+}
+
 #fg_docx_header {
 	background: #eeeeee;
 	background: -moz-linear-gradient(left,  #eeeeee 0%, #cccccc 100%);
