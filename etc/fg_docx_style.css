@@ -1140,6 +1140,7 @@ dl.bug
 #fg_top_nav {
 	margin: 100px auto; 
 	text-align: center;
+	float: left;
 }
 
 #fg_top_nav ul ul {
