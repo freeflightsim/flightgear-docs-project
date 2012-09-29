@@ -62,12 +62,13 @@ h1 {
 	font-size: 150%;
 }
 
+/* THIS is the header title */
 .title {
 	font-size: 180%;
 	font-weight: bold;
-	margin: 10px 2px;
-	background-color: #dddddd;
-	border: 1px solid #999999;
+	smargin: 10px 2px;
+	color: #444444;
+	border: 2px solid #999999;
 	padding: 3px 6px;
 }
 
