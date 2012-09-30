@@ -47,9 +47,9 @@ table {
 	border-spacing: 0;
 }
 
-/******************************************************/
+/******************************************************************************/
 /* The standard CSS for doxygen */
-
+/******************************************************************************/
 body, table, div, p, dl {
 	font-family: sans-serif;
 	font-size: 12pt;
@@ -64,43 +64,24 @@ i {
 
 ul{
 	list-style-type: square;
-	margin-left: 30px;
+	ssmargin-left: 30px;
 }
 ul ul{
 	list-style-type: circle;
-	margin-left: 30px;
+	ssmargin-left: 30px;
+	ssmargin-left: 10px;
 }
 /* @group Heading Levels */
 
-h1 {
-	font-size: 1200%;
-}
 
-/* THIS is the header title */
-.title {
-	font-size: 15pt;
-	font-weight: bold;
-	margin-top: 10px;
-	color: #444444;
-	ssborder-bottom: 2px solid #999999;
-	spadding: 3px 6px;
-	ssbackground-color: pink;
-}
 
-h2 {
-	font-size: 14pt;
-	color: #444444;
-	ssbackground-color: #efefef;
-	border-top: 2px dotted #cccccc;
-	border-right: 10px solid #cccccc;
-	margin: 40px 0 10px 0;
-	padding: 5px 0 5px 25px;
-	
-}
+
+
+
 
 h3 {
 	font-size: 100%;
-	background-color: red;
+	background-color: orange;
 }
 
 dt {
@@ -165,8 +146,7 @@ div.navtab {
 
 /* @group Link Styling */
 
-a {
-	DDDcolor: #3D578C;
+ssa {
 	font-weight: normal;
 	text-decoration: none;
 }
@@ -176,15 +156,67 @@ a {
 	color: #4665A2;
 }
 */
+/*********************************************************/
+div.contents {
+	margin: 0;
+}
+
+.contents h2 {
+	font-size: 13pt;
+	color: #555555;
+	background-color: #efefef;
+	font-weight: bold;
+	border-left: 8px solid #cccccc;
+	border-top: 2px solid #cccccc;
+	border-bottom: 2px solid #cccccc;
+	border-right: 100px solid #cccccc;
+	margin: 40px 100px 20px 30px;
+	padding: 5px 0 5px 10px;
+	swidth: 90%;
+	border-top-right-radius: 20px;
+	border-bottom-right-radius: 20px;
+	border-top-left-radius: 2px;
+	border-bottom-left-radius: 2px;
+}
+
+table.memberdecls h2{
+	swidth: 100%;
+	margin: 30px 0 0 0;
+	font-size: 11pt;
+	padding: 5px 0 5px 5px;
+	background-color: #efefef;
+	border-top: 2px solid #cccccc;
+	border-right: 2px solid #cccccc;
+	border-bottom: 2px solid #cccccc;
+	border-left: 2px solid #cccccc;
+	text-align: left;
+	border-top-right-radius: 30px;
+	border-bottom-right-radius: 30px;
+	border-top-left-radius: 4px;
+}
+
 .contents p {
 	line-height: 130%;
 	font-size: 11pt;
-	margin: 10px 50px 15px 30px;
+	margin: 10px 50px 15px 50px;
 }
-.contents .textblock{
+.contents .textblock,{
 	font-size: 11pt;
-	margin: 10px 50px 10px 30px;
+	margin: 10px 50px 10px 50px;
 }
+.contents .todo{
+	font-size: 11pt;
+	margin: 10px 50px 20px 80px;
+}
+
+/* THIS is the header title */
+.title {
+	font-size: 14pt;
+	font-weight: bold;
+	margin-top: 10px;
+	color: #444444;
+}
+
 .contents ul{
 	margin-left: 50px;
 }
@@ -193,42 +225,59 @@ a {
 }
 
 .contents table{
-	margin: 10px 40px 10px 30px;
-	border-radius: 6px;
+	margin: 10px 50px 10px 40px;
 	border: 1px solid #dddddd;
+	ssbackground-color: white;
+	width: 80%;
+}
+.contents table sstr{
+	sbackground-color: #efefef;
+	ssborder-bottom: 1px solid #dddddd;
+}
+.contents table sstr:hover{
+	ssbackground-color: yellow;
 }
 
-a:hover {
+.contents table.memberdecls{
+	border: none;
+}
+.contents table.memberdecls tr{
+	background-color: transparent;
+}
+
+ssa:hover {
 	text-decoration: underline;
 }
 
-a.qindex {
+sa.qindex {
 	font-weight: bold;
 }
 
-a.qindexHL {
+
+
+sa.qindexHL {
 	font-weight: bold;
-	background-color: #9CAFD4;
+	background-color: pink;
 	color: #ffffff;
 	border: 1px double #869DCA;
 }
 
-.contents a.qindexHL:visited {
-        color: #ffffff;
+.contents sa.qindexHL:visited {
+       color: #ffffff;
 }
 
-a.el {
+sa.el {
 	font-weight: bold;
 }
 
-a.elRef {
+sa.elRef {
 }
 
-a.code {
+sa.code {
 	color: #4665A2;
 }
 
-a.codeRef {
+sa.codeRef {
 	color: #4665A2;
 }
 
@@ -283,36 +332,18 @@ div.groupText {
 	font-style: italic;
 }
 
-body {
-	background: white;
-	color: black;
-    margin: 0;
-}
 
-div.contents {
-	mWWargin-top: 15px;
-	WWmargin-left: 10px;
-	WWmargin-right: 10px;
-	margin: 0;
-}
+
 
 td.indexkey {
-	background-color: #efefef;
 	font-weight: bold;
 	font-family: monospace;
-	font-size: 10pt;
-	border-bottom: 1px solid #dddddd;
-	ssmargin: 2px 0px 2px 0;
-	sspadding: 2px 10px;
+	font-size: 8pt;
 	padding: 5px;
 }
 
 td.indexvalue {
-	background-color: #efefef;
-	font-size: 10pt;
-	border-bottom: 1px solid #dddddd;
-	sspadding: 2px 10px;
-	ssmargin: 2px 0px;
+	font-size: 8pt;
 	padding: 5px;
 }
 
@@ -438,7 +469,7 @@ th.dirtab {
 hr {
 	height: 0px;
 	border: none;
-	border-top: 1px solid #4A6AAA;
+	ssborder-top: 4px dashed #dddddd;
 }
 
 hr.footer {
@@ -450,25 +481,28 @@ hr.footer {
 table.memberdecls {
 	border-spacing: 0px;
 	padding: 0px;
-	margin: 0px 20px 0 30px;
-	background-color: red;
+	ssmargin: 0px 20px 0 30px;
+	ssbackground-color: red;
 }
 
 .mdescLeft, .mdescRight,
 .memItemLeft, .memItemRight,
 .memTemplItemLeft, .memTemplItemRight, .memTemplParams {
-	background-color: #eeeeee;
+	ssbackground-color: red;
 	border: none;
 	padding: 5px;
+	font-size: 8pt;
+	font-family: monospace;
 }
 
 .mdescLeft, .mdescRight {
-	padding: 0px 8px 4px 8px;
-	color: #555;
+	padding: 0px 8px 10px 8px;
+	color: #444444;
+	font-size: 9pt;
 }
 
 .memItemLeft, .memItemRight, .memTemplParams {
-	border-top: 1px solid #dddddd;
+	border-top: 2px solid #eeeeee;
 }
 
 .memItemLeft, .memTemplItemLeft {
@@ -476,7 +510,9 @@ table.memberdecls {
 }
 
 .memItemRight {
-	width: 100%;
+	width: 50%;
+	cssolor: blue;
+	font-size: 11pt;
 }
 
 .memTemplParams {
@@ -510,24 +546,35 @@ table.memberdecls {
 	width: 100%;
 }
 
+/* pad mitem div */
 .memitem {
 	padding: 0;
-	margin-bottom: 10px;
-	margin-right: 5px;
-	margin: 20px 40px 5px 50px;
+	margin: 10px 50px 20px 40px;
 }
 
 .memname {
         white-space: nowrap;
         font-weight: bold;
-        margin-left: 6px;
+        ssmargin-left: 6px;
+		border: 1px solid transparent;
+		background-color: transparent;
+		margin: 0;
+		padding: 0;
 }
-
+.memname tr{
+		background-color: transparent;
+		border: none;
+}
+td.memname  {
+	border: 1px solid transparent;
+	ssbackground-color: blue;
+}
 .memproto {
         border-top: 1px solid #dddddd;
         border-left: 1px solid #dddddd;
         border-right: 1px solid #dddddd;
-        padding: 6px 0px 6px 0px;
+        padding: 0 0 2px 0;
+		margin: 0;
         color: #253555;
         font-weight: bold;
         text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.9);
@@ -545,7 +592,7 @@ table.memberdecls {
         -webkit-border-top-left-radius: 8px;
         background-image:url('nav_f.png');
         background-repeat:repeat-x;
-        background-color: #E2E8F2;
+        ssbackground-color: #E2E8F2;
 
 }
 
@@ -821,6 +868,7 @@ div.ingroups a
 	white-space: nowrap;
 }
 
+/** Contents Header **/
 div.header
 {
     background-image:url('nav_h.png');
@@ -895,24 +943,28 @@ dl.bug
  
 #projectname
 {
-	font: 300% Tahoma, Arial,sans-serif;
-	margin: 0px;
+	font: 22pt monospace;
+	color: #444444;
+	margin: 5px 0 0 0;
 	padding: 2px 0px;
+	text-shadow: 2px 2px 2px #dddddd;
 }
     
 #projectbrief
 {
-	font: 120% Tahoma, Arial,sans-serif;
-	margin: 0px;
+	font: 11pt;
+	color: #777777;
+	margin: 0 0 5px 5px;
 	padding: 0px;
+	font-weight: italic;
 }
 
 #projectnumber
 {
-	font: 30% monospace;
+	font: 10pt monospace;
 	margin: 0px;
 	padding: 0px;
-	color: #000066;
+	color: #444444;
 }
 
 
@@ -1190,13 +1242,12 @@ dl.bug
 }
 
 #fg_docx_header h1{
-	padding: 8px 10px;
 	margin: 0;
 	color: #999999;
 	font-size: 10pt;
 	font-weight: bold;
 	text-align: left;
-	padding-left: 50px;
+	padding: 18px 0 0 60px;
 	font-family: monospace;
 }
 
@@ -1204,7 +1255,7 @@ dl.bug
 /* top menu nicked from http://line25.com/tutorials/how-to-create-a-pure-css-dropdown-menu */
 #fg_top_nav {
 	float: left;
-	margin: 5px;
+	margin: 5px 0 0 10px;
 }
 
 #fg_top_nav ul ul {

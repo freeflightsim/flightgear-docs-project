@@ -27,8 +27,9 @@ cp -f $ROOT/etc/fg_docx_style.css docx/stylesheet.css
 
 
 #TODO - Make the version from /version ??
-VER="1.stable"
+VER="0.x.stable"
 echo "VER=$VER" 
+
 ( cat $DOXY ; 
 	echo "PROJECT_NUMBER=$VER"; \
 	echo "HTML_HEADER = docx/fg_docx_header.html";  \
@@ -41,7 +42,7 @@ cp $ROOT/etc/logo-23.png build_docs/
 
 ../../etc/write_info.py  --out=build_docs/ --version="$VER" --dir=$DIR \
 	--title="FGMS-0"  --git="$CHECKOUT" --color="#A684AC"
-exit
+
 rm $ROOT/zips/$DIR.zip
 cd build_docs/
 zip -r $ROOT/zips/$DIR.zip ./

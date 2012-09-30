@@ -8,7 +8,7 @@ then
 	echo "Unzip  all"
 	for F in "${files[@]}"
 	do
-	rm -f -r ./doc_root/$F/
+	rm -f -r ./www_root/$F/
 	unzip -u ../upload_docs/$F.zip   -d ./$F/
 	cp ../upload_docs/$F.zip ./$F/$F.zip
 	done;
@@ -16,7 +16,7 @@ else
 	echo "Unzip selected"
 	for F
 	do 
-	rm -f -r ./doc_root/$F/
+	rm -f -r ./www_root/$F/
 	unzip -q -u ../upload_docs/$F.zip   -d ./www_root/$F/
 	cp ../upload_docs/$F.zip ./www_root/$F/$F.zip
 	done
