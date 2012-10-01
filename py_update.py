@@ -15,6 +15,7 @@ yaml_file.close()
 print "Loaded config: %s" % " ".join( conf.keys() )
 
 
-
+for proj, vals in conf:
+	print proj, vals
 
 
