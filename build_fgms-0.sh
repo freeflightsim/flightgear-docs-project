@@ -15,8 +15,11 @@ rm -f -r ./docs/$DIR
 cd ./externals/$DIR/
 rm -f -r build_docs/
 
+
+git checkout master
 git pull
 git checkout master
+
 
 
 cp -f $ROOT/etc/fg_docx_header.html docx/
@@ -35,6 +38,7 @@ echo "VER=$VER"
 	echo "HTML_HEADER = docx/fg_docx_header.html";  \
 	echo "HTML_FOOTER = docx/fg_docx_footer.html";  \
 	echo "HTML_STYLESHEET = docx/stylesheet.css";  \
+	#echo "GENERATE_TREEVIEW = NO";  \
 	) | doxygen -
 
 ## Copy logo file after build

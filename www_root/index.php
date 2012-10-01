@@ -44,45 +44,118 @@ if(isset($_GET['update'])){
 
 
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
-<title>FlightGear Documentation Project (Experimental)</title>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-<link rel="shortcut icon" href="favicon.ico" />
-<link rel="stylesheet" href="style.css">
-<style>
-header {
-	height: <?php echo HEIGHT.'px' ?>;
-}
-</style>
-
-
-</head>
-
-<body>
-
-<header>
-		<h1>FlightGear Docs Project (experimental)</h1>
-	
-	<ul id="menu">
-	<li><a href="info.php" target='doc_iframe'>Home</a></li>
-	<?php foreach($docs as $k => $v){ 
-		echo "<li><a target='doc_iframe' href='$k/html/'>".$v['title']."</a></li>";
-	} ?>
-	</ul>
-</header>
-
-
-<iframe src="info.php?frame=1"  id="doc_iframe" name="doc_iframe"></iframe>
-
-
-<script>
-$(document).ready(function() {
-	$('#doc_iframe').height(window.innerHeight - <?php echo HEIGHT ?> - 10);
-});
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>fgms-0: FlightGear MultiPlayer Server 0.x Production/Stable</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
 </script>
 
+<link href="stylesheet.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<div id="top"><!-- do not remove this div! -->
+
+<div id="titlearea">
+<div id="fg_docx_header">
+	<div id="fg_top_nav">
+		<ul>
+			<li><a href="#"><img src="logo-23.png"></a>
+				<ul>
+					<li><a href="http://flightgear.org" target="_blank">Home Page</a></li>
+					<li><a href="http://wiki.flightgear.org/Portal:Developer"  target="_blank">Developer Wiki</a></li>
+					<li><a href="https://code.google.com/p/flightgear-bugs/issues/list"  target="_blank">Issue Tracker</a></li>
+					<li><a href="http://flightgear.simpits.org:8080/"  target="_blank">Build Server</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	<h1>FlightGear Documentation Project</h1>
+	<ul id="menu">
+		<li><a href="/">Home</a></li>
+		<li><a  href=fgdata/'>FG Data</a></li>
+		<li><a  href='flightgear/'>FlightGear</a></li>
+		<li><a  href='fgms-0/'>FGMS-0</a></li>
+		<li><a  href='fgms-1/'>FGMS-1</a></li>
+		<li><a  href='plib/'>PLIB</a></li>
+		<li><a  href='osg/'>OSG</a></li>
+		<li><a  href='simgear/'>SimGear</a></li>
+		<li><a  href='terragear/'>TerraGear</a></li>
+	</ul>
+</div>
+
+
+
+
+
+</div>
+
+<div class="fg_content">
+<h1>Docs Index</h1>
+
+<table>
+
+<tr><th>Browse Html</th><th>Zip</th><th>Version</th><th>Updated</th><th>Repo</th><th>Checkout</th></tr>
+<?php foreach($docs as $k => $v){ 
+	echo '<tr><td><a class="lnk" href="'.$k.'/" style="border-left: 10px solid '.$v['color'].';">'.$v['title'].'</a></td>';
+	echo '<td><a target="_blank" href="'.$k.'/'.$k.'.zip">'.$k.'.zip</a></td>';
+	echo	'<td>'.$v['version'].'</td><td>'.nicetime($v['last_updated']).'</td>';
+	echo '<td>'.$v['repo'].'</td><td>'.$v['checkout'].'</td></tr>';
+} ?>
+</table>
+
+
+<!-- Put the following javascript before the closing </head> tag. -->
+<script>
+  (function() {
+    var cx = '005020340521889986907:tdsrgbpk9s4';
+    var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.com/cse/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+
+<!-- Place this tag where you want both of the search box and the search results to render -->
+<gcse:search></gcse:search>
+
+<div class="info">
+<ul>
+<li>This project is an experiment to automatically generate docs from source files (ta Jenkins).</li>
+<li>The goal is to automate the process completely, and make all the docs link together.</li>
+<li>The code for this project is at gitorious <a 
+	href="https://gitorious.org/fgx-xtras/flightgear-docs-project" target="_blank"><b>flightgear-docs-project</b></a></li>
+<li>View the <a 
+	href="README.txt" target="_blank"><b>README.txt</b></a> for more info</li>
+<li>Feedback, bugs etc to <b>pete at freeflightsim dot org</b></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+</div>
 
 </body>
 
