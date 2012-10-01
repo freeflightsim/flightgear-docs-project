@@ -1,24 +1,25 @@
 #!/bin/bash
 
-ROOT=`pwd`
-DIR="fgms-0"
+
+PROJ="fgms-0"
 DOXY="docx/doxy.conf"
-CHECKOUT="https://git.gitorious.org/~ffs/fgms/ffss-fgms-0-x.git"
+REPO="https://git.gitorious.org/~ffs/fgms/ffss-fgms-0-x.git"
+BRANCH="master"
 
-echo "===================================================="
-echo "Building fgms-0 docs from ./externals/$DIR"
 
-git submodule init
+#git submodule init
+
+source funks.sh
+
+init_setup
+
+exit
 
 rm -f -r ./docs/$DIR
 
 cd ./externals/$DIR/
 rm -f -r build_docs/
 
-
-git checkout master
-git pull
-git checkout master
 
 
 
