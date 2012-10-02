@@ -96,19 +96,20 @@ def process_project(proj, vals):
 	
 	## READ default
 	dox_default = read_file(ETC + "fg_doxy.conf")
-	#print "\t\t\tPath Exists temp path: %s" % pth	
-	#print doxy_conf
+
+	## Add the extra stuff doxy vars from config
 	xover = []
 	for dox in vals['doxy']:
 		#print dox, vals['doxy'][dox]
 		xover.append( "%s = %s" % (dox, vals['doxy'][dox]) )
 	
+	## Append and override the main settings
 	xover.append("PROJECT_NAME=%s" % proj)
 	xover.append("PROJECT_NUMBER=%s" % vals['version'])
 	xover.append("PROJECT_BRIEF=%s" % vals['title'])
 	
 	xover.append("OUTPUT_DIRECTORY=" + BUILD + proj + "/")
-	xover.append("HTML_DIRECTORY=%s" % "./")
+	xover.append("HTML_DIRECTORY=%s" % "/")
 	
 	
 	dox_override = "\n".join(xover)
