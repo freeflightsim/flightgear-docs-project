@@ -71,14 +71,14 @@ def read_file(path_to_file):
 	
 
 #####################################################################################################
-def process_project(proj, vals):
+def process_project(proj, pvals):
 	if V > 0:
 		print "\t Processing: %s" % proj
 	
 	is_main = proj == "fg-docs"
 	
 	if is_main:
-		work_dir = ""
+		work_dir = ROOT + ""
 	else:
 		work_dir = TEMP + proj
 	
@@ -87,29 +87,58 @@ def process_project(proj, vals):
 		print "\t\tChecking if temp/work_dir exists: %s" % work_dir
 		if not os.path.exists(work_dir):
 			print "\t\t\tCreating temp/work_dir path: %s" % work_dir
-			os.mkdir(work_dir)
+			#os.mkdir(work_dir)
 		else:
 			print "\t\t\tPath Exists temp/work_dir path: %s" % work_dir	
 	
-	#print "\t\tChecking is git repos at: %s" % pth
 	
+	
+	
+	########################################################
+	## Git Check
+	if not is_main:
+		print "\t\tChecking is git repos at: %s" % work_dir
+		
+		#rep = git.Repo(work_dir)
+		if not os.path.exists(work_dir + ".git"):
+			os.chdir(TEMP)
+			print "checkoout"
+			print "work_dir=", work_dir
+			cmd = "git clone %s %s" % (pvals['git'], proj )
+			print "git clone= ", cmd
+			os.system(cmd)
+			g = git.Git( TEMP )
+			g.clone(pvals['git'])
+			
+		else:
+			print "exists"
+		
+		#print rep.is_dirty
+		#print rep.git.status()
+		
+	sys.exit(0)
+	
+	##############################################
+	## Create temp doxy string and write to file
 	
 	## READ default
 	dox_default = read_file(ETC + "fg_doxy.conf")
 
 	## Add the extra stuff doxy vars from config
 	xover = []
-	for dox in vals['doxy']:
-		#print dox, vals['doxy'][dox]
-		xover.append( "%s = %s" % (dox, vals['doxy'][dox]) )
+	if 'doxy' in vals: 
+		# yes we got a doxy list
+		for dox in vals['doxy']:
+			#print dox, vals['doxy'][dox]
+			xover.append( "%s = %s" % (dox, vals['doxy'][dox]) )
 	
-	## Append and override the main settings
+	## Append and override the main settings from here
 	xover.append("PROJECT_NAME=%s" % proj)
 	xover.append("PROJECT_NUMBER=%s" % vals['version'])
 	xover.append("PROJECT_BRIEF=%s" % vals['title'])
 	
 	xover.append("OUTPUT_DIRECTORY=" + BUILD + proj + "/")
-	xover.append("HTML_DIRECTORY=%s" % "/")
+	xover.append("HTML_DIRECTORY=%s" % "./")
 	
 	
 	dox_override = "\n".join(xover)
@@ -124,8 +153,7 @@ def process_project(proj, vals):
 	fwrite.close()
 	
 	
-	print "work_dir=", work_dir
-	os.chdir(work_dir)
+
 	print "curdir", os.path.abspath( os.curdir )
 	dox_cmd =  "doxygen %s " % temp_doxy_file 
 	print "dox_cmd=", dox_cmd
@@ -137,7 +165,7 @@ def process_project(proj, vals):
 #####################################################################################################
 ## Load Config
 yaml_str = read_file( ROOT + "config.yaml" )
-print yaml_str
+#print yaml_str
 conf = yaml.load( yaml_str )
 
 print "> Loaded config: %s" % " ".join( conf.keys() )
