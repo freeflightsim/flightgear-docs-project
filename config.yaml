@@ -1,0 +1,30 @@
+fgms-0:
+    title: FlightGear Multiplayer Server (0.x Stable)
+    version: 
+        no: git
+    repo: git
+    git: git://gitorious.org/~ffs/fgms/ffss-fgms-0-x.git
+    branch: master
+    official: 0
+    doxy_file: docx/doxy.conf
+
+
+fgms-1:
+    title: FlightGear Multiplayer Server (1.x Dev)
+    version: 
+        no: git
+    repo: git
+    git: git://gitorious.org/~ffs/fgms/ffs-docs-fgms-1-x
+    official: 0
+    doxy_file: docx/doxy.conf 
+
+fg-docs:
+    title: FlightGear Documentation Project
+    version: 
+        no: 0.1
+    repo: git
+    git: https://git.gitorious.org/~ffs/flightgear-docs-project
+    official: 1
+    doxy_args:
+        INPUT: docx/ py_update.py 
+        

@@ -4,6 +4,7 @@
 import os
 import sys
 from optparse import OptionParser
+import shutil
 import yaml
 import git
 
@@ -73,26 +74,42 @@ def read_file(path_to_file):
 #####################################################################################################
 def process_project(proj, pvals):
 	if V > 0:
-		print "\t Processing: %s" % proj
+		print "---------------------------"
+		print "# Processing: %s" % proj
 	
 	is_main = proj == "fg-docs"
 	
 	if is_main:
 		work_dir = ROOT + ""
 	else:
-		work_dir = TEMP + proj
+		work_dir = TEMP + proj + "/"
 	
-	git_exists = False
+	##===========================================
+	
 	if not is_main: 
-		print "\t\tChecking if temp/work_dir exists: %s" % work_dir
+		git_exists = False
+		if V > 1:
+			print "\tchecking if temp/work_dir exists: %s" % work_dir
 		if not os.path.exists(work_dir):
-			print "\t\t\tCreating temp/work_dir path: %s" % work_dir
-			#os.mkdir(work_dir)
+			if V > 1:
+				print "\t\tcreating temp/work_dir path: %s" % work_dir
+				#os.mkdir(work_dir)
 		else:
-			print "\t\t\tPath Exists temp/work_dir path: %s" % work_dir	
+			if V > 1:
+				print "\t\tpath Exists temp/work_dir path: %s" % work_dir	
 	
-	
-	
+	##===========================================
+	build_dir = BUILD + proj + "/"
+	# nuke and recreate build:
+	if V > 0:
+		print "\t checking build directory exits: %s" % build_dir
+	if os.path.exists(build_dir):
+		if V > 1:
+			print "\t nuking build directory: %s" % build_dir
+		shutil.rmtree(build_dir)
+	if V > 1:
+		print "\t creating build directory: %s" % build_dir
+	os.mkdir(build_dir)
 	
 	########################################################
 	## Git Check
@@ -100,60 +117,97 @@ def process_project(proj, pvals):
 		print "\t\tChecking is git repos at: %s" % work_dir
 		
 		#rep = git.Repo(work_dir)
-		if not os.path.exists(work_dir + ".git"):
-			os.chdir(TEMP)
-			print "checkoout"
-			print "work_dir=", work_dir
-			cmd = "git clone %s %s" % (pvals['git'], proj )
-			print "git clone= ", cmd
-			os.system(cmd)
+		if not os.path.exists(TEMP + proj):
+			#os.chdir(TEMP)
+			print "Cloning new Repo"
+			#print "work_dir=", work_dir
+			#cmd = "git clone %s %s" % (pvals['git'], proj )
+			#print "git clone= ", cmd
+			#os.system(cmd)
 			g = git.Git( TEMP )
-			g.clone(pvals['git'])
-			
-		else:
-			print "exists"
+			g.clone(pvals['git'], proj)
+		
+		
+		branch = pvals['branch'] if "branch" in pvals else "master"
+		print "\t\t\tCheckout branch: %s" % branch
+		g = git.Git( TEMP + proj)
+		print g.checkout(branch)
+		print g.pull()
 		
 		#print rep.is_dirty
 		#print rep.git.status()
 		
-	sys.exit(0)
+	## copy the templates
+	if V > 0:
+		print "> Copying essential files:"
+	for f in ["fg_docx_header.html", "logo-23.png"]:
+		if V > 0:
+			print ">   copied: %s" % f
+		shutil.copyfile( ROOT + "etc/" + f , work_dir + f )
 	
 	##############################################
 	## Create temp doxy string and write to file
 	
 	## READ default
-	dox_default = read_file(ETC + "fg_doxy.conf")
+	if V > 0:
+		print "> Checking doxy file"
+	if 'doxy_file' in pvals and pvals['doxy_file']:
+		if V > 0:
+			print "  > using %s project doxy file: %s" % (proj, pvals['doxy_file'])
+		dox_default = read_file(work_dir + pvals['doxy_file'])
+		
+	else:
+		dox_default = read_file(ETC + "default-doxy.conf")
+		if V > 0:
+			print "  > using default fg-docs file: etc/default-doxy.conf" 
 
 	## Add the extra stuff doxy vars from config
+	if V > 0:
+		print "> Checking doxy vars from config.yaml"
 	xover = []
-	if 'doxy' in vals: 
-		# yes we got a doxy list
+	if 'doxy' in pvals: 
 		for dox in vals['doxy']:
-			#print dox, vals['doxy'][dox]
-			xover.append( "%s = %s" % (dox, vals['doxy'][dox]) )
+			xover.append( "%s = %s" % (dox, pvals['doxy'][dox]) )
+	else:
+		if V > 0:
+			print "  > No vars"
 	
 	## Append and override the main settings from here
 	xover.append("PROJECT_NAME=%s" % proj)
-	xover.append("PROJECT_NUMBER=%s" % vals['version'])
-	xover.append("PROJECT_BRIEF=%s" % vals['title'])
 	
-	xover.append("OUTPUT_DIRECTORY=" + BUILD + proj + "/")
-	xover.append("HTML_DIRECTORY=%s" % "./")
-	
-	
+	## get version no from yaml, or source file
+	version = "-na-"
+	if 'version' in pvals:
+		if 'no' in pvals['version']:
+			version = pvals['version']['no']
+			
+		elif 'file' in pvals['version']:
+			version = read_file( work_dir + pvals['version']['file'] ).strip()
+	xover.append("PROJECT_NUMBER=%s" % version)
+	xover.append("PROJECT_BRIEF=%s" % pvals['title'])
+		
+	xover.append("OUTPUT_DIRECTORY=" + build_dir )
+	xover.append("HTML_OUTPUT=%s" %  "./")
+	xover.append("GENERATE_TAGFILE=" + build_dir + proj + ".tag")
 	dox_override = "\n".join(xover)
-	print dox_override
-	dox_config_str = dox_default + dox_override
 	
+	if V > 0:
+		print "> Overides for fg-docs output"
+		for oo in xover:
+			print "  > " + oo
+	
+	## make config string and write to file
+	dox_config_str = dox_default + dox_override
 	temp_doxy_file = "_fg_temp_doxy.conf"
-	temp_config_full_path = "%s/%s" % (work_dir, temp_doxy_file)
-	print "temp_config_full_path=%s" % temp_config_full_path
+	temp_config_full_path = work_dir +  temp_doxy_file
 	fwrite = open(temp_config_full_path, "w")
 	fwrite.write(dox_config_str)
 	fwrite.close()
+	if V > 0:
+		print "> Wrote temp doy file: %s" % temp_config_full_path
 	
 	
-
+	os.chdir(work_dir)
 	print "curdir", os.path.abspath( os.curdir )
 	dox_cmd =  "doxygen %s " % temp_doxy_file 
 	print "dox_cmd=", dox_cmd
