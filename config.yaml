@@ -1,5 +1,6 @@
 fgms-0:
     title: FlightGear Multiplayer Server (0.x Stable)
+    runlevel: 0
     color: "#A684AC"
     version: 
         number: 0.x.stable
@@ -11,6 +12,7 @@ fgms-0:
 
 fgms-1:
     title: FlightGear Multiplayer Server (1.x Dev)
+    runlevel: 0
     color: "#A684AC"
     version: 
         number: 1.x.dev
@@ -19,8 +21,23 @@ fgms-1:
     official: 0
     doxy_file: docx/doxy.conf 
 
+osg:
+    title: OpenSceneGraph
+    runlevel: 15
+    color: "#5F89B3"
+    version: 
+        number: 1.8.5
+    repo: svn
+    checkout: http://www.openscenegraph.org/svn/osg/OpenSceneGraph/tags/OpenSceneGraph-3.1.1
+    official: 1
+    copy:
+      - etc/DoxyMain-osg.cpp
+    doxy_args:
+       INPUT: DoxyMain-osg.cpp src/
+
 plib:
     title: Steves's Portable Game Library
+    runlevel: 10
     color: "#539053"
     version: 
         number: 1.8.5
@@ -35,21 +52,9 @@ plib:
        HTML_COLORSTYLE_SAT: 80
        HTML_COLORSTYLE_GAMMA: 220
 
-osg:
-    title: OpenSceneGraph
-    color: "#5F89B3"
-    version: 
-        number: 1.8.5
-    repo: svn
-    checkout: http://www.openscenegraph.org/svn/osg/OpenSceneGraph/tags/OpenSceneGraph-3.1.1
-    official: 1
-    copy:
-      - etc/DoxyMain-osg.cpp
-    doxy_args:
-       INPUT: DoxyMain-osg.cpp src/
-
 fg-docs:
     title: FlightGear Documentation Project
+    runlevel: 100
     color: red
     version: 
         number: 0.1
@@ -62,4 +67,6 @@ fg-docs:
     doxy_args:
        INPUT: DoxyMain-fgdocs.cpp py_update.py
        GENERATE_TREEVIEW: NO
+       SHOW_NAMESPACES: NO
        EXAMPLE_PATH: ./
+

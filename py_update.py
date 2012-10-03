@@ -3,12 +3,16 @@
 
 import os
 import sys
+import operator
 from optparse import OptionParser
 import shutil
+
 import yaml
 import simplejson as json
+
 import git
 import pysvn
+
 
 ## Handle Command Args
 usage = "usage: %prog [options] show|build|clean|nuke proj1 proj2 .. projn"
@@ -159,7 +163,7 @@ def process_project(proj, pvals):
 		if os.path.exists(build_dir):
 			if V > 1:
 				print "\t nuking build directory: %s" % build_dir
-			shutil.rmtree(build_dir)
+			#shutil.rmtree(build_dir)
 		if V > 1:
 			print "\t creating build directory: %s" % build_dir
 		
@@ -408,8 +412,21 @@ if command == "build":
 	
 
 if command == "buildall":
+	
+	ulist = []
 	for proj in conf:
-		if proj != "fg-docs":
-			process_project(proj, conf[proj])
-	process_project("fg-docs", conf["fg-docs"])
+		dic = conf[proj]
+		dic['runlevel'] = int(dic['runlevel']) if  'runlevel' in dic else 0
+		dic['proj'] = proj
+		ulist.append(dic)
+	compile_list = sorted(ulist, key=operator.itemgetter('runlevel'))	
+	for p in compile_list:
+		print p['proj'] , p['runlevel']
+	
+	#for proj in conf:
+	#	if proj != "fg-docs":
+	#		process_project(proj, conf[proj])
+	#process_project("fg-docs", conf["fg-docs"])
+	
+
 

@@ -368,3 +368,29 @@ table#projects_index{
 #fg_top_nav ul ul ul {
 	position: absolute; left: 100%; top:0;
 }
+/******************************************************/
+/** Overrides */
+#projectname{
+	font: 22pt monospace;
+	color: #444444;
+	margin: 5px 0 0 0;
+	padding: 2px 0px;
+	text-shadow: 2px 2px 2px #dddddd;
+}
+    
+#projectbrief
+{
+	font: 11pt;
+	color: #777777;
+	margin: 0 0 5px 5px;
+	padding: 0px;
+	font-weight: italic;
+}
+
+#projectnumber
+{
+	font: 10pt monospace;
+	margin: 0px;
+	padding: 0px;
+	color: #444444;
+}
