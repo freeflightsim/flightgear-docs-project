@@ -7,7 +7,7 @@ fgms-0:
     branch: master
     official: 0
     doxy_file: docx/doxy.conf
-
+    color: red
 
 fgms-1:
     title: FlightGear Multiplayer Server (1.x Dev)
@@ -33,10 +33,15 @@ plib:
 
 fg-docs:
     title: FlightGear Documentation Project
+    color: red
     version: 
         number: 0.1
     repo: git
     git: https://git.gitorious.org/~ffs/flightgear-docs-project
     official: 1
     copy:
-      - etc/DoxyMain-fg-docs.cpp
+      - etc/DoxyMain-fgdocs.cpp
+      - py_update.py
+    doxy_args:
+       INPUT: DoxyMain-fgdocs.cpp py_update.py
+       GENERATE_TREEVIEW: NO

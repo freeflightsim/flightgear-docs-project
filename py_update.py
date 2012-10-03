@@ -6,10 +6,9 @@ import sys
 from optparse import OptionParser
 import shutil
 import yaml
+import simplejson as json
 import git
 
-print __file__
-sys.exit(0)
 
 ## Handle Command Args
 usage = "usage: %prog [options] show|build|clean|nuke proj1 proj2 .. projn"
@@ -80,11 +79,35 @@ def write_file(path_to_file, contents):
 	fob.close()
 	return
 	
+def write_info(proj, version, conf):
+	dic = dict(color= conf['color'] if 'color' in conf else 'blue',
+				version=version,
+				title=conf['title'],
+			)
+	fn = BUILD + proj  +  "/info.json"
+	write_file(fn, json.dumps(dic) )
+	
 ## Load Config
 yaml_str = read_file( ROOT + "config.yaml" )
 #print yaml_str
 conf = yaml.load( yaml_str )
 
+
+def make_home_page(conf):
+	s = "<table>"
+	s += "<tr>"
+	s += "<th>Browse Html</th><th>Zip</th><th>Version</th><th>Updated</th><th>Repo</th><th>Checkout</th>"
+	s += "</tr>"
+	for c in conf:
+		if c != "fg-docs":
+			v = conf[c]
+			s += '<tr><td><a class="lnk" href="%s/" style="border-left: 10px solid %s;">' % (c, "red")
+			s += '%s</a></td>' % (conf['title'])
+			s += '<td><a target="_blank" href="%s/%s.zip">%s.zip</a></td>' % (c, c)
+			s += '<td>%s</td><td>%s</td>' % (version)
+			s += '<td>%s</td><td>%s</td></tr>' % (conf['repo'], conf['git'] if conf['repo'] == "git" else repo['svn'])
+	s + "</table>"
+	return s
 
 #####################################################################################################
 def process_project(proj, pvals):
@@ -156,15 +179,22 @@ def process_project(proj, pvals):
 		#print rep.is_dirty
 		#print rep.git.status()
 	else:
-	
+		pass
 		## ITS MAIN, so make up the site
-		if os.path.exists(work_dir + "docx/"):
-			shutil.rmtree(work_dir + "docx/")
+		#if os.path.exists(work_dir + "docx/"):
+		#	shutil.rmtree(work_dir + "docx/")
 		#os.mkdir(work_dir + "docx/")
-		shutil.copytree( ROOT + "docx/"  , work_dir + "docx"  )
-		shutil.copyfile( ROOT + "py_update.py", work_dir + "py_update.py")
 		
-
+		#shutil.copytree( ROOT + "docx/"  , work_dir + "docx"  )
+		#shutil.copyfile( ROOT + "py_update.py", work_dir + "py_update.py")
+		
+	## Copy file
+	print pvals['copy']
+	for f in pvals['copy']:
+		source = ROOT + f
+		head, tail = os.path.split(source)
+		print "  > cp " + ROOT + f + " >> " +  work_dir + tail
+		shutil.copyfile( ROOT + f, work_dir + tail)
 	
 	
 	#print nav_str
