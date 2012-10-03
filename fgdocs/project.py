@@ -45,13 +45,13 @@ class Project:
             
         # nuke and recreate build:
         if not self.conf.is_main:
-            if V > 0:
+            if self.V > 0:
                 print "\t checking build directory exits: %s" % self.conf.build_dir
             if os.path.exists(self.conf.build_dir):
-                if V > 1:
+                if self.V > 1:
                     print "\t nuking build directory: %s" % self.conf.build_dir
                 #shutil.rmtree(build_dir)
-            if V > 1:
+            if self.V > 1:
                 print "\t creating build directory: %s" % self.conf.build_dir
             
             #os.mkdir(build_dir)
@@ -68,19 +68,7 @@ class Project:
                 
             elif self.conf.is_svn:
                 self.process_svn()
- 
-            
-            elif pvals['repo'] == "svn":
-                
-                if not os.path.exists(work_dir + "/.svn/"):
-                    print "Checkout out svn"
-                    svn = pysvn.Client()
-                    print pvals
-                    print svn.checkout( pvals['checkout'] , work_dir, recurse=True)
-                else:
-                    print "SVN update"
-                    svn = pysvn.Client()
-                    svn.update( work_dir, recurse=True )
+
 
             
         ## Copy file
@@ -97,7 +85,7 @@ class Project:
                 print ">   copied: %s" % f
             shutil.copyfile( self.conf.ETC + f , self.conf.work_dir + f )
         
-
+        self.write_header_html()   
         
         ##############################################
         ## Create temp doxy string and write to file
@@ -145,31 +133,51 @@ class Project:
         #print dox_config_str
         self.write_temp_doxy(dox_config_str)
         
-    def compile(self):
+    def build(self):
         print "\n> Compile: "
         os.chdir(self.conf.work_dir)
-        if V > 0:
+        if self.V > 0:
             print "  > curdir: %s" % os.path.abspath( os.curdir )
         
-        dox_cmd =  "doxygen ./%s " % self.conf.temp_doxy_file 
-        if V > 0:
+        dox_cmd =  "doxygen ./%s " % self.conf.TEMP_DOXY
+        if self.V > 0:
             print "  > command: %s" % dox_cmd
         os.system( dox_cmd  )
         
-        if V > 0:
+        if self.V > 0:
             print "> Copying extra files:"
         for f in ["logo-23.png"]:
-            if V > 0:
+            if self.V > 0:
                 print ">   copied: %s" % f
             shutil.copyfile( self.conf.ETC + f , self.conf.build_dir + f )
         
         ## write info json
-        h.write_info_file(self.conf.proj, self.conf.version, pvals)
+        self.write_info_file()
         
-        print "< Done: %s" % proj
+        print "< Done: %s" % self.conf.proj
 
+ 
+    def process_svn(self):
+              
+        if not os.path.exists(self.conf.work_dir + "/.svn/"):
+            self.svn_checkout()
+        else:
+            self.svn_update()
+            
+    def svn_checkout(self):
+        print "Checkout out svn"
+        svn = pysvn.Client()
+      
+        print svn.checkout( self.conf.checkout  , self.conf.work_dir, recurse=True)
+    
+    def svn_update(self):
+        
+        print "SVN update"
+        svn = pysvn.Client()
+        svn.update( self.conf.work_dir, recurse=True )
+                    
     ## Process this project is its git
-    def git_process(self):
+    def process_git(self):
         print "  > Checking is git repos at: %s" % self.conf.work_dir + "/.git"       
         if not os.path.exists(self.conf.work_dir + "/.git/"):
             #os.chdir(TEMP)
@@ -186,7 +194,7 @@ class Project:
         #os.system(cmd)
         os.chdir( self.conf.TEMP )
         g = git.Git( self.conf.TEMP )
-        g.clone(pvals['git'], proj)
+        g.clone(self.conf.chechout, pself.conf.roj)
             
           
     def git_update(self):
@@ -208,9 +216,20 @@ class Project:
             print self.conf.copy 
             for f in self.conf.copy:
                 source = self.conf.ROOT + f
-                head, tail = os.path.split(source)
-                print "  > cp " + self.conf.ROOT + f + " >> " +  self.conf.work_dir + tail
-                shutil.copyfile( self.conf.ROOT + f, self.conf.work_dir + tail)
+                
+                
+                if os.path.isdir(source):
+                    target = self.conf.work_dir + f
+                    if os.path.exists(target):
+                        shutil.rmtree(target)
+                    shutil.copytree( source, target)
+                else:
+                    
+                    head, tail = os.path.split(source)
+                    target = self.conf.work_dir + tail
+                    print "  > cp " + source + " >> " +  target
+                    
+                    shutil.copyfile( self.conf.ROOT + f, target)
         
     #### Make the Top navigation
     def get_navigation(self):
@@ -219,15 +238,15 @@ class Project:
             nav_str += '<li><a href="index.html">Home</a></li>\n'
         else:
             nav_str += '<li><a href="../">Home</a></li>\n' 
-        link_prefix = "" if self.is_main else "../"
-        for c in self.conf:
-            if c != "fg-docs":
-                nav_str += '<li><a href="%s%s/">%s</a></li>\n' % (link_prefix, c, conf[c]['abbrev'])
+        link_prefix = "" if self.conf.is_main else "../"
+        for p in self.main_conf.get_projects_index():
+            if not p.is_main:
+                nav_str += '<li><a href="%s%s/">%s</a></li>\n' % (link_prefix, p.proj, p.abbrev)
         return nav_str
     
     def write_header_html(self):
         
-        template_header = h.read_file( ETC + "fg_docx_header.html" )
+        template_header = h.read_file( self.conf.ETC + "fg_docx_header.html" )
         template_header = template_header.replace("___NAV_ITEMS___", self.get_navigation() )
         h.write_file( self.conf.work_dir + "fg_docx_header.html", template_header)
         
@@ -291,7 +310,7 @@ class Project:
         h.write_file(self.conf.json_info_path, json.dumps(dic) )
 
     def get_projects_pages_cpp(self):
-        projects = self.main_conf.get_projects_info()
+        projects = self.main_conf.get_projects_index()
         
         l = []
         for p in projects:
@@ -312,7 +331,7 @@ class Project:
         s += "<tr>\n"
         s += "\t<th>Project</th><th>Zip</th><th>Version</th><th>Updated</th><th>More..</th>"
         s += "\n</tr>\n"
-        for p in self.main_conf.get_projects_info():
+        for p in self.main_conf.get_projects_index():
             s += '\n<tr>\n\t<td><a class="lnk" href="%s/" style="border-left: 10px solid %s;">' % (p.proj, p.color)
             s += '%s</a></td>' % (p.title)
             s += '\n<td><a target="_blank" href="%s/%s.zip">%s.zip</a></td>' % (p.proj, p.proj, p.proj)

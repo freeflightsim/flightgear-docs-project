@@ -71,8 +71,9 @@ fg-docs:
       - fgdocs.py
       - config.yaml
       - etc/doxy-default.conf
+      - fgdocs/
     doxy_args:
-       INPUT: DoxyMain-fgdocs.cpp fgdocs.py project_pages.cpp
+       INPUT: DoxyMain-fgdocs.cpp fgdocs.py project_pages.cpp fgdocs/
        SHOW_NAMESPACES: NO
        EXAMPLE_PATH: ./
        OPTIMIZE_OUTPUT_JAVA: YES

@@ -141,26 +141,18 @@ class Config(ConfigCore):
         projConf = ProjectConfig(proj, self.get_project_dict(proj))
         return projConf
     
-    def get_projects_info(self):
+    def get_projects_index(self):
         info = []
         for proj in sorted(self.conf.keys()):
             proj =  self.get_project_config_object(proj)
-            if os.path.exists(proj.json_info_path):
-                json_str = h.read_file(proj.json_info_path)
-                
-                data = json.loads(json_str)
-                #print json_str, data
-                proj.version = data['version']
-                if 'date_updated' in data:
-                    proj.date_updated = data['date_updated']
             info.append(proj)
         
         return info
 
-    def get_project_keys(self, runlevel=False):
+    def DEADget_project_keys(self, runlevel=False):
         return self.conf.keys()
     
-    def projects(self):
+    def DEADprojects(self):
         ulist = []
         for proj in self.conf:
             dic = self.conf[proj]
@@ -192,28 +184,5 @@ class Config(ConfigCore):
                     s += "  %s: %s\n" % (v, self.conf[proj][v])
             print s
         
-    ## Get the projects index as a list of dicts. This loops thru the projects and reads the INFO_JSON_FILE_FILE
-    @staticmethod
-    def get_projects_index(self):
-        ret = []
-        for proj in sorted(self.conf.keys()):
-            pconf = conf[proj]
-            is_main = proj == "fg-docs"
-            js_filen =  BUILD + INFO_JSON_FILE if is_main else BUILD + proj + "/" + INFO_JSON_FILE
-            data = None
-            if os.path.exists(js_filen):
-                json_str = read_file(js_filen)
-                data = json.loads(json_str)
-            print data
-            #if c != "fg-docs":
-            p = XObject()
-            p.proj = proj
-            p.color = pconf['color'] if 'color' in pconf else "blue"
-            p.version = data['version'] if data else pconf['version']['number']
-            p.title = pconf['title']
-            p.repo = pconf['repo']
-            p.checkout = pconf['checkout']
-            p.date_updated = data["date_updated"] if "date_updated" in data else ""
-            ret.append( p )
-        return ret
+
         

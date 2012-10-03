@@ -44,29 +44,8 @@ docsBuilder = DocsBuilder(parser, opts, args)
 
 
 
-
-
-
-
-
-
-
-
-
-
 ##############################################################################
 
-
-
-
-
-		
-		
-"""
-##print yaml_str
-yaml_str = read_file( ROOT + CONFIG_FILE )
-conf = yaml.load( yaml_str )
-"""
 
 
 	
@@ -95,40 +74,5 @@ def get_projects_index():
 	return ret
 
 
-
-	
-
-	
-	
-	
-	
-	
-	
-	
-#####################################################################################################
-
-##
-#conf = Config(verbose=V)
-
-#print "> ROOT: %s" % conf.ROOT
-
-
-
-	
-	
-
-
-
-
-
-	
-
-
-	
-	#for proj in conf:
-	#	if proj != "fg-docs":
-	#		build_project(proj, conf[proj])
-	#build_project("fg-docs", conf["fg-docs"])
-	
 
 
