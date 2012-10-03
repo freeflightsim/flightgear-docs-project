@@ -1,83 +1,73 @@
 
+import os
+import sys
+import shutil
+
+
 ###########################################################################
 class Project:
     
     ## Initialse the project a config
     # @param confObject - a ProjectConfig instance
-    def __init__(self, confObj):
+    def __init__(self, confObj, verbose=1):
         
-        self.conf = confObject 
-       
+        ## Vervosity 0-4
+        self.V = verbose
+        
+        ## ProjectConfig object
+        self.conf = confObj 
+        
+        
         
         
     def build_project(self):
-        if V > 0:
+        if self.V > 0:
             print "---------------------------"
-            print "# Processing: %s" % proj
+            print "# Processing: %s" % self.conf.proj
     
-        is_main = proj == "fg-docs"
+        #is_main = proj == "fg-docs"
         
-        work_dir = TEMP + proj + "/"
+        #work_dir = TEMP + proj + "/"
         
-        if is_main:
-            build_dir = BUILD 
-        else:
-            build_dir = BUILD + proj + "/"
+        #if is_main:
+        #    build_dir = BUILD 
+        #else:
+        #    build_dir = BUILD + proj + "/"
             
         ##===========================================
-        if V > 1:
-            print "\tchecking if temp/work_dir exists: %s" % work_dir
-        if not os.path.exists(work_dir):
-            if V > 1:
-                print "\t\tcreating temp/work_dir path: %s" % work_dir
-            os.mkdir(work_dir)
+        if self.V > 1:
+            print "\tchecking if temp/work_dir exists: %s" % self.conf.work_dir
+        if not os.path.exists(self.conf.work_dir):
+            if self.V > 1:
+                print "\t\tcreating temp/work_dir path: %s" % self.conf.work_dir
+            os.mkdir(self.conf.work_dir)
         else:
-            if V > 1:
-                print "\t\tpath Exists temp/work_dir path: %s" % work_dir    
+            if self.V > 1:
+                print "\t\tpath Exists temp/work_dir path: %s" % self.conf.work_dir    
         
         ##===========================================
     
             
         # nuke and recreate build:
-        if not is_main:
+        if not self.conf.is_main:
             if V > 0:
-                print "\t checking build directory exits: %s" % build_dir
-            if os.path.exists(build_dir):
+                print "\t checking build directory exits: %s" % self.conf.build_dir
+            if os.path.exists(self.conf.build_dir):
                 if V > 1:
-                    print "\t nuking build directory: %s" % build_dir
+                    print "\t nuking build directory: %s" % self.conf.build_dir
                 #shutil.rmtree(build_dir)
             if V > 1:
-                print "\t creating build directory: %s" % build_dir
+                print "\t creating build directory: %s" % self.conf.build_dir
             
             #os.mkdir(build_dir)
         
         ########################################################
         ## Git Check
-        if not is_main:
+        if not self.conf.is_main:
             
-            if pvals['repo'] == "git":
+            if self.conf.is_git:
             
-                print "  > Checking is git repos at: %s" % work_dir + "/.git"
-            
-                #rep = git.Repo(work_dir)
-                if not os.path.exists(work_dir + "/.git/"):
-                    #os.chdir(TEMP)
-                    print "Cloning new Repo"
-                    shutil.rmtree( work_dir )
-                    #print "work_dir=", work_dir
-                    #cmd = "git clone %s %s" % (pvals['git'], proj )
-                    #print "git clone= ", cmd
-                    #os.system(cmd)
-                    os.chdir(TEMP)
-                    g = git.Git( TEMP )
-                    g.clone(pvals['git'], proj)
-                
-                
-                branch = pvals['branch'] if "branch" in pvals else "master"
-                print "\t\t\tCheckout branch: %s" % branch
-                g = git.Git( TEMP + proj)
-                print g.checkout(branch)
-                print g.pull()
+ 
             
             elif pvals['repo'] == "svn":
                 
@@ -232,5 +222,36 @@ class Project:
         write_info_file(proj, version, pvals)
         
         print "< Done: %s" % proj
-    
+
+    def git_process(self):
+             #rep = git.Repo(work_dir)
+        if not os.path.exists(self.conf.work_dir + "/.git/"):
+            #os.chdir(TEMP)
+            print "Cloning new Repo"
+            shutil.rmtree( self.conf.work_dir )
+            #print "work_dir=", work_dir
+            #cmd = "git clone %s %s" % (pvals['git'], proj )
+            #print "git clone= ", cmd
+            #os.system(cmd)
+            os.chdir(TEMP)
+            g = git.Git( TEMP )
+            g.clone(pvals['git'], proj)
+                    
+
+    def git_clone(self):
+      print "  > Checking is git repos at: %s" % work_dir + "/.git"
+          
+    def git_update(self):
+       
+        
+            
+           
+                
+                
+                branch = pvals['branch'] if "branch" in pvals else "master"
+                print "\t\t\tCheckout branch: %s" % branch
+                g = git.Git( TEMP + proj)
+                print g.checkout(branch)
+                print g.pull()
+                
     

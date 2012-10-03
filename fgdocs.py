@@ -28,7 +28,11 @@ from fgdocs.project import Project
 
 
 ## Handle Command Args
-usage = "usage: %prog [options] show|build|clean|nuke proj1 proj2 .. projn"
+usage = "usage: %prog [options] COMMAND proj1 proj2 .. projn\n"
+usage += "    commands are\n"
+usage += "       view  - to view the config\n"
+usage += "       build proj1 proj2 - Build one or more projects\n"
+usage += "       buildall - Build all projects\n"
 parser = OptionParser(usage=usage)
 parser.add_option(	"-z", "--zip", 
 					action="store_false", dest="zip", default=False, 
@@ -54,6 +58,7 @@ if V > 2:
 
 if len(args) == 0:
 	parser.error("Need to supply a command")
+	#parser.print_help()
 	sys.exit(0)
 
 ## The command executed is the first var
@@ -215,12 +220,6 @@ if not os.path.exists(conf.BUILD):
 if command == "view":
 	conf.print_view(True)
 	conf.print_view()
-	"""
-	for c in conf:
-		print "----------------------------"
-		print c
-		print conf[c]
-	"""
 	sys.exit(0)
 
 if command == "clean":

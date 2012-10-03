@@ -52,6 +52,7 @@ class Config:
         self.conf = yaml.load(self.raw_yaml_str)
         if self._V > 0:
             print "> Loaded configs: %s" % " ".join( self.conf.keys() )
+         
             
     ## Return project details
     # @param proj the project key
@@ -60,23 +61,31 @@ class Config:
         if not self.has_project(proj):
             return None
         
+        dic = self.conf[proj]
+        
         p = ProjectConfig()
         p.proj = proj
         p.is_main = proj == self.SELF_PROJ 
         
-        p.abbrev = conf['abbrev']
-        p.title = conf['title']
+        
+        p.abbrev = dic['abbrev']
+        p.title = dic['title']
 
         if p.is_main:
-            p.build_dir = ROOT 
+            p.build_dir = self.ROOT 
         else:    
-            p.build_dir = ROOT + self.proj + "/"
+            p.build_dir = self.ROOT + proj + "/"
         
-        p.work_dir = self.TEMP + self.proj + "/"
+        p.work_dir = self.TEMP + proj + "/"
         
-        dic =  self.conf[proj]
-        dic['proj'] = proj
-        return dic
+        p.repo = dic['repo']
+        p.is_git = p.repo == "git"
+        p.is_svn = p.repo == "svn"
+        p.checkout = dic['checkout']
+        
+        
+        
+        return p
         
     def projects(self, runlevel=False):
         return self.conf.keys()
