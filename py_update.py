@@ -59,6 +59,11 @@ TEMP = ROOT + "temp/"
 BUILD = ROOT + "build/"
 DEFAULT_DOXY = "doxy-default.conf"
 
+
+
+
+
+
 #####################################################################################################	
 def read_file(path_to_file):
 	fob = open( path_to_file, "r")
@@ -66,6 +71,17 @@ def read_file(path_to_file):
 	fob.close()
 	return file_content
 	
+def write_file(path_to_file, contents):
+	fob = open( path_to_file, "w")
+	fob.write(contents)
+	fob.close()
+	return
+	
+## Load Config
+yaml_str = read_file( ROOT + "config.yaml" )
+#print yaml_str
+conf = yaml.load( yaml_str )
+
 
 #####################################################################################################
 def process_project(proj, pvals):
@@ -135,19 +151,42 @@ def process_project(proj, pvals):
 		#print rep.git.status()
 	else:
 	
+		## ITS MAIN, so make up the site
 		if os.path.exists(work_dir + "docx/"):
 			shutil.rmtree(work_dir + "docx/")
 		#os.mkdir(work_dir + "docx/")
 		shutil.copytree( ROOT + "docx/"  , work_dir + "docx"  )
 		shutil.copyfile( ROOT + "py_update.py", work_dir + "py_update.py")
 		
-	## copy the templates
+
+
+	
+	#print nav_str
+	#sys.exit(0)
+	
+	#### copy required file
 	if V > 0:
 		print "> Copying build files:"
-	for f in ["fg_docx_header.html",  "fg_xstyle.css"]:
+	for f in ["fg_xstyle.css"]:
 		if V > 0:
 			print ">   copied: %s" % f
-		shutil.copyfile( ROOT + "etc/" + f , work_dir + f )
+		shutil.copyfile( ETC + f , work_dir + f )
+	
+	#### Make the page template ###
+	## Create Navigation
+	nav_str = ""
+	if is_main:
+		nav_str += '<li><a href="index.html">Home</a></li>\n'
+	else:
+		nav_str += '<li><a href="../">Home</a></li>\n' 
+	link_prefix = "" if is_main else "../"
+	for c in conf:
+		if c != "fg-docs":
+			nav_str += '<li><a href="%s%s">%s</a></li>\n' % (link_prefix, c, c)
+			
+	template_header = read_file( ETC + "fg_docx_header.html" )
+	template_header = template_header.replace("___NAV_ITEMS___", nav_str)
+	write_file( work_dir + "fg_docx_header.html", template_header)
 	
 	##############################################
 	## Create temp doxy string and write to file
@@ -204,13 +243,12 @@ def process_project(proj, pvals):
 	
 	## make config string and write to file
 	dox_config_str = dox_default + dox_override
-	print dox_config_str
+	#print dox_config_str
 	temp_doxy_file = "fg_temp_doxy.conf"
 	temp_config_full_path = work_dir +  temp_doxy_file
-	os.remove(temp_config_full_path)
-	fwrite = open(temp_config_full_path, "w")
-	fwrite.write(dox_config_str)
-	fwrite.close()
+	if os.path.exists( temp_config_full_path ):
+		os.remove(temp_config_full_path)
+	write_file( temp_config_full_path, dox_config_str)
 	if V > 0:
 		print "> Wrote temp doy file: %s" % temp_config_full_path
 	
@@ -254,10 +292,7 @@ if not os.path.exists(BUILD):
 
 	
 	
-## Load Config
-yaml_str = read_file( ROOT + "config.yaml" )
-#print yaml_str
-conf = yaml.load( yaml_str )
+
 
 print "> Loaded config: %s" % " ".join( conf.keys() )
 
