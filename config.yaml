@@ -1,4 +1,5 @@
 fgms-0:
+    abbrev: FGMS 0.prod
     title: FlightGear Multiplayer Server (0.x Stable)
     runlevel: 0
     color: "#A684AC"
@@ -11,6 +12,7 @@ fgms-0:
     doxy_file: docx/doxy.conf
 
 fgms-1:
+    abbrev: FGMS 1.x
     title: FlightGear Multiplayer Server (1.x Dev)
     runlevel: 0
     color: "#A684AC"
@@ -22,6 +24,7 @@ fgms-1:
     doxy_file: docx/doxy.conf 
 
 osg:
+    abbrev: OSG
     title: OpenSceneGraph
     runlevel: 15
     color: "#5F89B3"
@@ -36,7 +39,8 @@ osg:
        INPUT: DoxyMain-osg.cpp src/
 
 plib:
-    title: Steves's Portable Game Library
+    abbrev: PLIB
+    title: Portable Game Library
     runlevel: 10
     color: "#539053"
     version: 
@@ -53,9 +57,10 @@ plib:
        HTML_COLORSTYLE_GAMMA: 220
 
 fg-docs:
+    abbrev: fg-docs
     title: FlightGear Documentation Project
     runlevel: 100
-    color: red
+    color: "#989898"
     version: 
         number: 0.1
     repo: git
@@ -63,10 +68,17 @@ fg-docs:
     official: 1
     copy:
       - etc/DoxyMain-fgdocs.cpp
-      - py_update.py
+      - fgdocs.py
+      - config.yaml
+      - etc/doxy-default.conf
     doxy_args:
-       INPUT: DoxyMain-fgdocs.cpp py_update.py
-       GENERATE_TREEVIEW: NO
+       INPUT: DoxyMain-fgdocs.cpp fgdocs.py project_pages.cpp
        SHOW_NAMESPACES: NO
        EXAMPLE_PATH: ./
-
+       OPTIMIZE_OUTPUT_JAVA: YES
+       JAVADOC_AUTOBRIEF: YES
+       HTML_COLORSTYLE_HUE: 200
+       HTML_COLORSTYLE_SAT: 0
+       HTML_COLORSTYLE_GAMMA: 240
+       HIDE_SCOPE_NAMES: YES
+       GENERATE_TREEVIEW: NO

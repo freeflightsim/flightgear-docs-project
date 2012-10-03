@@ -1,4 +1,6 @@
-www_root/index.json
+*.pyc
 temp/
 build/
+.project
+.pydevproject
 

@@ -2,7 +2,7 @@
 table#projects_index{
 	box-shadow: 5px 5px 5px #dddddd;
 	font-size: 10pt;
-	width: 90%;
+	width: 100%;
 	
 }
 
@@ -273,7 +273,6 @@ table#projects_index{
 	background: -ms-linear-gradient(left,  #eeeeee 0%,#cccccc 100%);
 	background: linear-gradient(to right,  #eeeeee 0%,#cccccc 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=1 );
-	
 }
 
 #fg_docx_header h1{
@@ -282,7 +281,7 @@ table#projects_index{
 	font-size: 10pt;
 	font-weight: bold;
 	text-align: left;
-	padding: 18px 0 0 60px;
+	padding: 15px 0 0 60px;
 	font-family: monospace;
 }
 
@@ -309,7 +308,8 @@ table#projects_index{
 	background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%); 
 	background: -webkit-linear-gradient(top, #efefef 0%,#bbbbbb 100%); 
 	box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
-	
+	margin: 0 0 3px 0;
+	padding: 0;
 	border-radius: 10px;  
 	list-style: none;
 	position: relative;
@@ -393,4 +393,22 @@ table#projects_index{
 	margin: 0px;
 	padding: 0px;
 	color: #444444;
+}
+
+
+.contents h1 {
+	font-size: 12pt;
+	color: #555555;
+	background-color: #efefef;
+	font-weight: bold;
+	border-left: 8px solid #cccccc;
+	border-top: 2px solid #cccccc;
+	border-bottom: 2px solid #cccccc;
+	border-right: 100px solid #cccccc;
+	margin: 40px 100px 20px 0;
+	padding: 5px 0 5px 10px;
+	border-top-right-radius: 20px;
+	border-bottom-right-radius: 20px;
+	border-top-left-radius: 2px;
+	border-bottom-left-radius: 2px;
 }
