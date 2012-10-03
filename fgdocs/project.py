@@ -13,9 +13,9 @@ import pysvn
 import helpers as h
 
 ## Builds a project
-class Project:
+class ProjectBuilder:
 	
-	## Initialze the project from configs
+	## Initialze the project builder from configs
 	# @param mainConf - a config.Config instance
 	# @param projObj - a config.ProjectConfig instance
 	# @param verbose - verbosity of output
@@ -27,7 +27,7 @@ class Project:
 		## Config object
 		self.main_conf = mainConf
 		
-		## ProjectConfig   object
+		## ProjectConfig  object
 		self.conf = projObj 
 		
 	## Prepare the project, copying files, setting up doxy etc    
@@ -88,7 +88,7 @@ class Project:
 		#### copy required file
 		if self.V > 0:
 			print "> Copying build files:"
-		for f in ["fg_xstyle.css"]:
+		for f in ["fg_xstyle.css", "fg_docx_footer.html"]:
 			if self.V > 0:
 				print ">   copied: %s" % f
 			shutil.copyfile( self.conf.ETC + f , self.conf.work_dir + f )
@@ -126,6 +126,7 @@ class Project:
 		xover.append('HTML_OUTPUT=%s' %  "./")
 		xover.append('GENERATE_TAGFILE=' + self.conf.build_dir + self.conf.proj + ".tag")
 		xover.append('HTML_HEADER = fg_docx_header.html')
+		xover.append('HTML_FOOTER = fg_docx_footer.html')
 		xover.append('HTML_EXTRA_STYLESHEET = "fg_xstyle.css"')
 		xover.append('TREEVIEW_WIDTH = 120')
 		#xover.append('FILTER_SOURCE_FILES: YES')
@@ -341,6 +342,8 @@ class Project:
 				
 		return s
 	
+	## Return the html index page. This is included in \ref mainpage
+	# @retval str The table contents
 	def get_projects_table_html(self):
 		s = '<table id="projects_index">\n'
 		s += "<tr>\n"

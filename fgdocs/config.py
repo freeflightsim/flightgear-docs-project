@@ -13,6 +13,7 @@ import operator
 import helpers as h
 
 ## The base config class inherited by Config and ProjectConfig
+# The core class creates class constants such as the project root, temp paths etc
 class ConfigCore(object):
 	
 	## This project itself    
@@ -142,7 +143,9 @@ class ProjectConfig(ConfigCore):
 		if 'file' in dic['version']:
 			self.version_file = dic['version']['file'].strip()
 		
-	
+		## Placeholde Version. populated by:
+		self.version = None
+		
 		## The full path to the temp doxy file
 		self.temp_doxy_path = self.work_dir + self.TEMP_DOXY
 
@@ -204,7 +207,8 @@ class Config(ConfigCore):
 			dic['proj'] = c
 			lst.append(dic)
 		return lst
-		
+	
+	## Return the project index 
 	def get_projects_index(self, load_info=True, runlevel=False):
 		
 		#if runlevel:
@@ -223,7 +227,10 @@ class Config(ConfigCore):
 					proj.date_updated = data['date_updated']
 			proj_lst.append(proj)
 		return proj_lst
-			
+		
+	## Loads a json encoded fiel from path
+	# @param file_path to json encoded file
+	# @retval dict of values if file exists and readable, else None
 	def load_json_info(self, file_path):
 		if os.path.exists(file_path):
 			json_str = h.read_file(file_path)  
@@ -231,21 +238,6 @@ class Config(ConfigCore):
 			return dic
 		return None
 		
-
-
-	def DEADget_project_keys(self, runlevel=False):
-		return self.conf.keys()
-	
-	def DEADprojects(self):
-		ulist = []
-		for proj in self.conf:
-			dic = self.conf[proj]
-			dic['runlevel'] = int(dic['runlevel']) if  'runlevel' in dic else 0
-			dic['proj'] = proj
-			ulist.append(dic)
-		compile_list = sorted(ulist, key=operator.itemgetter('runlevel'))    
-		for p in compile_list:
-			print p['proj'] , p['runlevel']
 		
 	## Return is configuration available for project
 	# @param proj the project key

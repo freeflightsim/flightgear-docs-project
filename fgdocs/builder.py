@@ -4,8 +4,14 @@ import os
 import shutil
 
 from config import Config
-from project import Project
+from project import ProjectBuilder
 
+## The docs builder is the class that runs things
+# - It does this by checking the commands are sane
+# - Then checking the commands and executing
+# @param parser 
+# @param opts The parser opts
+# @param args 
 class DocsBuilder:
     
     COMMANDS = ['build', 'buildall', 'view', 'clean', 'nuke']
@@ -95,12 +101,8 @@ class DocsBuilder:
             
     def build_project(self, proj):
         projConf = self.conf.get_project_config_object(proj)
-        projObj = Project(self.conf, projConf)
+        projObj = ProjectBuilder(self.conf, projConf)
         projObj.prepare()
-        
-        #if projConf.is_main:
-        # #   self.write_html_index()
-        # #   self.write_projects_pages_cpp()      
         projObj.build()     
             
     def do_view(self):

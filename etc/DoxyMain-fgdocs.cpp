@@ -118,7 +118,7 @@
  * 
  * 
  ******************************************************************* 
- * \page config_yaml config.yaml
+ * \page config_yaml Configuration with config.yaml
  * - The build configuration is contained within the file \b config.yaml. 
  * - The configuration is loaded by \ref Config and ProjectConfig
  * 
@@ -181,6 +181,12 @@
  * - \b doxy_file: The doxy file to use, if there is one, otherwise omit
  * \subsection doxy_args_conf doxy_args: 
  * A list of doxygen config args. This is appended to the doxy source and overries settings.
+ * 
+ * \section tags_config Tags Config
+ * The "tag" project are interlinked,
+ * \code
+ * tag: simgear plib osg
+ * \endcode
  * 
  * \section current_config Current Config
  * \include config.yaml
