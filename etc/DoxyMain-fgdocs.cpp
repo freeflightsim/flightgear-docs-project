@@ -3,8 +3,9 @@
  * 
  * The projects below are automatically updated daily. See here for more info
  * 
- * \page intro Introduction to Auto Docs
+ * \page about About the Documentation Project
  * 
+ * \section intro Introduction
  * The "tool" of this project is doxygen, a c++ tool to parse source code and then output
  * into various formats. The one we are interested in is html.
  * 
@@ -48,6 +49,10 @@
  * 
  * - this project
  * 
+ * - requirements
+ *  python-yaml
+ * python-git
+ * doxygen 1.8+
  * 
  * 
  * 
