@@ -118,17 +118,17 @@ class Project:
             h.write_file( self.conf.work_dir + "project_pages.cpp",  self.get_projects_pages_cpp())
             
         ## Append and override the main settings from here
-        xover.append('PROJECT_NAME="%s"' % proj)
+        xover.append('PROJECT_NAME="%s"' % self.conf.proj)
         
         ## get version no from yaml, or source file
-        version = self.get_version()     
+        self.version = self.get_version()     
                 
-        xover.append('PROJECT_NUMBER="%s"' % version)
+        xover.append('PROJECT_NUMBER="%s"' % self.version)
         xover.append('PROJECT_BRIEF="%s"' % self.conf.title)
             
         xover.append('OUTPUT_DIRECTORY=' + self.conf.build_dir )
         xover.append('HTML_OUTPUT=%s' %  "./")
-        xover.append('GENERATE_TAGFILE=' + self.conf.build_dir + self.conf.ssproj + ".tag")
+        xover.append('GENERATE_TAGFILE=' + self.conf.build_dir + self.conf.proj + ".tag")
         xover.append('HTML_HEADER = fg_docx_header.html')
         xover.append('HTML_EXTRA_STYLESHEET = "fg_xstyle.css"')
         xover.append('TREEVIEW_WIDTH = 120')
@@ -143,14 +143,15 @@ class Project:
         ## make config string and write to file
         dox_config_str = dox_file_contents + dox_override
         #print dox_config_str
-        self.write_temp_doxy()
+        self.write_temp_doxy(dox_config_str)
         
+    def compile(self):
         print "\n> Compile: "
-        os.chdir(work_dir)
+        os.chdir(self.conf.work_dir)
         if V > 0:
             print "  > curdir: %s" % os.path.abspath( os.curdir )
         
-        dox_cmd =  "doxygen ./%s " % temp_doxy_file 
+        dox_cmd =  "doxygen ./%s " % self.conf.temp_doxy_file 
         if V > 0:
             print "  > command: %s" % dox_cmd
         os.system( dox_cmd  )
@@ -160,10 +161,10 @@ class Project:
         for f in ["logo-23.png"]:
             if V > 0:
                 print ">   copied: %s" % f
-            shutil.copyfile( ETC + f , build_dir + f )
+            shutil.copyfile( self.conf.ETC + f , self.conf.build_dir + f )
         
         ## write info json
-        h.write_info_file(proj, version, pvals)
+        h.write_info_file(self.conf.proj, self.conf.version, pvals)
         
         print "< Done: %s" % proj
 
@@ -218,8 +219,8 @@ class Project:
             nav_str += '<li><a href="index.html">Home</a></li>\n'
         else:
             nav_str += '<li><a href="../">Home</a></li>\n' 
-        link_prefix = "" if is_main else "../"
-        for c in conf:
+        link_prefix = "" if self.is_main else "../"
+        for c in self.conf:
             if c != "fg-docs":
                 nav_str += '<li><a href="%s%s/">%s</a></li>\n' % (link_prefix, c, conf[c]['abbrev'])
         return nav_str
@@ -249,12 +250,12 @@ class Project:
         if not self.conf.doxy_args:
             if self.V > 0:
                 print "  > No vars"
-            return "\n"
+            return []
         
         xover = []
         for dox in self.conf.doxy_args:
             xover.append(dox )
-        return "\n".join(xover)
+        return xover
 
  
     

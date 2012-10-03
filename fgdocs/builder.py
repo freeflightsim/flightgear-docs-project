@@ -97,9 +97,9 @@ class DocsBuilder:
         projObj = Project(self.conf, projConf)
         projObj.prepare()
         
-        if projConf.is_main:
-            self.write_html_index()
-            self.write_projects_pages_cpp()      
+        #if projConf.is_main:
+        # #   self.write_html_index()
+        # #   self.write_projects_pages_cpp()      
         projObj.build()     
             
     def do_view(self):
