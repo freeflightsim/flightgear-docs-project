@@ -1,7 +1,7 @@
 /**
- * \mainpage Docs Index
+ * \mainpage Projects Index
  * 
- * The projects below are automatically updated daily. See here for more info
+ * The projects below are automatically updated daily. See \about for more info.
  * 
  * \htmlinclude projects_index.html
  * 

@@ -8,7 +8,7 @@ import shutil
 import yaml
 import simplejson as json
 import git
-
+import pysvn
 
 ## Handle Command Args
 usage = "usage: %prog [options] show|build|clean|nuke proj1 proj2 .. projn"
@@ -46,7 +46,7 @@ command = args[0]
 if V > 1:
 	print "#> command=", command
 
-if not command in ['build','view','clean', 'nuke']:
+if not command in ['build', 'buildall', 'view', 'clean', 'nuke']:
 	parser.error("Need a command")
 	sys.exit(0)
 
@@ -61,9 +61,6 @@ TEMP = ROOT + "temp/"
 BUILD = ROOT + "build/"
 DEFAULT_DOXY = "doxy-default.conf"
 INFO_JSON = "info.json"
-
-
-
 
 
 #####################################################################################################	
@@ -171,28 +168,43 @@ def process_project(proj, pvals):
 	########################################################
 	## Git Check
 	if not is_main:
-		print "  > Checking is git repos at: %s" % work_dir + "/.git"
 		
-		#rep = git.Repo(work_dir)
-		if not os.path.exists(work_dir + "/.git/"):
-			#os.chdir(TEMP)
-			print "Cloning new Repo"
-			shutil.rmtree( work_dir )
-			#print "work_dir=", work_dir
-			#cmd = "git clone %s %s" % (pvals['git'], proj )
-			#print "git clone= ", cmd
-			#os.system(cmd)
-			os.chdir(TEMP)
-			g = git.Git( TEMP )
-			g.clone(pvals['git'], proj)
+		if pvals['repo'] == "git":
 		
+			print "  > Checking is git repos at: %s" % work_dir + "/.git"
 		
-		branch = pvals['branch'] if "branch" in pvals else "master"
-		print "\t\t\tCheckout branch: %s" % branch
-		g = git.Git( TEMP + proj)
-		print g.checkout(branch)
-		print g.pull()
+			#rep = git.Repo(work_dir)
+			if not os.path.exists(work_dir + "/.git/"):
+				#os.chdir(TEMP)
+				print "Cloning new Repo"
+				shutil.rmtree( work_dir )
+				#print "work_dir=", work_dir
+				#cmd = "git clone %s %s" % (pvals['git'], proj )
+				#print "git clone= ", cmd
+				#os.system(cmd)
+				os.chdir(TEMP)
+				g = git.Git( TEMP )
+				g.clone(pvals['git'], proj)
+			
+			
+			branch = pvals['branch'] if "branch" in pvals else "master"
+			print "\t\t\tCheckout branch: %s" % branch
+			g = git.Git( TEMP + proj)
+			print g.checkout(branch)
+			print g.pull()
 		
+		elif pvals['repo'] == "svn":
+			
+			if not os.path.exists(work_dir + "/.svn/"):
+				print "Checkout out svn"
+				svn = pysvn.Client()
+				print pvals
+				print svn.checkout( pvals['checkout'] , work_dir, recurse=True)
+			else:
+				print "SVN update"
+				svn = pysvn.Client()
+				svn.update( work_dir, recurse=True )
+		#sys.exit(0)
 		#print rep.is_dirty
 		#print rep.git.status()
 	else:
@@ -395,6 +407,9 @@ if command == "build":
 			process_project(proj, conf[proj])
 	
 
-
-
+if command == "buildall":
+	for proj in conf:
+		if proj != "fg-docs":
+			process_project(proj, conf[proj])
+	process_project("fg-docs", conf["fg-docs"])
 

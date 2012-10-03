@@ -21,16 +21,32 @@ fgms-1:
 
 plib:
     title: Steves's Portable Game Library
+    color: "#539053"
     version: 
         number: 1.8.5
     repo: svn
-    checkout: https://plib.svn.sourceforge.net/svnroot/plib/trunk plib externals/plib
+    checkout: https://plib.svn.sourceforge.net/svnroot/plib/trunk
     official: 1
-    #doxy_preset_file: doxy-plib.conf
     copy:
       - etc/DoxyMain-plib.cpp
+    doxy_args:
+       INPUT: DoxyMain-plib.cpp src/
+       HTML_COLORSTYLE_HUE: 120
+       HTML_COLORSTYLE_SAT: 80
+       HTML_COLORSTYLE_GAMMA: 220
 
-
+osg:
+    title: OpenSceneGraph
+    color: "#5F89B3"
+    version: 
+        number: 1.8.5
+    repo: svn
+    checkout: http://www.openscenegraph.org/svn/osg/OpenSceneGraph/tags/OpenSceneGraph-3.1.1
+    official: 1
+    copy:
+      - etc/DoxyMain-osg.cpp
+    doxy_args:
+       INPUT: DoxyMain-osg.cpp src/
 
 fg-docs:
     title: FlightGear Documentation Project

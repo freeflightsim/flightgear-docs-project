@@ -31,6 +31,15 @@ table#projects_index{
 	font-weight: normal;
 }
 
+#projects_index td a{
+	color: #000099;
+}
+#projects_index td a.lnk{
+	font-size: 12pt;
+	font-weight: bold;
+	color: #444444;
+	padding-left: 10px;
+}
 /****************************************************************************/
 /* Top Menu */
 /****************************************************************************/
