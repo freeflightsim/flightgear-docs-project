@@ -1,7 +1,7 @@
-fgms-0:
+fgsms-0:
     title: FlightGear Multiplayer Server (0.x Stable)
     version: 
-        no: git
+        number: 0.x.stable
     repo: git
     git: git://gitorious.org/~ffs/fgms/ffss-fgms-0-x.git
     branch: master
@@ -12,7 +12,7 @@ fgms-0:
 fgms-1:
     title: FlightGear Multiplayer Server (1.x Dev)
     version: 
-        no: git
+        number: 1.x.dev
     repo: git
     git: git://gitorious.org/~ffs/fgms/ffs-docs-fgms-1-x
     official: 0
@@ -21,7 +21,7 @@ fgms-1:
 fg-docs:
     title: FlightGear Documentation Project
     version: 
-        no: 0.1
+        number: 0.1
     repo: git
     git: https://git.gitorious.org/~ffs/flightgear-docs-project
     official: 1

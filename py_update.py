@@ -9,7 +9,7 @@ import yaml
 import git
 
 ## Handle Command Args
-usage = "usage: %prog [options] prog1 prog2 .. progN"
+usage = "usage: %prog [options] show|build|clean|nuke proj1 proj2 .. projn"
 parser = OptionParser(usage=usage)
 parser.add_option(	"-a", "--all", 
 					action="store_true", dest="all", default=False, 
@@ -26,44 +26,40 @@ parser.add_option(	"-v", "--verbose", nargs=1,
 
 (opts, args) = parser.parse_args()
 
-print "========================================================="
-print "options=", opts, opts.v
-print "args=", args
+V = opts.v
+"""Verbose"""
+
+
+if V > 2:
+	print "========================================================="
+	print "options=", opts, opts.v
+	print "args=", args
 
 
 if not opts.all and len(args) == 0:
-	parser.error("Error: need to supply a list of repo, or all")
+	parser.error("Need to supply a command")
 	sys.exit(0)
-	
-	
-############################################################################
-print "---------------"
 
-V = opts.v
+command = args[0]
+if V > 1:
+	print "#> command=", command
 
-## PATH constants 
-## - Please note these all have a TRAILING SLASH foo/
+if not command in ['build','view','clean', 'nuke']:
+	parser.error("Need a command")
+	sys.exit(0)
+
+
+
+
+
+## PATH constants - Please note these all have a TRAILING SLASH foo/
 ROOT = os.path.abspath( os.path.dirname(__file__) ) + "/"
 ETC = ROOT + "etc/"
 TEMP = ROOT + "temp/"
 BUILD = ROOT + "build/"
 
 
-print "> ROOT: %s" % ROOT
-
-
-## Create temp and build dirs
-if not os.path.exists(TEMP):
-	if V > 0:
-		print "\t\t Created working dir: temp/"
-	os.mkdir(TEMP)
-
-if not os.path.exists(BUILD):
-	if V > 0:
-		print "\t\t Created working dir: build/"
-	os.mkdir(BUILD)	
-
-	
+#####################################################################################################	
 def read_file(path_to_file):
 	fob = open( path_to_file, "r")
 	file_content = fob.read()
@@ -79,10 +75,10 @@ def process_project(proj, pvals):
 	
 	is_main = proj == "fg-docs"
 	
-	if is_main:
-		work_dir = ROOT + ""
-	else:
-		work_dir = TEMP + proj + "/"
+	#if is_main:
+	#	work_dir = ROOT + ""
+	#else:
+	work_dir = TEMP + proj + "/"
 	
 	##===========================================
 	
@@ -139,8 +135,8 @@ def process_project(proj, pvals):
 		
 	## copy the templates
 	if V > 0:
-		print "> Copying essential files:"
-	for f in ["fg_docx_header.html", "logo-23.png"]:
+		print "> Copying build files:"
+	for f in ["fg_docx_header.html",  "fg_xstyle.css"]:
 		if V > 0:
 			print ">   copied: %s" % f
 		shutil.copyfile( ROOT + "etc/" + f , work_dir + f )
@@ -178,8 +174,8 @@ def process_project(proj, pvals):
 	## get version no from yaml, or source file
 	version = "-na-"
 	if 'version' in pvals:
-		if 'no' in pvals['version']:
-			version = pvals['version']['no']
+		if 'number' in pvals['version']:
+			version = pvals['version']['number']
 			
 		elif 'file' in pvals['version']:
 			version = read_file( work_dir + pvals['version']['file'] ).strip()
@@ -189,6 +185,8 @@ def process_project(proj, pvals):
 	xover.append("OUTPUT_DIRECTORY=" + build_dir )
 	xover.append("HTML_OUTPUT=%s" %  "./")
 	xover.append("GENERATE_TAGFILE=" + build_dir + proj + ".tag")
+	xover.append("HTML_HEADER = fg_docx_header.html")
+	xover.append("HTML_EXTRA_STYLESHEET = fg_xstyle.css")
 	dox_override = "\n".join(xover)
 	
 	if V > 0:
@@ -211,12 +209,38 @@ def process_project(proj, pvals):
 	print "curdir", os.path.abspath( os.curdir )
 	dox_cmd =  "doxygen %s " % temp_doxy_file 
 	print "dox_cmd=", dox_cmd
-	os.system( "doxygen ./%s " % temp_doxy_file  )
+	#os.system( "doxygen ./%s " % temp_doxy_file  )
+	
+	if V > 0:
+		print "> Copying extra files:"
+	for f in ["logo-23.png"]:
+		if V > 0:
+			print ">   copied: %s" % f
+		shutil.copyfile( ETC + f , build_dir + f )
+		
+	print "< Done: %s" % proj
 	
 	
-	print "\t\t Done: %s" % proj
 	
 #####################################################################################################
+
+
+print "> ROOT: %s" % ROOT
+
+
+## Create temp and build dirs
+if not os.path.exists(TEMP):
+	if V > 0:
+		print "\t\t Created working dir: temp/"
+	os.mkdir(TEMP)
+
+if not os.path.exists(BUILD):
+	if V > 0:
+		print "\t\t Created working dir: build/"
+	os.mkdir(BUILD)	
+
+	
+	
 ## Load Config
 yaml_str = read_file( ROOT + "config.yaml" )
 #print yaml_str
@@ -224,24 +248,37 @@ conf = yaml.load( yaml_str )
 
 print "> Loaded config: %s" % " ".join( conf.keys() )
 
-
-## Check that the project args are in config
-errs = []
-if not opts.all:
-	for a in args:
-		if not a in conf:
-			errs.append(a)
-if len(errs):
-	print "Error: project%s not exist: %s" % ( "s" if len(errs) > 0 else "", ", ".join(errs))
+#############################################################
+if command == "view":
+	print yaml_str
 	sys.exit(0)
 
+if command == "clean":
+	shutil.rmtree(BUILD)
+	print "> Nuked build: %s" % BUILD
+	sys.exit(0)
+	
+#############################################################	
+if command == "build":
+	projects = args[1:]
+	print projects
+	## Check that the project args are in config
+	errs = []
+	if not opts.all:
+		for a in projects:
+			if not a in conf:
+				errs.append(a)
+	if len(errs):
+		print "Error: project%s not exist: %s" % ( "s" if len(errs) > 0 else "", ", ".join(errs))
+		sys.exit(0)
 
-if opts.all:
-	for proj in conf:
-		print "proj", proj
-else:
-	for proj in args:
-		process_project(proj, conf[proj])
+
+	if opts.all:
+		for proj in conf:
+			print "proj", proj
+	else:
+		for proj in projects:
+			process_project(proj, conf[proj])
 	
 
 
