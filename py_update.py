@@ -122,21 +122,24 @@ def process_project(proj, pvals):
 			shutil.rmtree(build_dir)
 		if V > 1:
 			print "\t creating build directory: %s" % build_dir
-		os.mkdir(build_dir)
+		
+		#os.mkdir(build_dir)
 	
 	########################################################
 	## Git Check
 	if not is_main:
-		print "\t\tChecking is git repos at: %s" % work_dir
+		print "  > Checking is git repos at: %s" % work_dir + "/.git"
 		
 		#rep = git.Repo(work_dir)
-		if not os.path.exists(TEMP + proj):
+		if not os.path.exists(work_dir + "/.git/"):
 			#os.chdir(TEMP)
 			print "Cloning new Repo"
+			shutil.rmtree( work_dir )
 			#print "work_dir=", work_dir
 			#cmd = "git clone %s %s" % (pvals['git'], proj )
 			#print "git clone= ", cmd
 			#os.system(cmd)
+			os.chdir(TEMP)
 			g = git.Git( TEMP )
 			g.clone(pvals['git'], proj)
 		
@@ -159,7 +162,7 @@ def process_project(proj, pvals):
 		shutil.copyfile( ROOT + "py_update.py", work_dir + "py_update.py")
 		
 
-
+	
 	
 	#print nav_str
 	#sys.exit(0)
