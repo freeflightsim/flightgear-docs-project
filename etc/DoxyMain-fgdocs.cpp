@@ -3,6 +3,8 @@
  * 
  * The projects below are automatically updated daily. See here for more info
  * 
+ * \htmlinclude projects_index.html
+ * 
  * \page about About the Documentation Project
  * 
  * \section intro Introduction

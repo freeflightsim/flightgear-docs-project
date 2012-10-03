@@ -1,5 +1,35 @@
 
+table#projects_index{
+	box-shadow: 5px 5px 5px #dddddd;
+	font-size: 10pt;
+	width: 90%;
+	
+}
 
+#projects_index tr{
+	background-color: white;
+	border-bottom: 1px outset #dddddd;
+}
+#projects_index tr:hover{
+	background-color: #FFFBA4;
+	border-bottom: 1px outset #aaaaaa;
+}
+
+
+#projects_index th{
+	background-color: #efefef;
+	border: 1px outset #dddddd;
+	text-align: left;
+	margin: 0;
+	font-weight: normal;
+}
+#projects_index td{
+	
+	border-bottom: 1px outset #dddddd;
+	margin: 0;
+	padding: 3px;
+	font-weight: normal;
+}
 
 /****************************************************************************/
 /* Top Menu */

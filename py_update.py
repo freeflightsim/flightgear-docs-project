@@ -60,7 +60,7 @@ ETC = ROOT + "etc/"
 TEMP = ROOT + "temp/"
 BUILD = ROOT + "build/"
 DEFAULT_DOXY = "doxy-default.conf"
-
+INFO_JSON = "info.json"
 
 
 
@@ -86,9 +86,9 @@ def write_info_file(proj, version, conf):
 				project=proj
 			)
 	if proj == "fg-docs":
-		fn = BUILD + "info.json"
+		fn = BUILD + INFO_JSON
 	else:
-		fn = BUILD + proj  +  "/info.json"
+		fn = BUILD + proj  +  "/" + INFO_JSON
 	write_file(fn, json.dumps(dic) )
 	
 ## Load Config
@@ -97,20 +97,33 @@ yaml_str = read_file( ROOT + "config.yaml" )
 conf = yaml.load( yaml_str )
 
 
-def make_home_page(conf):
-	s = "<table>"
-	s += "<tr>"
-	s += "<th>Browse Html</th><th>Zip</th><th>Version</th><th>Updated</th><th>Repo</th><th>Checkout</th>"
-	s += "</tr>"
-	for c in conf:
-		if c != "fg-docs":
-			v = conf[c]
-			s += '<tr><td><a class="lnk" href="%s/" style="border-left: 10px solid %s;">' % (c, "red")
-			s += '%s</a></td>' % (conf['title'])
-			s += '<td><a target="_blank" href="%s/%s.zip">%s.zip</a></td>' % (c, c)
-			s += '<td>%s</td><td>%s</td>' % (version)
-			s += '<td>%s</td><td>%s</td></tr>' % (conf['repo'], conf['git'] if conf['repo'] == "git" else repo['svn'])
-	s + "</table>"
+def make_projects_table():
+	s = '<table id="projects_index">\n'
+	s += "<tr>\n"
+	s += "\t<th>Browse Html</th><th>Zip</th><th>Version</th><th>Updated</th><th>Repo</th><th>Checkout</th>"
+	s += "\n</tr>\n"
+	for proj in conf:
+		pconf = conf[proj]
+		is_main = proj == "fg-docs"
+		js_filen =  BUILD + INFO_JSON if is_main else BUILD + proj + "/" + INFO_JSON
+		data = None
+		if os.path.exists(js_filen):
+			json_str = read_file(js_filen)
+			data = json.loads(json_str)
+		print data
+		#if c != "fg-docs":
+		color = pconf['color'] if 'color' in pconf else "blue"
+		version = data['version'] if data else pconf['version']['number']
+		title = pconf['title']
+		repo = pconf['repo']
+		checkout = pconf['checkout']
+		#v = conf[proj]
+		s += '\n<tr>\n\t<td><a class="lnk" href="%s/" style="border-left: 10px solid %s;">' % (proj, color)
+		s += '%s</a></td>' % (title)
+		s += '\n<td><a target="_blank" href="%s/%s.zip">%s.zip</a></td>' % (proj, proj, proj)
+		s += '\n<td>%s</td><td>%s</td>' % (version, "date")
+		s += '\n<td>%s</td><td>%s</td>\n</tr>\n' % (repo, checkout)
+	s += "</table>"
 	return s
 
 #####################################################################################################
@@ -255,6 +268,9 @@ def process_project(proj, pvals):
 	else:
 		if V > 0:
 			print "  > No vars"
+	
+	if is_main:
+		write_file(work_dir + "projects_index.html", make_projects_table())
 	
 	## Append and override the main settings from here
 	xover.append('PROJECT_NAME="%s"' % proj)

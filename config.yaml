@@ -4,7 +4,7 @@ fgms-0:
     version: 
         number: 0.x.stable
     repo: git
-    git: git://gitorious.org/~ffs/fgms/ffss-fgms-0-x.git
+    checkout: git://gitorious.org/~ffs/fgms/ffss-fgms-0-x.git
     branch: master
     official: 0
     doxy_file: docx/doxy.conf
@@ -15,7 +15,7 @@ fgms-1:
     version: 
         number: 1.x.dev
     repo: git
-    git: git://gitorious.org/~ffs/fgms/ffs-docs-fgms-1-x
+    checkout: git://gitorious.org/~ffs/fgms/ffs-docs-fgms-1-x
     official: 0
     doxy_file: docx/doxy.conf 
 
@@ -24,7 +24,7 @@ plib:
     version: 
         number: 1.8.5
     repo: svn
-    svn: https://plib.svn.sourceforge.net/svnroot/plib/trunk plib externals/plib
+    checkout: https://plib.svn.sourceforge.net/svnroot/plib/trunk plib externals/plib
     official: 1
     #doxy_preset_file: doxy-plib.conf
     copy:
@@ -38,7 +38,7 @@ fg-docs:
     version: 
         number: 0.1
     repo: git
-    git: https://git.gitorious.org/~ffs/flightgear-docs-project
+    checkout: https://git.gitorious.org/~ffs/flightgear-docs-project
     official: 1
     copy:
       - etc/DoxyMain-fgdocs.cpp
@@ -46,3 +46,4 @@ fg-docs:
     doxy_args:
        INPUT: DoxyMain-fgdocs.cpp py_update.py
        GENERATE_TREEVIEW: NO
+       EXAMPLE_PATH: ./
