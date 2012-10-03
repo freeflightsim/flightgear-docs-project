@@ -57,7 +57,7 @@ ROOT = os.path.abspath( os.path.dirname(__file__) ) + "/"
 ETC = ROOT + "etc/"
 TEMP = ROOT + "temp/"
 BUILD = ROOT + "build/"
-
+DEFAULT_DOXY = "doxy-default.conf"
 
 #####################################################################################################	
 def read_file(path_to_file):
@@ -75,37 +75,38 @@ def process_project(proj, pvals):
 	
 	is_main = proj == "fg-docs"
 	
-	#if is_main:
-	#	work_dir = ROOT + ""
-	#else:
 	work_dir = TEMP + proj + "/"
 	
+	if is_main:
+		build_dir = BUILD 
+	else:
+		build_dir = BUILD + proj + "/"
+		
 	##===========================================
-	
-	if not is_main: 
-		git_exists = False
-		if V > 1:
-			print "\tchecking if temp/work_dir exists: %s" % work_dir
-		if not os.path.exists(work_dir):
-			if V > 1:
-				print "\t\tcreating temp/work_dir path: %s" % work_dir
-				#os.mkdir(work_dir)
-		else:
-			if V > 1:
-				print "\t\tpath Exists temp/work_dir path: %s" % work_dir	
-	
-	##===========================================
-	build_dir = BUILD + proj + "/"
-	# nuke and recreate build:
-	if V > 0:
-		print "\t checking build directory exits: %s" % build_dir
-	if os.path.exists(build_dir):
-		if V > 1:
-			print "\t nuking build directory: %s" % build_dir
-		shutil.rmtree(build_dir)
 	if V > 1:
-		print "\t creating build directory: %s" % build_dir
-	os.mkdir(build_dir)
+		print "\tchecking if temp/work_dir exists: %s" % work_dir
+	if not os.path.exists(work_dir):
+		if V > 1:
+			print "\t\tcreating temp/work_dir path: %s" % work_dir
+		os.mkdir(work_dir)
+	else:
+		if V > 1:
+			print "\t\tpath Exists temp/work_dir path: %s" % work_dir	
+	
+	##===========================================
+
+		
+	# nuke and recreate build:
+	if not is_main:
+		if V > 0:
+			print "\t checking build directory exits: %s" % build_dir
+		if os.path.exists(build_dir):
+			if V > 1:
+				print "\t nuking build directory: %s" % build_dir
+			shutil.rmtree(build_dir)
+		if V > 1:
+			print "\t creating build directory: %s" % build_dir
+		os.mkdir(build_dir)
 	
 	########################################################
 	## Git Check
@@ -132,6 +133,13 @@ def process_project(proj, pvals):
 		
 		#print rep.is_dirty
 		#print rep.git.status()
+	else:
+	
+		if os.path.exists(work_dir + "docx/"):
+			shutil.rmtree(work_dir + "docx/")
+		#os.mkdir(work_dir + "docx/")
+		shutil.copytree( ROOT + "docx/"  , work_dir + "docx"  )
+		shutil.copyfile( ROOT + "py_update.py", work_dir + "py_update.py")
 		
 	## copy the templates
 	if V > 0:
@@ -153,23 +161,23 @@ def process_project(proj, pvals):
 		dox_default = read_file(work_dir + pvals['doxy_file'])
 		
 	else:
-		dox_default = read_file(ETC + "default-doxy.conf")
+		dox_default = read_file(ETC + DEFAULT_DOXY)
 		if V > 0:
-			print "  > using default fg-docs file: etc/default-doxy.conf" 
+			print "  > using default fg-docs file: etc/%s"  % DEFAULT_DOXY
 
 	## Add the extra stuff doxy vars from config
 	if V > 0:
 		print "> Checking doxy vars from config.yaml"
 	xover = []
-	if 'doxy' in pvals: 
-		for dox in vals['doxy']:
-			xover.append( "%s = %s" % (dox, pvals['doxy'][dox]) )
+	if 'doxy_args' in pvals: 
+		for dox in pvals['doxy_args']:
+			xover.append( "%s = %s" % (dox, pvals['doxy_args'][dox]) )
 	else:
 		if V > 0:
 			print "  > No vars"
 	
 	## Append and override the main settings from here
-	xover.append("PROJECT_NAME=%s" % proj)
+	xover.append('PROJECT_NAME="%s"' % proj)
 	
 	## get version no from yaml, or source file
 	version = "-na-"
@@ -179,14 +187,14 @@ def process_project(proj, pvals):
 			
 		elif 'file' in pvals['version']:
 			version = read_file( work_dir + pvals['version']['file'] ).strip()
-	xover.append("PROJECT_NUMBER=%s" % version)
-	xover.append("PROJECT_BRIEF=%s" % pvals['title'])
+	xover.append('PROJECT_NUMBER="%s"' % version)
+	xover.append('PROJECT_BRIEF="%s"' % pvals['title'])
 		
-	xover.append("OUTPUT_DIRECTORY=" + build_dir )
-	xover.append("HTML_OUTPUT=%s" %  "./")
-	xover.append("GENERATE_TAGFILE=" + build_dir + proj + ".tag")
-	xover.append("HTML_HEADER = fg_docx_header.html")
-	xover.append("HTML_EXTRA_STYLESHEET = fg_xstyle.css")
+	xover.append('OUTPUT_DIRECTORY=' + build_dir )
+	xover.append('HTML_OUTPUT=%s' %  "./")
+	xover.append('GENERATE_TAGFILE=' + build_dir + proj + ".tag")
+	xover.append('HTML_HEADER = fg_docx_header.html')
+	xover.append('HTML_EXTRA_STYLESHEET = "fg_xstyle.css"')
 	dox_override = "\n".join(xover)
 	
 	if V > 0:
@@ -196,20 +204,25 @@ def process_project(proj, pvals):
 	
 	## make config string and write to file
 	dox_config_str = dox_default + dox_override
-	temp_doxy_file = "_fg_temp_doxy.conf"
+	print dox_config_str
+	temp_doxy_file = "fg_temp_doxy.conf"
 	temp_config_full_path = work_dir +  temp_doxy_file
+	os.remove(temp_config_full_path)
 	fwrite = open(temp_config_full_path, "w")
 	fwrite.write(dox_config_str)
 	fwrite.close()
 	if V > 0:
 		print "> Wrote temp doy file: %s" % temp_config_full_path
 	
-	
+	print "\n> Compile: "
 	os.chdir(work_dir)
-	print "curdir", os.path.abspath( os.curdir )
-	dox_cmd =  "doxygen %s " % temp_doxy_file 
-	print "dox_cmd=", dox_cmd
-	#os.system( "doxygen ./%s " % temp_doxy_file  )
+	if V > 0:
+		print "  > curdir: %s" % os.path.abspath( os.curdir )
+	
+	dox_cmd =  "doxygen ./%s " % temp_doxy_file 
+	if V > 0:
+		print "  > command: %s" % dox_cmd
+	os.system( dox_cmd  )
 	
 	if V > 0:
 		print "> Copying extra files:"
