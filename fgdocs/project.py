@@ -3,6 +3,7 @@ import os
 import sys
 import datetime
 
+import json
 import shutil
 import git
 import pysvn
@@ -14,28 +15,20 @@ class Project:
     
     ## Initialse the project a config
     # @param confObject - a ProjectConfig instance
-    def __init__(self, confObj, verbose=1):
+    def __init__(self, mainConf, projObj, verbose=1):
         
         ## Vervosity 0-4
         self.V = verbose
         
         ## ProjectConfig object
-        self.conf = confObj 
+        self.main_conf = mainConf
+        self.conf = projObj 
         
-    def build_project(self):
+    def prepare(self):
         if self.V > 0:
             print "---------------------------"
             print "# Processing: %s" % self.conf.proj
-    
-        #is_main = proj == "fg-docs"
-        
-        #work_dir = TEMP + proj + "/"
-        
-        #if is_main:
-        #    build_dir = BUILD 
-        #else:
-        #    build_dir = BUILD + proj + "/"
-            
+                
         ##===========================================
         if self.V > 1:
             print "\tchecking if temp/work_dir exists: %s" % self.conf.work_dir
@@ -65,7 +58,10 @@ class Project:
         
         ########################################################
         ## Git Check
-        if not self.conf.is_main:
+        if self.conf.is_main:
+            pass
+            
+        else:
             
             if self.conf.is_git:
                 self.process_git()
@@ -85,18 +81,7 @@ class Project:
                     print "SVN update"
                     svn = pysvn.Client()
                     svn.update( work_dir, recurse=True )
-            #sys.exit(0)
-            #print rep.is_dirty
-            #print rep.git.status()
-        else:
-            pass
-            ## ITS MAIN, so make up the site
-            #if os.path.exists(work_dir + "docx/"):
-            #    shutil.rmtree(work_dir + "docx/")
-            #os.mkdir(work_dir + "docx/")
-            
-            #shutil.copytree( ROOT + "docx/"  , work_dir + "docx"  )
-            #shutil.copyfile( ROOT + "py_update.py", work_dir + "py_update.py")
+
             
         ## Copy file
         self.copy_files()
@@ -129,7 +114,7 @@ class Project:
         
         ## MAIN project extras
         if self.conf.is_main:
-            h.write_file(self.conf.work_dir + "projects_index.html", self.get_projects_table())
+            h.write_file(self.conf.work_dir + "projects_index.html", self.get_projects_table_html())
             h.write_file( self.conf.work_dir + "project_pages.cpp",  self.get_projects_pages_cpp())
             
         ## Append and override the main settings from here
@@ -271,38 +256,7 @@ class Project:
             xover.append(dox )
         return "\n".join(xover)
 
-    def get_projects_table(self):
-        s = '<table id="projects_index">\n'
-        s += "<tr>\n"
-        s += "\t<th>Project</th><th>Zip</th><th>Version</th><th>Updated</th><th>More..</th>"
-        s += "\n</tr>\n"
-        for p in self.get_projects_index():
-            
-            #pconf = conf[proj]
-            #is_main = proj == "fg-docs"
-            #js_filen =  BUILD + INFO_JSON_FILE if is_main else BUILD + proj + "/" + INFO_JSON_FILE
-            #data = None
-            #if os.path.exists(js_filen):
-            #    json_str = read_file(js_filen)
-            #    data = json.loads(json_str)
-            #print data
-            #if c != "fg-docs":
-            #color = pconf['color'] if 'color' in pconf else "blue"
-            #version = data['version'] if data else pconf['version']['number']
-            #title = pconf['title']
-            #repo = pconf['repo']
-            #checkout = pconf['checkout']
-            #v = conf[proj]
-            s += '\n<tr>\n\t<td><a class="lnk" href="%s/" style="border-left: 10px solid %s;">' % (p.proj, p.color)
-            s += '%s</a></td>' % (p.title)
-            s += '\n<td><a target="_blank" href="%s/%s.zip">%s.zip</a></td>' % (p.proj, p.proj, p.proj)
-            s += '\n<td>%s</td><td>%s</td>' % (p.version, p.date_updated)
-            #s += '\n<td>%s</td><td>%s</td>\n</tr>\n' % (repo, checkout)
-            #s += '\n<td>%s</td><td>%s</td>\n'  % (repo, checkout)
-            s += '<td><a href="projects.html#%s">%s</a></td>' % (p.proj, p.proj)
-            s += '</tr>\n'
-        s += "</table>"
-        return s
+ 
     
     def get_version(self):
         
@@ -334,4 +288,37 @@ class Project:
                     date_updated=datetime.datetime.strftime(datetime.datetime.utcnow(),"%Y-%m-%d %H:%M:%S")
                 )  
         h.write_file(self.conf.json_info_path, json.dumps(dic) )
+
+    def get_projects_pages_cpp(self):
+        projects = self.main_conf.get_projects_info()
+        
+        l = []
+        for p in projects:
+            
+            l.append( " * \section project_%s %s" % (p.proj, p.title) )
+            l.append( " * - Version: \b%s" % p.version)
+            l.append( " * - repo: \b%s" % p.repo)
+            l.append( " * - checkout: \b%s" % p.checkout)
+            l.append( " *")
+        s = "/**\n * \page Projects Projects\n *\n"
+        s += "\n".join(l)
+        s += "/\n"
+                
+        return s
+    
+    def get_projects_table_html(self):
+        s = '<table id="projects_index">\n'
+        s += "<tr>\n"
+        s += "\t<th>Project</th><th>Zip</th><th>Version</th><th>Updated</th><th>More..</th>"
+        s += "\n</tr>\n"
+        for p in self.main_conf.get_projects_info():
+            s += '\n<tr>\n\t<td><a class="lnk" href="%s/" style="border-left: 10px solid %s;">' % (p.proj, p.color)
+            s += '%s</a></td>' % (p.title)
+            s += '\n<td><a target="_blank" href="%s/%s.zip">%s.zip</a></td>' % (p.proj, p.proj, p.proj)
+            s += '\n<td>%s</td><td>%s</td>' % (p.version, p.date_updated)
+            s += '<td><a href="projects.html#%s">%s</a></td>' % (p.proj, p.proj)
+            s += '</tr>\n'
+        s += "</table>"
+        return s
+
             

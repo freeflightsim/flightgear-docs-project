@@ -92,9 +92,14 @@ class DocsBuilder:
         for proj in self.conf.projects():
             print proj
             
-    def build_project(self, projConf):
+    def build_project(self, proj):
+        projConf = self.conf.get_project_config_object(proj)
+        projObj = Project(self.conf, projConf)
+        projObj.prepare()
         
-        projObj = Project(projConf)
+        if projConf.is_main:
+            self.write_html_index()
+            self.write_projects_pages_cpp()      
         projObj.build()     
             
     def do_view(self):
@@ -115,3 +120,4 @@ class DocsBuilder:
             if self.V > 0:
                 print "\t\t Created working dir: build/"
             os.mkdir(self.conf.BUILD)    
+            

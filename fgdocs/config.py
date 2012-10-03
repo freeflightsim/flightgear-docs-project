@@ -3,6 +3,7 @@
 
 import os
 import yaml
+import json
 from optparse import OptionParser
 
 import helpers as h
@@ -39,7 +40,7 @@ class ConfigCore(object):
 class ProjectConfig(ConfigCore):
     
     
-    def __init__(self, proj, dic):
+    def __init__(self,  proj, dic):
         """
         self.ROOT = Config.ROOT
         self.TEMP = Config.TEMP
@@ -86,7 +87,7 @@ class ProjectConfig(ConfigCore):
         self.doxy_file = None
         
         self.official = None
-        
+        self.date_updated = None
         
         self.version_no = None
         if 'number' in dic['version']:
@@ -123,17 +124,40 @@ class Config(ConfigCore):
     ## Return project details
     # @param proj the project key
     # @retval dict Project dictinary or None if project to exist
-    def project(self, proj):
+    def get_project_dict(self, proj):
         if not self.has_project(proj):
             return None
         
-        dic = self.conf[proj]
+        dic =  self.conf[proj]
+        dic['proj'] = proj
+        return dic
+    
+    ## Return ProjectConfig instance
+    # @param proj the project key
+    # @retval ProjectConfig instance or None
+    def get_project_config_object(self, proj):
+        if not self.has_project(proj):
+            return None
+        projConf = ProjectConfig(proj, self.get_project_dict(proj))
+        return projConf
+    
+    def get_projects_info(self):
+        info = []
+        for proj in sorted(self.conf.keys()):
+            proj =  self.get_project_config_object(proj)
+            if os.path.exists(proj.json_info_path):
+                json_str = h.read_file(proj.json_info_path)
+                
+                data = json.loads(json_str)
+                #print json_str, data
+                proj.version = data['version']
+                if 'date_updated' in data:
+                    proj.date_updated = data['date_updated']
+            info.append(proj)
         
-        p = ProjectConfig(proj, dic)
-         
-        return p
-        
-    def project_keys(self, runlevel=False):
+        return info
+
+    def get_project_keys(self, runlevel=False):
         return self.conf.keys()
     
     def projects(self):
@@ -172,7 +196,7 @@ class Config(ConfigCore):
     @staticmethod
     def get_projects_index(self):
         ret = []
-        for proj in sorted(conf.keys()):
+        for proj in sorted(self.conf.keys()):
             pconf = conf[proj]
             is_main = proj == "fg-docs"
             js_filen =  BUILD + INFO_JSON_FILE if is_main else BUILD + proj + "/" + INFO_JSON_FILE

@@ -97,22 +97,7 @@ def get_projects_index():
 
 
 	
-def make_projects_pages_cpp():
-	projects = get_projects_index()
-	
-	l = []
-	for p in projects:
-		
-		l.append( " * \section project_%s %s" % (p.proj, p.title) )
-		l.append( " * - Version: \b%s" % p.version)
-		l.append( " * - repo: \b%s" % p.repo)
-		l.append( " * - checkout: \b%s" % p.checkout)
-		l.append( " *")
-	s = "/**\n * \page Projects Projects\n *\n"
-	s += "\n".join(l)
-	s += "/\n"
-	print s
-	return s
+
 	
 	
 	
