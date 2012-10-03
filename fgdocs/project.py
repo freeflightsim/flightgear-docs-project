@@ -1,7 +1,11 @@
 
 import os
 import sys
+import datetime
+
 import shutil
+import git
+import pysvn
 
 import helpers as h
 
@@ -114,12 +118,14 @@ class Project:
         ## Create temp doxy string and write to file
         
         ## READ default
-        doxy_str = self.get_doxy_file()
+        dox_file_contents = self.get_doxy_file()
     
         ## Add the extra stuff doxy vars from config
         if self.V > 0:
             print "> Checking doxy vars from config.yaml"
-        doxy_str += self.get_doxy_args()
+            
+        
+        xover = self.get_doxy_args()
         
         ## MAIN project extras
         if self.conf.is_main:
@@ -130,40 +136,29 @@ class Project:
         xover.append('PROJECT_NAME="%s"' % proj)
         
         ## get version no from yaml, or source file
-        version = "-na-"
-        if 'version' in pvals:
-            if 'number' in pvals['version']:
-                version = pvals['version']['number']
+        version = self.get_version()     
                 
-            elif 'file' in pvals['version']:
-                version = read_file( work_dir + pvals['version']['file'] ).strip()
         xover.append('PROJECT_NUMBER="%s"' % version)
-        xover.append('PROJECT_BRIEF="%s"' % pvals['title'])
+        xover.append('PROJECT_BRIEF="%s"' % self.conf.title)
             
-        xover.append('OUTPUT_DIRECTORY=' + build_dir )
+        xover.append('OUTPUT_DIRECTORY=' + self.conf.build_dir )
         xover.append('HTML_OUTPUT=%s' %  "./")
-        xover.append('GENERATE_TAGFILE=' + build_dir + proj + ".tag")
+        xover.append('GENERATE_TAGFILE=' + self.conf.build_dir + self.conf.ssproj + ".tag")
         xover.append('HTML_HEADER = fg_docx_header.html')
         xover.append('HTML_EXTRA_STYLESHEET = "fg_xstyle.css"')
         xover.append('TREEVIEW_WIDTH = 120')
         
         dox_override = "\n".join(xover)
         
-        if V > 0:
+        if self.V > 0:
             print "> Overides for fg-docs output"
             for oo in xover:
                 print "  > " + oo
         
         ## make config string and write to file
-        dox_config_str = dox_default + dox_override
+        dox_config_str = dox_file_contents + dox_override
         #print dox_config_str
-        temp_doxy_file = "fg_temp_doxy.conf"
-        temp_config_full_path = work_dir +  temp_doxy_file
-        if os.path.exists( temp_config_full_path ):
-            os.remove(temp_config_full_path)
-        write_file( temp_config_full_path, dox_config_str)
-        if V > 0:
-            print "> Wrote temp doy file: %s" % temp_config_full_path
+        self.write_temp_doxy()
         
         print "\n> Compile: "
         os.chdir(work_dir)
@@ -183,28 +178,30 @@ class Project:
             shutil.copyfile( ETC + f , build_dir + f )
         
         ## write info json
-        write_info_file(proj, version, pvals)
+        h.write_info_file(proj, version, pvals)
         
         print "< Done: %s" % proj
 
     ## Process this project is its git
     def git_process(self):
-             
+        print "  > Checking is git repos at: %s" % self.conf.work_dir + "/.git"       
         if not os.path.exists(self.conf.work_dir + "/.git/"):
             #os.chdir(TEMP)
-            print "Cloning new Repo"
-            shutil.rmtree( self.conf.work_dir )
-            #print "work_dir=", work_dir
-            #cmd = "git clone %s %s" % (pvals['git'], proj )
-            #print "git clone= ", cmd
-            #os.system(cmd)
-            os.chdir( self.conf.TEMP )
-            g = git.Git( self.conf.TEMP )
-            g.clone(pvals['git'], proj)
+            self.git_clone()
                     
 
     def git_clone(self):
-      print "  > Checking is git repos at: %s" % work_dir + "/.git"
+      
+        print "Cloning new Repo"
+        shutil.rmtree( self.conf.work_dir )
+        #print "work_dir=", work_dir
+        #cmd = "git clone %s %s" % (pvals['git'], proj )
+        #print "git clone= ", cmd
+        #os.system(cmd)
+        os.chdir( self.conf.TEMP )
+        g = git.Git( self.conf.TEMP )
+        g.clone(pvals['git'], proj)
+            
           
     def git_update(self):
        
@@ -274,7 +271,7 @@ class Project:
             xover.append(dox )
         return "\n".join(xover)
 
-    def get_projects_table():
+    def get_projects_table(self):
         s = '<table id="projects_index">\n'
         s += "<tr>\n"
         s += "\t<th>Project</th><th>Zip</th><th>Version</th><th>Updated</th><th>More..</th>"
@@ -306,3 +303,35 @@ class Project:
             s += '</tr>\n'
         s += "</table>"
         return s
+    
+    def get_version(self):
+        
+        version = "-na-"
+        if self.conf.version_no:
+            version = self.conf.version_no
+            
+        if self.conf.version_file:
+            version = h.read_file( self.conf.work_dir + self.conf.version_file )
+        return version
+    
+    def write_temp_doxy(self, contents):
+        
+        if os.path.exists( self.conf.temp_doxy_path):
+            os.remove(self.conf.temp_doxy_path)
+        h.write_file( self.conf.temp_doxy_path, contents)
+        if self.V > 0:
+            print "> Wrote temp doy file: %s" % self.conf.temp_doxy_path
+            
+    ## Write out json encoded info file to \ref INFO_JSON_FILE
+    #  @param proj the project dir
+    #  @param version the version
+    #  @param conf the yaml config file
+    def write_info_file(self):
+        dic = dict(color= self.conf.color,
+                    version=self.get_version(),
+                    title=self.conf.title,
+                    project=self.conf.proj,
+                    date_updated=datetime.datetime.strftime(datetime.datetime.utcnow(),"%Y-%m-%d %H:%M:%S")
+                )  
+        h.write_file(self.conf.json_info_path, json.dumps(dic) )
+            

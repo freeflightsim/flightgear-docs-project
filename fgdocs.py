@@ -25,6 +25,7 @@ import pysvn
 
 from fgdocs.config import Config
 from fgdocs.project import Project
+from fgdocs.builder import DocsBuilder
 
 
 ## Handle Command Args
@@ -45,30 +46,8 @@ parser.add_option(	"-v", "--verbose", nargs=1,
 
 (opts, args) = parser.parse_args()
 
-## Verbose
-V = opts.v
 
-
-
-if V > 2:
-	print "========================================================="
-	print "options=", opts, opts.v
-	print "args=", args
-
-
-if len(args) == 0:
-	parser.error("Need to supply a command")
-	#parser.print_help()
-	sys.exit(0)
-
-## The command executed is the first var
-command = args[0]
-if V > 1:
-	print "#> command=", command
-
-if not command in ['build', 'buildall', 'view', 'clean', 'nuke']:
-	parser.error("Need a command")
-	sys.exit(0)
+docsBuilder = DocsBuilder(parser, opts, args)
 
 
 
@@ -77,22 +56,11 @@ if not command in ['build', 'buildall', 'view', 'clean', 'nuke']:
 
 
 
-## Write out json encoded info file to \ref INFO_JSON_FILE
-#  @param proj the project dir
-#  @param version the version
-#  @param conf the yaml config file
-def write_info_file(proj, version, conf):
-	dic = dict(color= conf['color'] if 'color' in conf else 'blue',
-				version=version,
-				title=conf['title'],
-				project=proj,
-				date_updated=datetime.datetime.strftime(datetime.datetime.utcnow(),"%Y-%m-%d %H:%M:%S")
-			)
-	if proj == "fg-docs":
-		fn = BUILD + INFO_JSON_FILE
-	else:
-		fn = BUILD + proj  +  "/" + INFO_JSON_FILE
-	write_file(fn, json.dumps(dic) )
+
+
+
+
+
 
 ##############################################################################
 

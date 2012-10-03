@@ -33,6 +33,8 @@ class ConfigCore(object):
     ## Name of the config file
     CONFIG_FILE = "config.yaml"
     
+    TEMP_DOXY = "fg_docs_temp_doxy.conf"
+    
 ## Project Configuration
 class ProjectConfig(ConfigCore):
     
@@ -58,7 +60,14 @@ class ProjectConfig(ConfigCore):
         self.checkout = dic['checkout']
         self.is_git = self.repo == "git"
         self.is_svn = self.repo == "svn"
+       
+        if self.is_main:
+            self.build_dir = self.ROOT 
+        else:    
+            self.build_dir = self.ROOT + self.proj + "/"
         
+        self.work_dir = self.TEMP + self.proj + "/"
+         
 
         ## Files to copy 
         self.copy = None
@@ -79,14 +88,26 @@ class ProjectConfig(ConfigCore):
         self.official = None
         
         
+        self.version_no = None
+        if 'number' in dic['version']:
+                self.version_no = dic['version']['number']
+        
+        self.version_file = None        
+        if 'file' in dic['version']:
+            self.version_file = dic['version']['file'].strip()
+        
+ 
+        
+        self.temp_doxy_path = self.work_dir + self.TEMP_DOXY
+
+        if self.is_main:
+            self.json_info_path = self.BUILD +  self.INFO_JSON_FILE
+        else:
+            self.json_info_path = self.BUILD + self.proj  +  "/" + self.INFO_JSON_FILE
 
 
 ## Load the config file and access as objects
 class Config(ConfigCore):
-        
-
-    
-
     
     ## Load the default config from CONFIG_FILE
     def __init__(self, verbose=0):
@@ -109,30 +130,7 @@ class Config(ConfigCore):
         dic = self.conf[proj]
         
         p = ProjectConfig(proj, dic)
-        
-        p.is_main = proj == self.SELF_PROJ 
-        
-        
-        p.abbrev = dic['abbrev']
-        p.title = dic['title']
-
-        if p.is_main:
-            p.build_dir = self.ROOT 
-        else:    
-            p.build_dir = self.ROOT + proj + "/"
-        
-        p.work_dir = self.TEMP + proj + "/"
-        
-        p.repo = dic['repo']
-        p.is_git = p.repo == "git"
-        p.is_svn = p.repo == "svn"
-        p.checkout = dic['checkout']
-        
-
-        
-        p.TEMP = self.TEMP
-        p.BUILD = self.BUILD
-        
+         
         return p
         
     def projects(self, runlevel=False):
@@ -159,5 +157,28 @@ class Config(ConfigCore):
                     s += "  %s: %s\n" % (v, self.conf[proj][v])
             print s
         
-        
+    ## Get the projects index as a list of dicts. This loops thru the projects and reads the INFO_JSON_FILE_FILE
+    @staticmethod
+    def get_projects_index(self):
+        ret = []
+        for proj in sorted(conf.keys()):
+            pconf = conf[proj]
+            is_main = proj == "fg-docs"
+            js_filen =  BUILD + INFO_JSON_FILE if is_main else BUILD + proj + "/" + INFO_JSON_FILE
+            data = None
+            if os.path.exists(js_filen):
+                json_str = read_file(js_filen)
+                data = json.loads(json_str)
+            print data
+            #if c != "fg-docs":
+            p = XObject()
+            p.proj = proj
+            p.color = pconf['color'] if 'color' in pconf else "blue"
+            p.version = data['version'] if data else pconf['version']['number']
+            p.title = pconf['title']
+            p.repo = pconf['repo']
+            p.checkout = pconf['checkout']
+            p.date_updated = data["date_updated"] if "date_updated" in data else ""
+            ret.append( p )
+        return ret
         
