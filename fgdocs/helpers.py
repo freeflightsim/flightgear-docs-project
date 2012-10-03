@@ -1,5 +1,6 @@
+## @package fgdocs
+# Helper functions
 
-#####################################################################################################
 
 ## Read a text file and return its contents
 # @param path_to_file
@@ -12,7 +13,7 @@ def read_file(path_to_file):
 
 ## Write text string to file path
 # @param path_to_file
-# @param content string with contents to write
+# @param contents string with contents to write
 def write_file(path_to_file, contents):
     fob = open( path_to_file, "w")
     fob.write(contents)

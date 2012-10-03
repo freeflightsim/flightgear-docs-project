@@ -1,10 +1,10 @@
 fgms-0:
-    abbrev: FGMS 0.prod
+    abbrev: FGMS 0.x-stable
     title: FlightGear Multiplayer Server (0.x Stable)
     runlevel: 0
     color: "#A684AC"
     version: 
-        number: 0.x.stable
+        number: 0.x-stable
     repo: git
     checkout: git://gitorious.org/~ffs/fgms/ffss-fgms-0-x.git
     branch: master
@@ -12,12 +12,12 @@ fgms-0:
     doxy_file: docx/doxy.conf
 
 fgms-1:
-    abbrev: FGMS 1.x
+    abbrev: FGMS 1.x-dev
     title: FlightGear Multiplayer Server (1.x Dev)
     runlevel: 0
     color: "#A684AC"
     version: 
-        number: 1.x.dev
+        number: 1.x-dev
     repo: git
     checkout: git://gitorious.org/~ffs/fgms/ffs-docs-fgms-1-x
     official: 0
@@ -56,6 +56,21 @@ plib:
        HTML_COLORSTYLE_SAT: 80
        HTML_COLORSTYLE_GAMMA: 220
 
+simgear:
+    abbrev: SimGear
+    title: SimGear Simulation Libs
+    runlevel: 50
+    color: "#DEDE45"
+    tags: osg plib
+    version: 
+        file: version
+    repo: git
+    checkout: git://gitorious.org/~ffs/fg/ffss-simgear.git
+    branch: next
+    official: 0
+    doxy_file: docx/doxy.conf
+
+
 fg-docs:
     abbrev: fg-docs
     title: FlightGear Documentation Project
@@ -74,7 +89,7 @@ fg-docs:
       - fgdocs/
     doxy_args:
        INPUT: DoxyMain-fgdocs.cpp fgdocs.py project_pages.cpp fgdocs/
-       SHOW_NAMESPACES: NO
+       SHOW_NAMESPACES: YES
        EXAMPLE_PATH: ./
        OPTIMIZE_OUTPUT_JAVA: YES
        JAVADOC_AUTOBRIEF: YES
@@ -83,3 +98,4 @@ fg-docs:
        HTML_COLORSTYLE_GAMMA: 240
        HIDE_SCOPE_NAMES: YES
        GENERATE_TREEVIEW: NO
+       
