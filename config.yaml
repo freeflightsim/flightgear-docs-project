@@ -1,5 +1,6 @@
 fgms-0:
     title: FlightGear Multiplayer Server (0.x Stable)
+    color: "#A684AC"
     version: 
         number: 0.x.stable
     repo: git
@@ -7,10 +8,10 @@ fgms-0:
     branch: master
     official: 0
     doxy_file: docx/doxy.conf
-    color: red
 
 fgms-1:
     title: FlightGear Multiplayer Server (1.x Dev)
+    color: "#A684AC"
     version: 
         number: 1.x.dev
     repo: git

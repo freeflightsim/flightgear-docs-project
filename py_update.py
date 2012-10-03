@@ -79,12 +79,16 @@ def write_file(path_to_file, contents):
 	fob.close()
 	return
 	
-def write_info(proj, version, conf):
+def write_info_file(proj, version, conf):
 	dic = dict(color= conf['color'] if 'color' in conf else 'blue',
 				version=version,
 				title=conf['title'],
+				project=proj
 			)
-	fn = BUILD + proj  +  "/info.json"
+	if proj == "fg-docs":
+		fn = BUILD + "info.json"
+	else:
+		fn = BUILD + proj  +  "/info.json"
 	write_file(fn, json.dumps(dic) )
 	
 ## Load Config
@@ -189,12 +193,13 @@ def process_project(proj, pvals):
 		#shutil.copyfile( ROOT + "py_update.py", work_dir + "py_update.py")
 		
 	## Copy file
-	print pvals['copy']
-	for f in pvals['copy']:
-		source = ROOT + f
-		head, tail = os.path.split(source)
-		print "  > cp " + ROOT + f + " >> " +  work_dir + tail
-		shutil.copyfile( ROOT + f, work_dir + tail)
+	if 'copy' in pvals:
+		print pvals['copy']
+		for f in pvals['copy']:
+			source = ROOT + f
+			head, tail = os.path.split(source)
+			print "  > cp " + ROOT + f + " >> " +  work_dir + tail
+			shutil.copyfile( ROOT + f, work_dir + tail)
 	
 	
 	#print nav_str
@@ -304,7 +309,10 @@ def process_project(proj, pvals):
 		if V > 0:
 			print ">   copied: %s" % f
 		shutil.copyfile( ETC + f , build_dir + f )
-		
+	
+	## write info json
+	write_info_file(proj, version, pvals)
+	
 	print "< Done: %s" % proj
 	
 	
@@ -335,6 +343,12 @@ print "> Loaded config: %s" % " ".join( conf.keys() )
 #############################################################
 if command == "view":
 	print yaml_str
+	
+	for c in conf:
+		print "----------------------------"
+		print c
+		print conf[c]
+	
 	sys.exit(0)
 
 if command == "clean":
