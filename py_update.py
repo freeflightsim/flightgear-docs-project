@@ -248,7 +248,7 @@ def process_project(proj, pvals):
 	link_prefix = "" if is_main else "../"
 	for c in conf:
 		if c != "fg-docs":
-			nav_str += '<li><a href="%s%s">%s</a></li>\n' % (link_prefix, c, c)
+			nav_str += '<li><a href="%s%s/">%s</a></li>\n' % (link_prefix, c, c)
 			
 	template_header = read_file( ETC + "fg_docx_header.html" )
 	template_header = template_header.replace("___NAV_ITEMS___", nav_str)
