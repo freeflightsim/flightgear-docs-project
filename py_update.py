@@ -8,6 +8,9 @@ import shutil
 import yaml
 import git
 
+print __file__
+sys.exit(0)
+
 ## Handle Command Args
 usage = "usage: %prog [options] show|build|clean|nuke proj1 proj2 .. projn"
 parser = OptionParser(usage=usage)
