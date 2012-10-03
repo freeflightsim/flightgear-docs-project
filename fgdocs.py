@@ -134,38 +134,7 @@ def get_projects_index():
 		ret.append( p )
 	return ret
 
-def make_projects_table():
-	s = '<table id="projects_index">\n'
-	s += "<tr>\n"
-	s += "\t<th>Project</th><th>Zip</th><th>Version</th><th>Updated</th><th>More..</th>"
-	s += "\n</tr>\n"
-	for p in get_projects_index():
-		
-		#pconf = conf[proj]
-		#is_main = proj == "fg-docs"
-		#js_filen =  BUILD + INFO_JSON_FILE if is_main else BUILD + proj + "/" + INFO_JSON_FILE
-		#data = None
-		#if os.path.exists(js_filen):
-		#	json_str = read_file(js_filen)
-		#	data = json.loads(json_str)
-		#print data
-		#if c != "fg-docs":
-		#color = pconf['color'] if 'color' in pconf else "blue"
-		#version = data['version'] if data else pconf['version']['number']
-		#title = pconf['title']
-		#repo = pconf['repo']
-		#checkout = pconf['checkout']
-		#v = conf[proj]
-		s += '\n<tr>\n\t<td><a class="lnk" href="%s/" style="border-left: 10px solid %s;">' % (p.proj, p.color)
-		s += '%s</a></td>' % (p.title)
-		s += '\n<td><a target="_blank" href="%s/%s.zip">%s.zip</a></td>' % (p.proj, p.proj, p.proj)
-		s += '\n<td>%s</td><td>%s</td>' % (p.version, p.date_updated)
-		#s += '\n<td>%s</td><td>%s</td>\n</tr>\n' % (repo, checkout)
-		#s += '\n<td>%s</td><td>%s</td>\n'  % (repo, checkout)
-		s += '<td><a href="projects.html#%s">%s</a></td>' % (p.proj, p.proj)
-		s += '</tr>\n'
-	s += "</table>"
-	return s
+
 
 	
 def make_projects_pages_cpp():

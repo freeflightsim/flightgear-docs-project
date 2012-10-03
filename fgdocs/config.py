@@ -7,16 +7,8 @@ import yaml
 
 import helpers as h
 
-## Project Configuration
-class ProjectConfig(object):
-    pass
+class ConfigCore(object):
     
-
-
-
-## Load the config file and access as objects
-class Config:
-        
     ## This project itself    
     SELF_PROJ = "fg-docs"
     
@@ -41,6 +33,59 @@ class Config:
     ## Name of the config file
     CONFIG_FILE = "config.yaml"
     
+## Project Configuration
+class ProjectConfig(ConfigCore):
+    
+    
+    def __init__(self, proj, dic):
+        """
+        self.ROOT = Config.ROOT
+        self.TEMP = Config.TEMP
+        self.BUILD = Config.BUILD
+        self.ETC = Config.ETC
+        """
+        self.proj = proj
+        self.is_main = proj == Config.SELF_PROJ
+        
+        self.abbrev = dic['abbrev']
+        self.version = dic['version']
+        self.title = dic['title']
+        self.color = dic['color'] if 'color' in dic else "#004499"
+        
+        self.runlevel = int(dic['runlevel']) 
+        
+        self.repo = dic['repo']
+        self.checkout = dic['checkout']
+        self.is_git = self.repo == "git"
+        self.is_svn = self.repo == "svn"
+        
+
+        ## Files to copy 
+        self.copy = None
+        if 'copy' in dic and len(dic['copy']) > 0:
+            self.copy = []
+            for co in dic['copy']:
+                self.copy.append(co)
+        
+        ## Extra foxy args        
+        self.doxy_args = None
+        if 'doxy_args' in dic:
+            self.doxy_args = [] 
+            for dox in dic['doxy_args']:
+                self.doxy_args.append( "%s = %s" % (dox, dic['doxy_args'][dox]) )
+        
+        self.doxy_file = None
+        
+        self.official = None
+        
+        
+
+
+## Load the config file and access as objects
+class Config(ConfigCore):
+        
+
+    
 
     
     ## Load the default config from CONFIG_FILE
@@ -63,8 +108,8 @@ class Config:
         
         dic = self.conf[proj]
         
-        p = ProjectConfig()
-        p.proj = proj
+        p = ProjectConfig(proj, dic)
+        
         p.is_main = proj == self.SELF_PROJ 
         
         
@@ -83,7 +128,10 @@ class Config:
         p.is_svn = p.repo == "svn"
         p.checkout = dic['checkout']
         
+
         
+        p.TEMP = self.TEMP
+        p.BUILD = self.BUILD
         
         return p
         
