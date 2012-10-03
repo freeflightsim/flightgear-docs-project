@@ -136,8 +136,8 @@ class Project:
 		if self.conf.tags:
 			tag_list = []
 			for t in self.conf.tags:
-				tag_list.append( self.conf.BUILD + t + "/" + t + ".tag" )
-			xover.append("TAGFILES = %s\n" % " ".join(tag_list) )
+				tag_list.append( self.conf.BUILD + t + "/" + t + ".tag=../" + t  )
+			xover.append("TAGFILES = %s \n" % " ".join(tag_list) )
 		
 		dox_override = "\n".join(xover)
 		
