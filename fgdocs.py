@@ -10,21 +10,13 @@
 
 
 import os
-import sys
-import operator
-import datetime
+
 from optparse import OptionParser
-import shutil
-
-import yaml
-import simplejson as json
-
-import git
-import pysvn
 
 
-from fgdocs.config import Config
-from fgdocs.project import Project
+
+
+
 from fgdocs.builder import DocsBuilder
 
 
@@ -131,21 +123,11 @@ def make_projects_pages_cpp():
 #####################################################################################################
 
 ##
-conf = Config(verbose=V)
+#conf = Config(verbose=V)
 
-print "> ROOT: %s" % conf.ROOT
+#print "> ROOT: %s" % conf.ROOT
 
 
-## Create temp and build dirs
-if not os.path.exists(conf.TEMP):
-	if V > 0:
-		print "\t\t Created working dir: temp/"
-	os.mkdir(conf.TEMP)
-
-if not os.path.exists(conf.BUILD):
-	if V > 0:
-		print "\t\t Created working dir: build/"
-	os.mkdir(conf.BUILD)	
 
 	
 	
@@ -153,46 +135,10 @@ if not os.path.exists(conf.BUILD):
 
 
 
-#############################################################
-if command == "view":
-	conf.print_view(True)
-	conf.print_view()
-	sys.exit(0)
 
-if command == "clean":
-	shutil.rmtree(BUILD)
-	print "> Nuked build: %s" % BUILD
-	sys.exit(0)
-	
-#############################################################	
-if command == "build":
-	projects = args[1:]
-	print projects
-	## Check that the project args are in config
-	errs = []
-	for a in projects:
-		if not conf.has_project(a):
-			errs.append(a)
-	if len(errs):
-		print "Error: project%s not exist: %s" % ( "s" if len(errs) > 0 else "", ", ".join(errs))
-		sys.exit(0)
-
-	for proj in projects:
-		projObj = Project( conf.project(proj) )
-		projObj.build_project()
 	
 
-if command == "buildall":
-	
-	ulist = []
-	for proj in conf:
-		dic = conf[proj]
-		dic['runlevel'] = int(dic['runlevel']) if  'runlevel' in dic else 0
-		dic['proj'] = proj
-		ulist.append(dic)
-	compile_list = sorted(ulist, key=operator.itemgetter('runlevel'))	
-	for p in compile_list:
-		print p['proj'] , p['runlevel']
+
 	
 	#for proj in conf:
 	#	if proj != "fg-docs":

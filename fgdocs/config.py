@@ -3,7 +3,7 @@
 
 import os
 import yaml
-
+from optparse import OptionParser
 
 import helpers as h
 
@@ -133,9 +133,20 @@ class Config(ConfigCore):
          
         return p
         
-    def projects(self, runlevel=False):
+    def project_keys(self, runlevel=False):
         return self.conf.keys()
-        
+    
+    def projects(self):
+        ulist = []
+        for proj in self.conf:
+            dic = self.conf[proj]
+            dic['runlevel'] = int(dic['runlevel']) if  'runlevel' in dic else 0
+            dic['proj'] = proj
+            ulist.append(dic)
+        compile_list = sorted(ulist, key=operator.itemgetter('runlevel'))    
+        for p in compile_list:
+            print p['proj'] , p['runlevel']
+          
     ## Return is configuration available for project
     # @param proj the project key
     # @retval bool True if config exists
