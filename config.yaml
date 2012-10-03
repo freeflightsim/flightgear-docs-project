@@ -1,6 +1,6 @@
 fgms-0:
     abbrev: FGMS 0.x-stable
-    title: FlightGear Multiplayer Server (0.x Stable)
+    title: FG Multiplayer Server (0.x Stable)
     runlevel: 0
     color: "#A684AC"
     version: 
@@ -13,7 +13,7 @@ fgms-0:
 
 fgms-1:
     abbrev: FGMS 1.x-dev
-    title: FlightGear Multiplayer Server (1.x Dev)
+    title: FG Multiplayer Server (1.x Dev)
     runlevel: 0
     color: "#A684AC"
     version: 
@@ -22,6 +22,20 @@ fgms-1:
     checkout: git://gitorious.org/~ffs/fgms/ffs-docs-fgms-1-x
     official: 0
     doxy_file: docx/doxy.conf 
+
+terragear:
+    abbrev: TerraGear
+    title: TerraGear Scenery Builder
+    runlevel: 0
+    color: "#9ECC9E"
+    version: 
+        number: head
+    repo: git
+    checkout: git://gitorious.org/~ffs/fg/ffss-terragear.git
+    upstream: git://gitorious.org/fg/terragear.git
+    official: 0
+    doxy_file: docx/doxy.conf
+    comments:
 
 osg:
     abbrev: OSG
@@ -70,6 +84,19 @@ simgear:
     official: 0
     doxy_file: docx/doxy.conf
 
+flightgear:
+    abbrev: FlightGear
+    title: FlightGear Flight Simulator
+    runlevel: 80
+    color: "red"
+    tags: osg plib simgear
+    version: 
+        file: version
+    repo: git
+    checkout: git://gitorious.org/~ffs/fg/ffss-flightgear2.git
+    branch: next
+    official: 0
+    doxy_file: doxy-fg.conf
 
 fg-docs:
     abbrev: fg-docs

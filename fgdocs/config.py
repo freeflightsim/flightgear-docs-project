@@ -7,6 +7,8 @@ import sys
 import yaml
 import json
 from optparse import OptionParser
+import operator
+
 
 import helpers as h
 
@@ -195,17 +197,32 @@ class Config(ConfigCore):
 		projConf = ProjectConfig(proj, self.get_project_dict(proj))
 		return projConf
 	
-	def get_projects_index(self, load_info = True):
-		info = []
-		for proj in sorted(self.conf.keys()):
+	def get_projects_list(self):
+		lst = []
+		for c in self.conf:
+			dic = self.conf[c].copy()
+			dic['proj'] = c
+			lst.append(dic)
+		return lst
+		
+	def get_projects_index(self, load_info=True, runlevel=False):
+		
+		#if runlevel:
+		#	proj_list = self.get_projects_list()
+		#	proj_keys = sorted( proj_list, key=lambda k: k['runlevel'])
+		#else:
+		proj_keys = sorted( self.conf.keys() )
+		
+		proj_lst = []
+		for proj in proj_keys:
 			proj =  self.get_project_config_object(proj)
 			data = self.load_json_info(proj.json_info_path)
 			if data != None:
 				proj.version = data['version']
 				if 'date_updated' in data:
 					proj.date_updated = data['date_updated']
-			info.append(proj)
-		return info
+			proj_lst.append(proj)
+		return proj_lst
 			
 	def load_json_info(self, file_path):
 		if os.path.exists(file_path):

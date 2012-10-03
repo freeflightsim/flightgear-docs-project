@@ -88,9 +88,10 @@ class DocsBuilder:
             self.do_build_all()
     
     def do_build_all(self):
-        ulist = []
-        for proj in self.conf.projects():
-            print proj
+        s_list = 'fgms-0 fgms-1 plib osg simgear flightgear fg-docs'
+        proj_lst = s_list.split()
+        for proj in proj_lst:
+            self.build_project( proj )
             
     def build_project(self, proj):
         projConf = self.conf.get_project_config_object(proj)
