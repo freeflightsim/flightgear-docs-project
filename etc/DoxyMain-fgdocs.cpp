@@ -10,6 +10,8 @@
  * 
  * \section Latest Latest Updates
  * - Switched on the graph creation with DOT
+ * - TREE_VIE is dea
+ * - SHOW_DIREECTORIES is head (need remove file from code)
  * 
  * 
  * 
@@ -27,8 +29,10 @@
  * were generated from the \b fg-docs project (yes this project is self documenting, and also a doxygen project)
  * 
  * \section Goals Goals
- * - The objective is to autocreate the docs from source.
- * - Update the docs regularily (Using jenkins, currently thanks FGx project at http://jenkins.fgx.ch )
+ * - The objective is to autocreate the docs from source
+ * - Make it a reliable endpoint for everyone to referance at
+ * - Update the docs regularily aaautom magically 
+ *   - Current using jenkins, currently thanks FGx project at http://jenkins.fgx.ch 
  * - Create a presentable and useful interface
  * - Make the documentation interlink, ie linking flightgear, simgear, osg together
  * 
@@ -108,6 +112,12 @@
  * # Simgear config reads osg and plib tags
  * TAGFILES = /build_dir/osg/osg.tag /build_dir/plib/plib.tag
  * \endcode
+ * 
+ * 
+ * *****************************************************************
+ * \page crash_course Crash Course
+ * A few things affect the output from source code. 
+ * There is also the dilemaa os throwing stuff at doxygen and see wat coomes out
  * 
  * 
  ******************************************************************* 
