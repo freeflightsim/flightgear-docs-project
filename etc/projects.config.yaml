@@ -50,7 +50,7 @@ osg:
     copy:
       - etc/DoxyMain-osg.cpp
     doxy_args:
-       INPUT: DoxyMain-osg.cpp src/ include/ applications/ examples
+       INPUT: DoxyMain-osg.cpp src/ include/ 
        FILE_PATTERNS: "*include* *.cpp"
 
 plib:
