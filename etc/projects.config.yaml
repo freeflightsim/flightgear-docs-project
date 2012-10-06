@@ -102,8 +102,11 @@ flightgear:
     checkout: git://gitorious.org/fg/flightgear.git
     branch: next
     official: 0
+    copy: 
+        - etc/DoxyMain-fg.cpp
+        - docs-mini/
     doxy_args:
-       INPUT: src/
+       INPUT: DoxyMain-fg.cpp src/
        HTML_COLORSTYLE_HUE: 240
        HTML_COLORSTYLE_SAT: 40
        HTML_COLORSTYLE_GAMMA: 180
