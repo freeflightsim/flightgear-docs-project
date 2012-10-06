@@ -37,7 +37,7 @@
  * - Make the documentation interlink, ie linking flightgear, simgear, osg together
  * 
  * \subsection basic_doxygen Basic Doxygen
- * To create documentation for a project is a simple three step process
+ * To create documentatio/terragear/n for a project is a simple three step process
  * -# Create a doxygen config file for your project with the \b -g generate option
  *    \code
  *    cd my_project

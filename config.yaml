@@ -79,24 +79,32 @@ simgear:
     version: 
         file: version
     repo: git
-    checkout: git://gitorious.org/~ffs/fg/ffss-simgear.git
+    checkout: git://gitorious.org/fg/simgear.git
     branch: next
-    official: 0
-    doxy_file: docx/doxy.conf
+    official: 1
+    doxy_args:
+       INPUT: DoxygenMain.cxx simgear/
+       HTML_COLORSTYLE_HUE: 60
+       HTML_COLORSTYLE_SAT: 180
+       HTML_COLORSTYLE_GAMMA: 220
 
 flightgear:
     abbrev: FlightGear
     title: FlightGear Flight Simulator
     runlevel: 80
-    color: "red"
+    color: "#6280BA"
     tags: osg plib simgear
     version: 
         file: version
     repo: git
-    checkout: git://gitorious.org/~ffs/fg/ffss-flightgear2.git
+    checkout: git://gitorious.org/fg/flightgear.git
     branch: next
     official: 0
-    doxy_file: doxy-fg.conf
+    doxy_args:
+       INPUT: src/
+       HTML_COLORSTYLE_HUE: 221
+       HTML_COLORSTYLE_SAT: 40
+       HTML_COLORSTYLE_GAMMA: 180
 
 fg-docs:
     abbrev: fg-docs
