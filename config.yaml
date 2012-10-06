@@ -102,7 +102,7 @@ flightgear:
     official: 0
     doxy_args:
        INPUT: src/
-       HTML_COLORSTYLE_HUE: 221
+       HTML_COLORSTYLE_HUE: 240
        HTML_COLORSTYLE_SAT: 40
        HTML_COLORSTYLE_GAMMA: 180
 
