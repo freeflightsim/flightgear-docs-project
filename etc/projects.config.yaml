@@ -26,7 +26,7 @@ fgms-1:
 terragear:
     abbrev: TerraGear
     title: TerraGear Scenery Builder
-    runlevel: 0
+    runlevel: 60
     color: "#9ECC9E"
     version: 
         number: git
@@ -108,12 +108,12 @@ flightgear:
     official: 0
     copy: 
         - etc/DoxyMain-fg.cpp
-        - docs-mini/
     doxy_args:
-       INPUT: DoxyMain-fg.cpp src/
-       HTML_COLORSTYLE_HUE: 240
-       HTML_COLORSTYLE_SAT: 40
-       HTML_COLORSTYLE_GAMMA: 180
+        INPUT: DoxyMain-fg.cpp src/
+        HTML_COLORSTYLE_HUE: 240
+        HTML_COLORSTYLE_SAT: 40
+        HTML_COLORSTYLE_GAMMA: 180
+        HTML_EXTRA_FILES: docs-mini/* 
 
 fgdocx:
     abbrev: fg-docs
