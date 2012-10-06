@@ -1,5 +1,5 @@
 fgms-0:
-    abbrev: FGMS 0.x-stable
+    abbrev: FGMS 0.x
     title: FG Multiplayer Server (0.x Stable)
     runlevel: 0
     color: "#A684AC"
@@ -12,7 +12,7 @@ fgms-0:
     doxy_file: docx/doxy.conf
 
 fgms-1:
-    abbrev: FGMS 1.x-dev
+    abbrev: FGMS 1.x
     title: FG Multiplayer Server (1.x Dev)
     runlevel: 0
     color: "#A684AC"
@@ -43,7 +43,7 @@ osg:
     runlevel: 15
     color: "#5F89B3"
     version: 
-        number: 1.8.5
+        number: 3.1.3
     repo: svn
     checkout: http://www.openscenegraph.org/svn/osg/OpenSceneGraph/tags/OpenSceneGraph-3.1.1
     official: 1
@@ -73,7 +73,7 @@ plib:
 
 simgear:
     abbrev: SimGear
-    title: SimGear Simulation Libs
+    title: Simulator Construction Tools
     runlevel: 50
     color: "#DEDE45"
     tags: osg plib

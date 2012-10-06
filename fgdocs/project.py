@@ -347,15 +347,16 @@ class ProjectBuilder:
 	def get_projects_table_html(self):
 		s = '<table id="projects_index">\n'
 		s += "<tr>\n"
-		s += "\t<th>&nbsp;</th><th>proj>/th><th>Project</th><th>Zip</th><th>Version</th><th>Updated</th><th>More..</th>"
+		s += "\t<th>Project</th><th>Zip</th><th>Version</th><th>Updated</th><th>More..</th>"
 		s += "\n</tr>\n"
 		for p in self.main_conf.get_projects_index(load_info=True):
-			s += '\n<tr>\n\t<td><a class="lnk" href="%s/" style="border-left: 10px solid %s;">' % (p.proj, p.color)
-			s += '%s</a></td>' % (p.title)
-			s += '\n<td><a target="_blank" href="%s/%s.zip">%s.zip</a></td>' % (p.proj, p.proj, p.proj)
-			s += '\n<td>%s</td><td>%s</td>' % (p.version, p.date_updated)
-			s += '<td><a href="projects.html#%s">%s</a></td>' % (p.proj, p.proj)
-			s += '</tr>\n'
+			if p.is_main == False:
+				s += '\n<tr>\n\t<td><a class="lnk" href="%s/" style="border-left: 10px solid %s;">' % (p.proj, p.color)
+				s += '%s</a></td>' % (p.title)
+				s += '\n<td><a target="_blank" href="%s/%s.zip">%s.zip</a></td>' % (p.proj, p.proj, p.proj)
+				s += '\n<td>%s</td><td>%s</td>' % (p.version, p.date_updated)
+				s += '<td><a href="projects.html#%s">%s</a></td>' % (p.proj, p.proj)
+				s += '</tr>\n'
 		s += "</table>"
 		return s
 

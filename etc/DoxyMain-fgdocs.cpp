@@ -9,9 +9,8 @@
  * 
  * 
  * \section Latest Latest Updates
- * - Switched on the graph creation with DOT
- * - TREE_VIE is dea
- * - SHOW_DIREECTORIES is head (need remove file from code)
+ * - Switched on the graph creation with DOT 
+ * - Interlink all libs
  * 
  * 
  * 
