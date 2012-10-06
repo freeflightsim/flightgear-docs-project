@@ -47,8 +47,6 @@ class DocsBuilder:
         self.check_enviroment()
         
         errs = []
-        
-                
         if len(args) == 0:
             parser.error("Need to supply a command")
             #parser.print_help()
@@ -63,7 +61,9 @@ class DocsBuilder:
         #############################################################
         if self.command == "view":
             self.do_view()
+            sys.exit(0)
         
+        #############################################################
         if self.command == "clean":
             shutil.rmtree(self.conf.BUILD)
             print "> Nuked build: %s" % self.conf.BUILD
@@ -76,35 +76,39 @@ class DocsBuilder:
                sys.exit(0) 
             projects = args[1:]
             
-            print projects, self.conf
+            #print projects, self.conf
             ## Check that the project args are in config
             errs = []
             for a in projects:
                 if not self.conf.has_project(a):
                     errs.append(a)
             if len(errs):
-                print "Error: project%s not exist: %s" % ( "s" if len(errs) > 0 else "", ", ".join(errs))
+                print "Error: project '%s' does not exist: %s" % ( "s" if len(errs) > 0 else "", ", ".join(errs))
                 sys.exit(0)
-            
             
             for proj in projects:
                 self.build_project(proj)
+            sys.exit(0)
                 
         if self.command == "buildall":
             self.do_build_all()
+            sys.exit(0)
     
     def do_build_all(self):
-        s_list = 'fgms-0 fgms-1 plib osg simgear terragear  flightgear fgdocx'
+        s_list = 'fgms-0 fgms-1 simgear terragear  flightgear fgdocx'
         proj_lst = s_list.split()
         for proj in proj_lst:
             self.build_project( proj )
             
+    ## Build project 
+    # @param proj The project key
     def build_project(self, proj):
         projConf = self.conf.get_project_config_object(proj)
         projObj = ProjectBuilder(self.conf, projConf)
         projObj.prepare()
         projObj.build()     
-            
+      
+    ## Print out the config view
     def do_view(self):
         
         self.conf.print_view(True)
@@ -123,4 +127,7 @@ class DocsBuilder:
             if self.V > 0:
                 print "\t\t Created working dir: build/"
             os.mkdir(self.conf.BUILD)    
+            
+            
+     
             
