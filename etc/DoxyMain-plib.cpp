@@ -15,16 +15,41 @@
  * Source:
  *  - https://plib.svn.sourceforge.net/svnroot/plib/trunk
  *
- * \section readme Essentials
+ * \section readme Source Code Docs
  *
- * - <a href="doc/index.html">Offical Guide</a> (same as website)
- * - <a href="INSTALL">INSTALL</a>
- * - <a href="README">README</a>
- * - <a href="README.GLUT">README.GLUT</a>
- * - <a href="README.JOYSTICKSFREEBSD">README.JOYSTICKSFREEBSD</a>
- * - <a href="README.mac">README.mac</a>
- * - <a href="README.win32">README.win32</a>
- * - <a href="AUTHORS">AUTHORS</a>
+ * - \ref INSTALL
+ * - \ref README
+ * - \ref README_GLUT
+ * - \ref README_JOYSTICKSFREEBSD
+ * - \ref README_mac
+ * - \ref README_win32
+ * - \ref AUTHORS
+ * - \ref COPYING
+ * 
+ * 
+ * \page INSTALL INSTALL
+ * \include INSTALL
+ * 
+ * \page README README
+ * \include README
+ * 
+ * \page README_GLUT README.GLUT
+ * \include README.GLUT
+ * 
+ * \page README_JOYSTICKSFREEBSD README.JOYSTICKS.FREEBSD
+ * \include README.JOYSTICKS.FREEBSD
+ * 
+ * \page README_mac README.mac
+ * \include README.mac
+ * 
+ * \page README_win32 README.win32
+ * \include README.win32
+ * 
+ * \page AUTHORS AUTHORS
+ * \include AUTHORS
+ * 
+ * \page COPYING COPYING
+ * \include COPYING
  * 
  */
 

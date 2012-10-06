@@ -66,14 +66,15 @@ plib:
     copy:
       - etc/DoxyMain-plib.cpp
     doxy_args:
-       INPUT: DoxyMain-plib.cpp src/
-       HTML_COLORSTYLE_HUE: 120
-       HTML_COLORSTYLE_SAT: 80
-       HTML_COLORSTYLE_GAMMA: 220
+        INPUT: DoxyMain-plib.cpp src/
+        EXAMPLE_PATH: ./
+        HTML_COLORSTYLE_HUE: 120
+        HTML_COLORSTYLE_SAT: 80
+        HTML_COLORSTYLE_GAMMA: 220
 
 simgear:
     abbrev: SimGear
-    title: Simulator Construction Tools
+    title: SimGear - Simulator Construction Tools
     runlevel: 50
     color: "#DEDE45"
     tags: osg plib
@@ -107,7 +108,7 @@ flightgear:
        HTML_COLORSTYLE_SAT: 40
        HTML_COLORSTYLE_GAMMA: 180
 
-fg-docs:
+fgdocx:
     abbrev: fg-docs
     title: FlightGear Documentation Project
     runlevel: 100
@@ -119,12 +120,12 @@ fg-docs:
     official: 1
     copy:
       - etc/DoxyMain-fgdocs.cpp
-      - fgdocs.py
-      - config.yaml
+      - build_docs.py
+      - etc/projects.config.yaml
       - etc/doxy-default.conf
-      - fgdocs/
+      - fgdocx/
     doxy_args:
-       INPUT: DoxyMain-fgdocs.cpp fgdocs.py project_pages.cpp fgdocs/
+       INPUT: DoxyMain-fgdocs.cpp build_docs.py project_pages.cpp fgdocx/
        SHOW_NAMESPACES: YES
        EXAMPLE_PATH: ./
        OPTIMIZE_OUTPUT_JAVA: YES

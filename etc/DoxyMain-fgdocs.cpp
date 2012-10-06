@@ -1,5 +1,5 @@
 /**
- * @file DoxyMain-fgdocs.cpp
+ * @file DoxyMain-fgdocx.cpp
  * 
  * \mainpage Projects Index
  * 
@@ -10,12 +10,12 @@
  * 
  * \section Latest Latest Updates
  * - Switched on the graph creation with DOT 
- * - Interlink all libs
+ * - Interlinked all libs
  * 
  * 
  * 
  *****************************************************
- * \page About About the Docs Project
+ * \page About About the FG Docx Project
  * 
  * \section intro Introduction
  * The \a 'tool' of this project is \ref Doxygen, a c++ tool to parse source code and then output
@@ -25,7 +25,7 @@
  * to make sense of code, create some docmentation out of nothing sometimes.
  * 
  * @note The pages you are looking at now on this website, 
- * were generated from the \b fg-docs project (yes this project is self documenting, and also a doxygen project)
+ * were generated from the \b fgdocx project (yes this project is self documenting, and also a doxygen project)
  * 
  * \section Goals Goals
  * - The objective is to autocreate the docs from source
@@ -198,7 +198,7 @@
  * \endcode
  * 
  * \section current_config Current Config
- * \include config.yaml
+ * \include etc/projects.config.yaml
  * 
  * 
  **************************************************************************** 
@@ -209,11 +209,11 @@
  * - Checkout the project from https://git.gitorious.org/~ffs/flightgear-docs-project
  * - Run the script which completed the steps below
  *   \code
- *   fgdocs.py buildall
+ *   build_docs.py buildall
  *   \endcode
  *   -# Reads the \ref Projects config from \ref config_yaml
- *   -# Sorts the projects via \ref runlevel. \b fg-docs itself is 100 = last
- *   -# Runs build_project() for each project
+ *   -# Sorts the projects via \ref runlevel_config. Note that the  \b fgdocx project itself is 100 = last
+ *   -# Runs \ref ::project.Project.build_project() for each project
  *    - Checks if its either a git or svn repos
  *      - Checks out the repo if is doesnt exist ie new
  *      - Updates the reps with <code>git pull,  svn up</code>
@@ -222,8 +222,8 @@
  *      - Read an existing doxy file if in the configuration and found
  *      - Or use the \ref doxy_default (eg no doxy file in project)
  * The process is to:
- *  - Create the temp/ directory for project
- *  - Create the build/ directory ie the www_root/
+ *  - Create the \b temp/ directory for project
+ *  - Create the \b build/ directory ie the www_root/
  *  - Checkout a repository (tried git externals with difficulties)
  * 
  * 
@@ -238,7 +238,7 @@
  *   - \b python-git
  *   - \b python-yaml
  *   - \b python-simplejson
- * - \ref Doxygen - must be version 1.8+ (currently compiled on a dedicated)
+ * - \ref Doxygen - must be version 1.8+ (currently compiled on a dedicated machine)
  * 
  * 
  * 

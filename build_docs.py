@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 
 
-## @package fgdocs
+## @package fgdocx
 # This script does all the handling of the docs build process
 #
 # @author Pete Morgan 
-# @version 0.1
+# @version 0.1.exp
 # 
 
 
@@ -15,9 +15,7 @@ from optparse import OptionParser
 
 
 
-
-
-from fgdocs.builder import DocsBuilder
+from fgdocx.builder import DocsBuilder
 
 
 ## Handle Command Args
@@ -50,7 +48,7 @@ docsBuilder = DocsBuilder(parser, opts, args)
 
 	
 ## Get the projects index as a list of dicts. This loops thru the projects and reads the INFO_JSON_FILE_FILE
-def get_projects_index():
+def DEADget_projects_index():
 	ret = []
 	for proj in sorted(conf.keys()):
 		pconf = conf[proj]

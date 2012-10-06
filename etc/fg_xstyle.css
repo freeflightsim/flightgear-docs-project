@@ -398,15 +398,15 @@ table#projects_index{
 
 .contents h1 {
 	font-size: 12pt;
-	color: #555555;
+	color: black;
 	background-color: #efefef;
 	font-weight: bold;
-	border-left: 8px solid #cccccc;
+	border-left: 2px solid #cccccc;
 	border-top: 2px solid #cccccc;
 	border-bottom: 2px solid #cccccc;
 	border-right: 100px solid #cccccc;
-	margin: 40px 100px 20px 0;
-	padding: 5px 0 5px 10px;
+	margin: 40px 10px 20px 0;
+	padding: 5px 0 5px 5px;
 	border-top-right-radius: 20px;
 	border-bottom-right-radius: 20px;
 	border-top-left-radius: 2px;
