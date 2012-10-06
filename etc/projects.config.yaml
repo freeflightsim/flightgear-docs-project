@@ -29,13 +29,17 @@ terragear:
     runlevel: 0
     color: "#9ECC9E"
     version: 
-        number: head
+        number: git
     repo: git
     checkout: git://gitorious.org/~ffs/fg/ffss-terragear.git
     upstream: git://gitorious.org/fg/terragear.git
     official: 0
+    tags: simgear
     doxy_file: docx/doxy.conf
-    comments:
+    doxy_args:
+        HTML_COLORSTYLE_HUE: 120
+        HTML_COLORSTYLE_SAT: 80
+        HTML_COLORSTYLE_GAMMA: 220
 
 osg:
     abbrev: OSG
