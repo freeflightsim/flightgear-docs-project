@@ -33,7 +33,7 @@ class ProjectBuilder:
 	## Prepare the project, copying files, setting up doxy etc    
 	def prepare(self):
 		if self.V > 0:
-			print "---------------------------"
+			print "================================================================================="
 			print "# Processing: %s" % self.conf.proj
 				
 		##===========================================
