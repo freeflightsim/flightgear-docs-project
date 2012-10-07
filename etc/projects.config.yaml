@@ -131,7 +131,7 @@ fgdocx:
       - etc/doxy-default.conf
       - fgdocx/
     doxy_args:
-       INPUT: DoxyMain-fgdocs.cpp build_docs.py project_pages.cpp fgdocx/
+       INPUT: DoxyMain-fgdocx.cpp build_docs.py project_pages.cpp fgdocx/
        SHOW_NAMESPACES: YES
        EXAMPLE_PATH: ./
        OPTIMIZE_OUTPUT_JAVA: YES

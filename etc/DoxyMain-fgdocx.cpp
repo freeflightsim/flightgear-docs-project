@@ -3,7 +3,7 @@
  * 
  * \mainpage Projects Index
  * 
- * The projects below are automatically updated daily at 01, 07, 13 and 17 hrs . For more info see  \ref About 
+ * The projects below are automatically updated daily (at 01, 07, 13 and 19 hrs). For more info see  \ref About 
  * 
  * \htmlinclude projects_index.html
  * 
@@ -24,53 +24,27 @@
  * were generated from the \b fgdocx project (yes this project is self documenting, and also a doxygen project)
  * 
  * \section Goals Goals
- * - The objective is to autocreate the docs from source
+ * - Autocreate the docs from source
  * - Make it a reliable endpoint for everyone to referance at
- * - Update the docs regularily automatically 
+ * - Update the docs regularily
  *   - Current using jenkins, currently thanks FGx project at http://jenkins.fgx.ch 
  * - Create a presentable and useful interface
  * - Make the documentation interlink, ie linking flightgear, simgear, osg api's together
  * 
  * 
- *****************************************************
- * \page Links Links
  * 
- * \section Doxygen
- *  (http://doxygen.org)
- *  Were using the altest compiled 1.8 series as this has better output
- * 
- * \subsection GENERATE_TAGFILE GENERATE_TAGFILE
- * This option creates an .xml file with the tags. This can be read by
- * other documentation projects. 
- * \code
- * # OSG config for creating a tag
- * GENERATE_TAGFILE = /build_dir/osg/osg.tag
- * \endcode
- * 
- * \subsection TAGFILES TAGFILES
- * This option links to other tag files in other project
- * \code
- * # Simgear config reads osg and plib tags
- * TAGFILES = /build_dir/osg/osg.tag /build_dir/plib/plib.tag
- * \endcode
- * 
- * 
- * *****************************************************************
- * \page crash_course Crash Course
- * A few things affect the output from source code. 
- * There is also the dilemaa os throwing stuff at doxygen and see wat coomes out
  * 
  * 
  ******************************************************************* 
- * \page doxy_default default-doxy.conf
- * - Below are the contents of the default-doxy.conf file
+ * \page doxy_default doxy-default.conf
+ * - Below are the contents of the doxy-default.conf file
  *
- * \include  default-doxy.conf
+ * \include  doxy-default.conf
  * 
  * 
  ******************************************************************* 
- * \page config_yaml Configuration with config.yaml
- * - The build configuration is contained within the file \b config.yaml. 
+ * \page config_yaml projects.config.yaml
+ * - The build configuration is contained within the file \b etc/projects.config.yaml 
  * - The configuration is loaded by \ref Config and ProjectConfig
  * 
  * \section config_directives Config Directives
@@ -140,7 +114,7 @@
  * \endcode
  * 
  * \section current_config Current Config
- * \include etc/projects.config.yaml
+ * \include projects.config.yaml
  * 
  * 
  **************************************************************************** 
@@ -184,8 +158,5 @@
  * 
  * 
  * 
- * \section config Configuration
- * 
- * The configuration is within the yaml
  * 
  */

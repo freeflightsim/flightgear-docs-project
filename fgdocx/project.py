@@ -334,11 +334,10 @@ class ProjectBuilder:
 		
 		l = []
 		for p in projects:
-			
 			l.append( " * \section project_%s %s" % (p.proj, p.title) )
-			l.append( " * - Version: \b%s" % p.version)
-			l.append( " * - repo: \b%s" % p.repo)
-			l.append( " * - checkout: \b%s" % p.checkout)
+			l.append( " * - Version: %s" % p.version)
+			l.append( " * - repo: %s" % p.repo)
+			l.append( " * - checkout: %s" % p.checkout)
 			l.append( " *")
 		s = "/**\n * \page Projects Projects\n *\n"
 		s += "\n".join(l)
@@ -351,15 +350,14 @@ class ProjectBuilder:
 	def get_projects_table_html(self):
 		s = '<table id="projects_index">\n'
 		s += "<tr>\n"
-		s += "\t<th>Project</th><th>Zip</th><th>Version</th><th>Updated</th><th>More..</th>"
+		s += "\t<th>Project</th><th>Version</th><th>Updated</th><th>Source</th>"
 		s += "\n</tr>\n"
 		for p in self.main_conf.get_projects_index(load_info=True):
 			if p.is_main == False:
 				s += '\n<tr>\n\t<td><a class="lnk" href="%s/" style="border-left: 10px solid %s;">' % (p.proj, p.color)
 				s += '%s</a></td>' % (p.title)
-				s += '\n<td><a target="_blank" href="%s/%s.zip">%s.zip</a></td>' % (p.proj, p.proj, p.proj)
 				s += '\n<td>%s</td><td>%s</td>' % (p.version, p.date_updated)
-				s += '<td><a href="projects.html#%s">%s</a></td>' % (p.proj, p.proj)
+				s += '<td>%s</td>' % (p.checkout)
 				s += '</tr>\n'
 		s += "</table>"
 		return s
