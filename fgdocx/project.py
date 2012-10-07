@@ -273,7 +273,7 @@ class ProjectBuilder:
 	def get_doxy_file(self):
 		if self.V > 0:
 			print "> Checking doxy file"
-		print "#### " + self.conf.doxy_file
+
 		if self.conf.doxy_file:
 			if self.V > 0:
 				print "  > using %s project doxy file: %s" % (self.conf.proj, self.conf.doxy_file)
