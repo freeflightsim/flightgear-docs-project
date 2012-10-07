@@ -6,9 +6,7 @@
  * The projects below are automatically updated daily (at 01, 07, 13 and 19 hrs). For more info see  \ref About 
  * 
  * \htmlinclude projects_index.html
- * 
- * 
- * 
+ *
  * 
  *****************************************************
  * \page About About the FG Docx Project
@@ -31,8 +29,8 @@
  * - Create a presentable and useful interface
  * - Make the documentation interlink, ie linking flightgear, simgear, osg api's together
  * 
- * 
- * 
+ * \section Contact Contact
+ * Please send bug report, suggestions etc to [pete at freeflightsim dot org]
  * 
  * 
  ******************************************************************* 
