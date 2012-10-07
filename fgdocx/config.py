@@ -124,6 +124,8 @@ class ProjectConfig(ConfigCore):
 		## The doxy file to use if present
 		#  A project might not have a doxy file
 		self.doxy_file = None
+		if 'doxy_file' in dic:
+			self.doxy_file = dic['doxy_file']
 		
 		## Whether this is an official upstream repository
 		self.official = None

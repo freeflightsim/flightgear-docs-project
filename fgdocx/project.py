@@ -131,9 +131,10 @@ class ProjectBuilder:
 		xover.append('TREEVIEW_WIDTH = 120')
 		#xover.append('FILTER_SOURCE_FILES: YES')
 		py_processor =  self.conf.ETC + "doxypy.py"
-		xover.append( 'FILTER_PATTERNS = "*.py=%s"' % py_processor )
+		#xover.append( 'FILTER_PATTERNS = "*.py=%s"' % py_processor )
 		#xover.append('INPUT_FILTER: "%sdoxypy.py" ' % self.conf.ROOT)
-	
+		xover.append('WARN_LOGFILE = %s' % self.conf.build_dir + "warnings.txt")
+		
 		if self.conf.tags:
 			tag_list = []
 			for t in self.conf.tags:
@@ -272,6 +273,7 @@ class ProjectBuilder:
 	def get_doxy_file(self):
 		if self.V > 0:
 			print "> Checking doxy file"
+		print "#### " + self.conf.doxy_file
 		if self.conf.doxy_file:
 			if self.V > 0:
 				print "  > using %s project doxy file: %s" % (self.conf.proj, self.conf.doxy_file)

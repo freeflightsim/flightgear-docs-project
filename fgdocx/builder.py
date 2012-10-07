@@ -127,7 +127,4 @@ class DocsBuilder:
             if self.V > 0:
                 print "\t\t Created working dir: build/"
             os.mkdir(self.conf.BUILD)    
-            
-            
      
-            
