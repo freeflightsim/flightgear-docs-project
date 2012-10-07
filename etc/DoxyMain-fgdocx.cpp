@@ -3,14 +3,10 @@
  * 
  * \mainpage Projects Index
  * 
- * The projects below are automatically updated daily. See \ref About 
+ * The projects below are automatically updated daily at 01, 07, 13 and 17 hrs . For more info see  \ref About 
  * 
  * \htmlinclude projects_index.html
  * 
- * 
- * \section Latest Latest Updates
- * - Switched on the graph creation with DOT 
- * - Interlinked all libs
  * 
  * 
  * 
@@ -30,65 +26,11 @@
  * \section Goals Goals
  * - The objective is to autocreate the docs from source
  * - Make it a reliable endpoint for everyone to referance at
- * - Update the docs regularily aaautom magically 
+ * - Update the docs regularily automatically 
  *   - Current using jenkins, currently thanks FGx project at http://jenkins.fgx.ch 
  * - Create a presentable and useful interface
- * - Make the documentation interlink, ie linking flightgear, simgear, osg together
+ * - Make the documentation interlink, ie linking flightgear, simgear, osg api's together
  * 
- * \subsection basic_doxygen Basic Doxygen
- * To create documentatio/terragear/n for a project is a simple three step process
- * -# Create a doxygen config file for your project with the \b -g generate option
- *    \code
- *    cd my_project
- *    doxygen -g my_doxy.conf
- *    \endcode
- * -# Edit the config file to taste; important vars are:
- *    \code
- *    PROJECT_NAME = "My Project"
- *   
- *    # Adding two directories and a single file recursively
- *    INPUT = src/ foo/ main_docs_page.cpp
- *    RECURSIVE = YES
- * 
- *    # The output path and formats
- *    OUTPUT_DIRECTORY = build_docs/
- *    GENERATE_LATEX = NO
- *    GENERATE_MAN = NO
- *    GENERATE_HTML = YES
- *    \endcode
- * -# Then generate the docs
- *    \code
- *    doxygen ./my_doxy.conf
- *    \endcode
- *    Then open \b build_docs/html/index.html in your browser
- * 
- * \subsection advanced_doxygen Advanced Usage and Configration
- * For advanced usage, were using some key features such as:
- *  - \ref GENERATE_TAGFILE - When a project is documented, is creates an xml formatted tag file for the project
- *  - \ref TAGFILES - Integrate with other projects
- *  - Customation of the site with headers and footers
- * 
- * Each iteration of |ref Doxygen brings rich features and
- * - New Features - Latest version will have new features
- * - Depreceated Features - Stuff not used anymore
- * 
- * 
- * \section problems Problems
- * \ref Doxygen can be configured to 
- * The problem is that noone really focused on documentation. Its a pain.
- * But its also a valuable tool is we can all reely upon.
- * 
- * One of the frustrating things with documentation, its that a lot of the stuff is missing.
- * For example a small project can miss completely the other major library..
- * 
- * \section current Current Scenario
- * 
- * - this project
- * 
- * - requirements
- *  python-yaml
- * python-git
- * doxygen 1.8+
  * 
  *****************************************************
  * \page Links Links

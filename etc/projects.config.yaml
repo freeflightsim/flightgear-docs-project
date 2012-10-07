@@ -34,7 +34,6 @@ terragear:
     checkout: git://gitorious.org/fg/terragear.git
     official: 0
     tags: simgear
-    doxy_file: doxygen-src.conf
     doxy_args:
         HTML_COLORSTYLE_HUE: 120
         HTML_COLORSTYLE_SAT: 80
@@ -126,7 +125,7 @@ fgdocx:
     checkout: https://git.gitorious.org/~ffs/flightgear-docs-project
     official: 1
     copy:
-      - etc/DoxyMain-fgdocs.cpp
+      - etc/DoxyMain-fgdocx.cpp
       - build_docs.py
       - etc/projects.config.yaml
       - etc/doxy-default.conf
