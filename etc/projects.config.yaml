@@ -1,28 +1,3 @@
-fgms-0:
-    abbrev: FGMS 0.x
-    title: FG Multiplayer Server (0.x Stable)
-    runlevel: 0
-    color: "#A684AC"
-    version: 
-        number: 0.x-stable
-    repo: git
-    checkout: git://gitorious.org/~ffs/fgms/ffss-fgms-0-x.git
-    branch: master
-    official: 0
-    doxy_file: docx/doxy.conf
-
-fgms-1:
-    abbrev: FGMS 1.x
-    title: FG Multiplayer Server (1.x Dev)
-    runlevel: 0
-    color: "#A684AC"
-    version: 
-        number: 1.x-dev
-    repo: git
-    checkout: git://gitorious.org/~ffs/fgms/ffs-docs-fgms-1-x
-    official: 0
-    doxy_file: docx/doxy.conf 
-
 terragear:
     abbrev: TerraGear
     title: TerraGear Scenery Builder

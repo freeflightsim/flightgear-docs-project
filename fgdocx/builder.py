@@ -95,7 +95,7 @@ class DocsBuilder:
             sys.exit(0)
     
     def do_build_all(self):
-        s_list = 'fgms-0 fgms-1 simgear terragear  flightgear fgdocx'
+        s_list = 'simgear terragear  flightgear fgdocx'
         proj_lst = s_list.split()
         for proj in proj_lst:
             self.build_project( proj )

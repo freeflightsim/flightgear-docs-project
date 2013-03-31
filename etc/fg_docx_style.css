@@ -145,6 +145,7 @@ ssa {
 /*********************************************************/
 div.contents {
 	margin: 0;
+	background-color: pink
 }
 
 .contents h2 {
@@ -178,7 +179,7 @@ div.contents {
 .contents p {
 	line-height: 130%;
 	font-size: 10pt;
-	margin: 10px 50px 15px 50px;
+	margin: 10px 50px 15px 0px;
 }
 
 .contents ul{
@@ -1085,6 +1086,7 @@ dl.bug
 	width: 100%;
 	border-bottom: 2px solid #000000;
 	
+	background: url(img/CL02.png)
 
 }
 
