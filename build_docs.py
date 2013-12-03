@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-
 ## @package fgdocx
 # This script does all the handling of the docs build process
 #
@@ -12,7 +11,6 @@
 import os
 
 from optparse import OptionParser
-
 
 
 from fgdocx.builder import DocsBuilder
