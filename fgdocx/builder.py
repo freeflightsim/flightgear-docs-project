@@ -107,6 +107,7 @@ class DocsBuilder:
         projObj = ProjectBuilder(self.conf, projConf)
         projObj.prepare()
         projObj.build()     
+
       
     ## Print out the config view
     def do_view(self):
@@ -114,6 +115,7 @@ class DocsBuilder:
         self.conf.print_view(True)
         self.conf.print_view()
         sys.exit(0)
+
 
 
     def check_enviroment(self):
@@ -127,4 +129,4 @@ class DocsBuilder:
             if self.V > 0:
                 print "\t\t Created working dir: build/"
             os.mkdir(self.conf.BUILD)    
-     
+
