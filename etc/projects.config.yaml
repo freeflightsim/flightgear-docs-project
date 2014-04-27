@@ -31,6 +31,22 @@ osg:
        INPUT: DoxyMain-osg.cpp src/ include/ 
        FILE_PATTERNS: "*include* *.cpp"
 
+jsbsim:
+    abbrev: JSBSim
+    title: JSBSim Flight Dynamics Model
+    runlevel: 30
+    color: "#5F89B3"
+    version: 
+        number: 0.1.XXX
+    repo: git
+    checkout: git clone git://git.code.sf.net/p/jsbsim/code
+    official: 1
+    DEADcopy:
+      - etc/DoxyMain-osg.cpp
+    DEADdoxy_args:
+       INPUT: DoxyMain-osg.cpp src/ include/ 
+       FILE_PATTERNS: "*include* *.cpp"
+       
 plib:
     abbrev: PLIB
     title: Portable Game Library

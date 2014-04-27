@@ -1,12 +1,15 @@
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-+ FlightGear Documentation Project (Experimental)               
++ FlightGear Documentation Project          
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-Project Code:
-https://gitorious.org/fgx-xtras/flightgear-docs-project
+API Docs generated from this project at
+http://docs.freeflightsim.org/
 
-Author:
-Pete Morgan - #peteffs on irc  <pete at freeflightsim dot org>
+Project Code:
+https://github.com/FreeFlightSim/flightgear-docs-project
+
+Current Maintainer:
+Pedro Morgan - #peteffs on irc  
 
 ---------------------------------------------------------------------
 Introduction
@@ -24,7 +27,7 @@ This project is a collection of scripts that:-
   to the server as debian squqeeze does not have the correct doxygen
 
 ----------------------------------------------------------------
-The Cooncepts Ideas and Snagz
+The Concepts Ideas and Snagz
 ----------------------------------------------------------------
 The idea is to auto generate documentation from source,
 and spool this out on a regular basis.
