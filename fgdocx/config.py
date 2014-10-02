@@ -28,8 +28,8 @@ class ConfigCore(object):
 	## Location of the temp/ directory with trailing /
 	TEMP = ROOT + "temp/"
 	
-	## Location of the build/ output directory with trailing /
-	BUILD = ROOT + "build/"
+	## Location of the build/ output directory WITH TRAILING /
+	BUILD = "/home/fg/api-docs.freeflightsim.org/"
 	
 	## Name of the default doxygen file
 	DEFAULT_DOXY = "doxy-default.conf"

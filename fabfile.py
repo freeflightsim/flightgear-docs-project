@@ -70,7 +70,16 @@ def sg():
 		pass
 		#local("git pull")
 		
-	
+def plib():
+	projConf = conf.get_project_config_object("plib")
+	projObj = ProjectBuilder(conf, projConf)
+	projObj.prepare()
+	projObj.build()
+	#p# = ProjectBuilder( "simgear", conf)
+	#p.prepare()
+	with lcd(SG):
+		pass
+		#local("git pull")
 		
 
 

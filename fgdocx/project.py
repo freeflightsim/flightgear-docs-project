@@ -7,8 +7,6 @@ import datetime
 
 import json
 import shutil
-import git
-import pysvn
 
 import helpers as h
 
@@ -63,18 +61,8 @@ class ProjectBuilder:
 			
 			#os.mkdir(build_dir)
 		
-		########################################################
-		## Git Check
-		if self.conf.is_main:
-			pass
+
 			
-		else:
-			
-			if self.conf.is_git:
-				self.process_git()
-				
-			elif self.conf.is_svn:
-				self.process_svn()
 
 
 			
@@ -176,55 +164,7 @@ class ProjectBuilder:
 		
 		print "< Done: %s" % self.conf.proj
 
-	## Process an svn repos
-	def process_svn(self):
 			
-		if not os.path.exists(self.conf.work_dir + "/.svn/"):
-			self.svn_checkout()
-		else:
-			self.svn_update()
-	
-	## Checkout an svn repository
-	def svn_checkout(self):
-		print "Checkout out svn:  ", self.conf.work_dir
-		svn = pysvn.Client()
-	
-		print svn.checkout( self.conf.checkout  , self.conf.work_dir, recurse=True)
-	
-	## Update and svn repository
-	def svn_update(self):
-		
-		print "SVN update"
-		svn = pysvn.Client()
-		svn.update( self.conf.work_dir, recurse=True )
-					
-	## Process this project is its git
-	def process_git(self):
-		print "  > Checking if git repos at: %s" % self.conf.work_dir + ".git"       
-		if not os.path.exists(self.conf.work_dir + ".git/"):
-			#os.chdir(TEMP)
-			self.git_clone()
-					
-	## Clones a git repository
-	# @see \ref repo_config
-	# @see \ref checkout_config
-	def git_clone(self):
-		if self.V > 0:
-			print "Cloning new Repo: %s" % self.conf.checkout
-		shutil.rmtree( self.conf.work_dir )
-		os.chdir( self.conf.TEMP )
-		g = git.Git( self.conf.TEMP )
-		g.clone(self.conf.checkout, self.conf.proj)
-			
-	## Pulls latest git
-	# @see \ref repo_config
-	# @see \ref branch_config
-	def git_pull(self):
-		if self.V > 0:
-			print "  > Pull and checkout branch: %s" % branch
-		g = git.Git( self.conf.work_dir )
-		print g.checkout(self.conf.branch)
-		print g.pull()
 				
 	## Copies the files and paths in \ref copy_config
 	def copy_files(self):
