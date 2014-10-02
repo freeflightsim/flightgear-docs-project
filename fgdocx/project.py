@@ -186,7 +186,7 @@ class ProjectBuilder:
 	
 	## Checkout an svn repository
 	def svn_checkout(self):
-		print "Checkout out svn"
+		print "Checkout out svn:  ", self.conf.work_dir
 		svn = pysvn.Client()
 	
 		print svn.checkout( self.conf.checkout  , self.conf.work_dir, recurse=True)

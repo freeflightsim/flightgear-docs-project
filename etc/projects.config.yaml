@@ -23,7 +23,7 @@ osg:
     version: 
         number: 3.2.1
     repo: svn
-    checkout: http://www.openscenegraph.org/svn/osg/OpenSceneGraph/tags/OpenSceneGraph-3.2.1-rc2
+    checkout: http://www.openscenegraph.org/svn/osg/OpenSceneGraph/tags/OpenSceneGraph-3.2.1
     official: 1
     copy:
       - etc/DoxyMain-osg.cpp
