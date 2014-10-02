@@ -1,15 +1,25 @@
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-+ FlightGear Documentation Project          
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+=====================================================================
+FlightGear Documentation Project
+=====================================================================
 
-API Docs generated from this project at
-http://docs.freeflightsim.org/
+Visit: http://api-docs.freeflightsim.org/
 
-Project Code:
-https://github.com/FreeFlightSim/flightgear-docs-project
+
+This project contains some scripts, and tools
+to build flightgear api documentation and alike
+
+The main goal is to autogenerate documentation
+from git, svn and other sources and present in
+a good fashion and up to date..
+
+API Docs generated from this project are at
+http://api-docs.freeflightsim.org/
+
+This Project's Code:
+-	https://github.com/FreeFlightSim/flightgear-docs-project
 
 Current Maintainer:
-Pedro Morgan - #peteffs on irc  
+	Pedro Morgan - #peteffs on irc or pete at freeflightsim dot org
 
 ---------------------------------------------------------------------
 Introduction
@@ -21,7 +31,6 @@ This project is a collection of scripts that:-
 
 * checkouts git repos with git externals
 * checks our other repos via wget, ftp svn etc
-
 * Most of the repositories are forks, with docifications to doxy files.
 
 
