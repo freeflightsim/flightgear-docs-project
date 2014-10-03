@@ -15,6 +15,7 @@ from fabric.api import env, local, run, cd, lcd, sudo, warn_only
 
 from fgdocx.project import ProjectBuilder as _ProjectBuilder
 from fgdocx.config import Config as _Config
+import fgdocx.helpers as _h
 
 """
 ROOT = "/home/fg/flightgear-docs-project"
@@ -84,15 +85,40 @@ def fg():
 		local( projObj.get_build_cmd() )
 		projObj.post_build()
 
-def www():
-	"""Updates Main webpages ie fgdocx  build"""
+def index():
+	"""Updates Main webpages ie fgdocx  build after others"""
 	projObj = _ProjectBuilder(conf, "fgdocx")
 	with lcd(projObj.wd()):
-
-
 		projObj.prepare()
 		local( projObj.get_build_cmd() )
 		projObj.post_build()
+
+def site():
+	local("cp %s %s" % (conf.ETC + "robots.txt", conf.BUILD))
+	local("cp %s %s" % (conf.ETC + "logo-23.png", conf.BUILD))
+	local("cp %s %s" % (conf.ETC + "favicon.ico", conf.BUILD))
+
+def sitemap():
+	s = '<?xml version="1.0" encoding="utf-8"?>\n'
+	s += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+	s += "\t<url>\n"
+	s += "\t\t<loc>http://api-docs.freeflightsim.org</loc>\n"
+	s += "\t\t<changefreq>daily</changefreq>\n"
+	s += "\t\t<priority>0.2</priority>\n"
+	s += "\t</url>\n"
+	for page in conf.get_projects_list():
+		#print page
+		s  += "\t<url>\n"
+		s  += "\t\t<loc>http://api-docs.freeflightsim.org/%s/</loc>\n" % page['proj']
+		s  += "\t\t<lastmod>{{ site.time | date_to_xmlschema }}</lastmod>\n"
+		s  += "\t\t<changefreq>daily</changefreq>\n"
+		s  += "\t\t<priority>0.3</priority>\n"
+		s += "\t</url>\n"
+
+	s += "</urlset>\n"
+	#print s
+	#print conf.BUILD + "sitemap.xml"
+	_h.write_file(conf.BUILD + "sitemap.xml", s)
 
 def all():
 	"""Build all"""
