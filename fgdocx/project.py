@@ -157,8 +157,8 @@ class ProjectBuilder:
         if self.V > 0:
             print "  > command: %s" % dox_cmd
         return dox_cmd
-        print dox_cmd
-        os.system( dox_cmd  )
+
+    def post_build(self):
         
         if self.V > 0:
             print "> Copying extra files:"

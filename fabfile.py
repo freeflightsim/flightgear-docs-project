@@ -45,6 +45,7 @@ def plib():
 	with lcd(projObj.wd()):
 		projObj.prepare()
 		local( projObj.get_build_cmd() )
+		projObj.post_build()
 
 def osg():
 	"""OpenSceneGraph build docs"""
@@ -52,7 +53,7 @@ def osg():
 	with lcd(projObj.wd()):
 		projObj.prepare()
 		local( projObj.get_build_cmd() )
-		
+		projObj.post_build()
 
 
 
@@ -63,6 +64,7 @@ def sg():
 		local("git pull")
 		projObj.prepare()
 		local( projObj.get_build_cmd() )
+		projObj.post_build()
 		
 def tg():
 	"""TerraGear docs build"""
@@ -70,7 +72,7 @@ def tg():
 	with lcd(projObj.wd()):
 		projObj.prepare()
 		local( projObj.get_build_cmd() )
-		
+		projObj.post_build()
 
 def fg():
 	"""flightgear docs build"""
@@ -80,7 +82,7 @@ def fg():
 
 		projObj.prepare()
 		local( projObj.get_build_cmd() )
-
+		projObj.post_build()
 
 def www():
 	"""Updates Main webpages ie fgdocx  build"""
@@ -90,6 +92,7 @@ def www():
 
 		projObj.prepare()
 		local( projObj.get_build_cmd() )
+		projObj.post_build()
 
 def all():
 	"""Build all"""
@@ -97,4 +100,4 @@ def all():
 	osg()
 	sg()
 	tg()
-	pg()
+	fg()
