@@ -127,3 +127,5 @@ def all():
 	sg()
 	tg()
 	fg()
+	site()
+	sitemap()
