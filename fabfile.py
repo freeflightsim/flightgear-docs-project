@@ -120,6 +120,19 @@ def sitemap():
 	#print conf.BUILD + "sitemap.xml"
 	_h.write_file(conf.BUILD + "sitemap.xml", s)
 
+def pull():
+	for d in ["simgear", "terragear", "flightgear"]:
+		with lcd(conf.TEMP + d):
+			local("git pull")
+
+def update():
+	pull()
+	sg()
+	tg()
+	fg()
+	site()
+	sitemap()
+
 def all():
 	"""Build all"""
 	plib()
