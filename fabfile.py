@@ -37,9 +37,17 @@ def checkoutall():
 		local("git clone git://gitorious.org/fg/simgear.git")
 		local("git clone git://gitorious.org/fg/flightgear.git")
 		local("svn co https://svn.code.sf.net/p/plib/code/trunk plib")
-		
+
+
+def plib():
+	"""plib build docs"""
+	projObj = _ProjectBuilder(conf, "plib")
+	with lcd(projObj.wd()):
+		projObj.prepare()
+		local( projObj.get_build_cmd() )
 
 def osg():
+	"""OpenSceneGraph build docs"""
 	projObj = _ProjectBuilder(conf, "osg")
 	with lcd(projObj.wd()):
 		projObj.prepare()
@@ -82,3 +90,11 @@ def www():
 
 		projObj.prepare()
 		local( projObj.get_build_cmd() )
+
+def all():
+	"""Build all"""
+	plib()
+	osg()
+	sg()
+	tg()
+	pg()
