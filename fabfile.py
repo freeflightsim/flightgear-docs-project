@@ -13,9 +13,10 @@ import yaml
 
 from fabric.api import env, local, run, cd, lcd, sudo, warn_only
 
-from fgdocx.project import ProjectBuilder
-from fgdocx.config import Config
+from fgdocx.project import ProjectBuilder as _ProjectBuilder
+from fgdocx.config import Config as _Config
 
+"""
 ROOT = "/home/fg/flightgear-docs-project"
 ETC = 	ROOT + "/etc"
 TEMP = ROOT + "/temp"
@@ -24,74 +25,60 @@ FG = TEMP + "/flightgear"
 SG = TEMP + "/simgear"
 FGDATA = TEMP + "/fgdata"
 OSG = TEMP + "/osg"
+"""
 
-## Read a text file and return its contents
-def read_file(path_to_file):
-    fob = open( path_to_file, "r")
-    file_content = fob.read()
-    fob.close()
-    return file_content
+conf = _Config(1)
 
-## Write text string to file path
-def write_file(path_to_file, contents):
-    fob = open( path_to_file, "w")
-    fob.write(contents)
-    fob.close()
-    return
-
-conf = Config(1)
-		
-#conf = yaml.load( read_file( ETC + "/projects.config.yaml" ) )
-#print conf.keys()
 
 
 def checkoutall():
-	with lcd(TEMP):
+	with lcd(conf.TEMP):
+		local("svn co http://www.openscenegraph.org/svn/osg/OpenSceneGraph/tags/OpenSceneGraph-3.2.1 osg")
 		local("git clone git://gitorious.org/fg/simgear.git")
 		local("git clone git://gitorious.org/fg/flightgear.git")
-		local("svn co https://plib.svn.sourceforge.net/svnroot/plib/trunk plib")
+		local("svn co https://svn.code.sf.net/p/plib/code/trunk plib")
 		
 
 def osg():
-	with lcd(OSG):
-		local("cp %s/%s, %s" % (ETC, "DoxyMain-osg.cpp", TEMP + "/osg/" + "DoxyMain-osg.cpp"))
+	projObj = _ProjectBuilder(conf, "osg")
+	with lcd(projObj.wd()):
+		projObj.prepare()
+		local( projObj.get_build_cmd() )
 		
 
 
 
 def sg():
-	projConf = conf.get_project_config_object("simgear")
-	projObj = ProjectBuilder(conf, projConf)
-	projObj.prepare()
-	projObj.build()
-	#p# = ProjectBuilder( "simgear", conf)
-	#p.prepare()
-	with lcd(SG):
-		pass
-		#local("git pull")
+	"""simgear docs build"""
+	projObj = _ProjectBuilder(conf, "simgear")
+	with lcd(projObj.wd()):
+		local("git pull")
+		projObj.prepare()
+		local( projObj.get_build_cmd() )
 		
-def plib():
-	projConf = conf.get_project_config_object("plib")
-	projObj = ProjectBuilder(conf, projConf)
-	projObj.prepare()
-	projObj.build()
-	#p# = ProjectBuilder( "simgear", conf)
-	#p.prepare()
-	with lcd(SG):
-		pass
-		#local("git pull")
+def tg():
+	"""TerraGear docs build"""
+	projObj = _ProjectBuilder(conf, "terragear")
+	with lcd(projObj.wd()):
+		projObj.prepare()
+		local( projObj.get_build_cmd() )
 		
 
+def fg():
+	"""flightgear docs build"""
+	projObj = _ProjectBuilder(conf, "flightgear")
+	with lcd(projObj.wd()):
+		local("git pull")
 
-def fgdata_status():
-	with lcd(FGDATA):
-		out = local("git diff --raw origin/master ")
-		
-		print "out=", out
-		return out
-	
-	
-def status():
-	
-	ok = fgdata_status()
-	print "ok", ok
+		projObj.prepare()
+		local( projObj.get_build_cmd() )
+
+
+def www():
+	"""Updates Main webpages ie fgdocx  build"""
+	projObj = _ProjectBuilder(conf, "fgdocx")
+	with lcd(projObj.wd()):
+
+
+		projObj.prepare()
+		local( projObj.get_build_cmd() )

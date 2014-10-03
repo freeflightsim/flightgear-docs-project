@@ -1,13 +1,14 @@
 /**
  * @file DoxyMain-fgdocx.cpp
  * 
- * \mainpage Projects Index
+ * \mainpage API Index
  * 
- * The projects below are automatically updated daily (at 01, 07, 13 and 19 hrs). For more info see  \ref About 
+ * The projects below are updated daily at 01, 07, 13 and 19 hrs GMT ish on a cron.
  * 
  * \htmlinclude projects_index.html
  *
- * 
+ *  For more info see  \ref About
+ *
  *****************************************************
  * \page About About the FG Docx Project
  * 

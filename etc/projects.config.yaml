@@ -1,12 +1,13 @@
 terragear:
     abbrev: TerraGear
-    title: TerraGear Scenery Builder
+    title: TerraGear - Scenery Builder
     runlevel: 60
     color: "#9ECC9E"
     version: 
         number: git
     repo: git
     checkout: git://gitorious.org/fg/terragear.git
+    branch: master
     official: 0
     tags: simgear
     doxy_args:
@@ -24,6 +25,7 @@ osg:
         number: 3.2.1
     repo: svn
     checkout: http://www.openscenegraph.org/svn/osg/OpenSceneGraph/tags/OpenSceneGraph-3.2.1
+    branch: stable
     official: 1
     copy:
       - etc/DoxyMain-osg.cpp
@@ -40,7 +42,8 @@ plib:
     version: 
         number: 1.8.5
     repo: svn
-    checkout: https://plib.svn.sourceforge.net/svnroot/plib/trunk
+    checkout: https://svn.code.sf.net/p/plib/code/trunk
+    branch: stable
     official: 1
     copy:
       - etc/DoxyMain-plib.cpp
@@ -71,7 +74,7 @@ simgear:
 
 flightgear:
     abbrev: FlightGear
-    title: FlightGear Flight Simulator
+    title: FlightGear - Flight Simulator
     runlevel: 80
     color: "#6280BA"
     tags: osg plib simgear
@@ -92,13 +95,14 @@ flightgear:
 
 fgdocx:
     abbrev: fg-docs
-    title: FlightGear Documentation Project
+    title: FlightGear API Docs
     runlevel: 100
     color: "#989898"
     version: 
         number: 0.1
     repo: git
     checkout: https://git.gitorious.org/~ffs/flightgear-docs-project
+    branch: master
     official: 1
     copy:
       - etc/DoxyMain-fgdocx.cpp
