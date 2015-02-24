@@ -123,6 +123,9 @@ class ProjectBuilder:
         xover.append('HTML_FOOTER = fg_docx_footer.html')
         xover.append('HTML_EXTRA_STYLESHEET = "fg_xstyle.css"')
         xover.append('TREEVIEW_WIDTH = 120')
+        
+        #xover.append('CLASS_DIAGRAMS = ')
+        xover.append('HAVE_DOT = ')
         #xover.append('FILTER_SOURCE_FILES: YES')
         py_processor =  self.conf.ETC + "doxypy.py"
         #xover.append( 'FILTER_PATTERNS = "*.py=%s"' % py_processor )
@@ -144,7 +147,6 @@ class ProjectBuilder:
         
         ## make config string and write to file
         dox_config_str = dox_file_contents + dox_override
-        #print dox_config_str
         self.write_temp_doxy(dox_config_str)
         
     def get_build_cmd(self):
@@ -200,9 +202,9 @@ class ProjectBuilder:
     def get_navigation(self):
         nav_str = ""
         if self.conf.is_main:
-            nav_str += '<li><a href="index.html">Home</a></li>\n'
+            nav_str += '<li><a href="index.html">Index</a></li>\n'
         else:
-            nav_str += '<li><a href="../">API Index</a></li>\n'
+            nav_str += '<li><a href="../">Index</a></li>\n'
         link_prefix = "" if self.conf.is_main else "../"
         for p in self.main_conf.get_projects_index():
             if not p.is_main:
@@ -274,7 +276,7 @@ class ProjectBuilder:
     ## Write out temp doxy file
     # @param contents  The doxy string
     def write_temp_doxy(self, contents):
-        
+        #print "CONTENTS", contents[:1000]
         if os.path.exists( self.conf.temp_doxy_path):
             os.remove(self.conf.temp_doxy_path)
         h.write_file( self.conf.temp_doxy_path, contents)
@@ -318,9 +320,9 @@ class ProjectBuilder:
             if p.is_main == False:
                 s += '\n<tr>\n'
                 s += '\t<td><a class="lnk" href="%s/" style="border-left: 10px solid %s;">' % (p.proj, p.color)
-                s += '%s/</a></td>' % (p.proj)
-                s += '\t<td><a class="lnk" href="%s/" style="border-left: 2px solid %s;">' % (p.proj, p.color)
-                s += '%s</a></td>' % (p.title)
+                s += '%s</a></td>' % (p.proj)
+                s += '\t<td>%s<br><a target="_blank" class="lnkp" href="%s">' % (p.title, p.project_page)
+                s += '%s</a></td>'  % p.project_page
 
                 s += '\n<td>%s</td><td>%s</td><td>%s</td>' % (p.version, p.branch, p.date_updated)
                 s += '<td>%s</td>' % (p.checkout)

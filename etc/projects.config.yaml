@@ -15,7 +15,6 @@ terragear:
         HTML_COLORSTYLE_HUE: 120
         HTML_COLORSTYLE_SAT: 80
         HTML_COLORSTYLE_GAMMA: 220
-        LAYOUT_FILE: 
 
 osg:
     abbrev: OSG
@@ -104,7 +103,7 @@ fgdocx:
     runlevel: 100
     color: "#989898"
     version: 
-        number: 0.1
+        number: 0.2
     repo: git
     checkout: https://github.com/freeflightsim/flightgear-docs-project.git
     project_page: https://github.com/freeflightsim/flightgear-docs-project

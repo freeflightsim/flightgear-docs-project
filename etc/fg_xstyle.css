@@ -24,7 +24,7 @@ table#projects_index{
 	font-weight: normal;
 }
 #projects_index td{
-	
+	vertical-align: top;
 	border-bottom: 1px outset #dddddd;
 	margin: 0;
 	padding: 3px;
@@ -35,10 +35,15 @@ table#projects_index{
 	color: #000099;
 }
 #projects_index td a.lnk{
-	font-size: 12pt;
+	font-size: 14pt;
 	font-weight: bold;
 	color: #444444;
 	padding-left: 10px;
+}
+#projects_index td a.lnkp{
+    font-size: 10pt;
+    font-weight: normal;
+    color: #666666;
 }
 /****************************************************************************/
 /* Top Menu */
