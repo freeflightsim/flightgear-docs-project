@@ -3,7 +3,8 @@
  * 
  * \mainpage API Index
  * 
- * The projects below are regenerated every few hours on a cron.
+ * - The projects below are regenerated every few hours on a cron.
+ * - IMPORTANT: The docs are generated from latest bleeding edge (next branches) where appropritate.
  * 
  * \htmlinclude projects_index.html
  *

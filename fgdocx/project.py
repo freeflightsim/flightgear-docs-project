@@ -327,6 +327,15 @@ class ProjectBuilder:
                 s += '\n<td>%s</td><td>%s</td><td>%s</td>' % (p.version, p.branch if p.branch else "-", p.date_updated)
                 s += '<td>%s</td>' % (p.checkout)
                 s += '</tr>\n'
+        s += '\n<tr>\n'
+        s += '\t<td><a class="lnk" target="_fgms" href="%s" style="border-left: 10px solid %s;">' % ("http://fgms.freeflightsim.org/", "#C974B4")
+        s += '%s</a></td>' % ("fgms")
+        s += '\t<td>%s<br><a target="_fgms" class="lnkp" href="%s">' % ("Multiplayer Server", "http://fgms.freeflightsim.org/")
+        s += '%s</a></td>'  % "http://fgms.freeflightsim.org/"
+
+        s += '\n<td>%s</td><td>%s</td><td>%s</td>' % ("-", "-", "-")
+        s += '<td>%s</td>' % "-"
+        s += '</tr>\n'
         s += "</table>"
         return s
 
