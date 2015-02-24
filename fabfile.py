@@ -132,6 +132,7 @@ def update():
 	fg()
 	site()
 	sitemap()
+	index()
 
 def all():
 	"""Build all"""
