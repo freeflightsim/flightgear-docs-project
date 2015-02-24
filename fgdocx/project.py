@@ -213,7 +213,7 @@ class ProjectBuilder:
     def get_repo_link(self):
         s = ""
         if not self.conf.is_main:
-            s += '<a class="projectrepos" href="%s">%s</a>\n' % (self.conf.project_page, self.conf.checkout)
+            s += '<a target="_blank" class="projectrepos" href="%s">%s</a>\n' % (self.conf.project_page, self.conf.checkout)
         return s
 
     def get_branch(self):
