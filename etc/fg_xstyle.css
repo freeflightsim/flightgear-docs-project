@@ -394,6 +394,11 @@ table#projects_index{
 	padding: 0px;
 	color: #444444;
 }
+.projectrepos {
+    text-decoration: none;
+    font: 9pt monospace;
+    color: #444444;
+}
 
 
 .contents h1 {

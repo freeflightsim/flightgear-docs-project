@@ -210,11 +210,25 @@ class ProjectBuilder:
     
         return nav_str
     
+    def get_repo_link(self):
+        s = ""
+        if not self.conf.is_main:
+            s += '<a class="projectrepos" href="%s">%s</a>\n' % (self.conf.project_page, self.conf.checkout)
+        return s
+
+    def get_branch(self):
+        return "[%s]" % self.conf.branch
+        if self.conf.is_main:
+            s += '<a href="%s">%s</a>\n' % (self.conf.checkout, self.conf.checkout)
+        return s
+    
     ## Writes out the html header file
     def write_header_html(self):
         
         template_header = h.read_file( self.conf.ETC + "fg_docx_header.html" )
         template_header = template_header.replace("___NAV_ITEMS___", self.get_navigation() )
+        template_header = template_header.replace("___REPO_LINK___", self.get_repo_link() )
+        template_header = template_header.replace("___REPO_BRANCH___", self.get_branch() )
         h.write_file( self.conf.work_dir + "fg_docx_header.html", template_header)
     
     ## Return the contents of the doxy file  

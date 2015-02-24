@@ -7,6 +7,7 @@ terragear:
         number: git
     repo: git
     checkout: git://gitorious.org/fg/terragear.git
+    project_page: https://gitorious.org/fg/terragear
     branch: master
     official: 0
     tags: simgear
@@ -25,6 +26,7 @@ osg:
         number: 3.2.1
     repo: svn
     checkout: http://www.openscenegraph.org/svn/osg/OpenSceneGraph/tags/OpenSceneGraph-3.2.1
+    project_page: http://www.openscenegraph.org/
     branch: stable
     official: 1
     copy:
@@ -43,6 +45,7 @@ plib:
         number: 1.8.5
     repo: svn
     checkout: https://svn.code.sf.net/p/plib/code/trunk
+    project_page: http://sourceforge.net/projects/plib/
     branch: stable
     official: 1
     copy:
@@ -64,6 +67,7 @@ simgear:
         file: version
     repo: git
     checkout: git://gitorious.org/fg/simgear.git
+    project_page: https://gitorious.org/fg/simgear
     branch: next
     official: 1
     doxy_args:
@@ -82,6 +86,7 @@ flightgear:
         file: version
     repo: git
     checkout: git://gitorious.org/fg/flightgear.git
+    project_page: https://gitorious.org/fg/flightgear
     branch: next
     official: 0
     copy: 
@@ -101,7 +106,8 @@ fgdocx:
     version: 
         number: 0.1
     repo: git
-    checkout: https://git.gitorious.org/~ffs/flightgear-docs-project
+    checkout: https://github.com/freeflightsim/flightgear-docs-project.git
+    project_page: https://github.com/freeflightsim/flightgear-docs-project
     branch: master
     official: 1
     copy:

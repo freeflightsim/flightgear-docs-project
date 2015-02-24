@@ -79,6 +79,9 @@ class ProjectConfig(ConfigCore):
 		# @see \ref repo_config
 		self.repo = dic['repo']
 		
+		print dic.keys()
+		self.project_page = dic['project_page']
+		
 		## The checkout url
 		# @see \ref checkout_config
 		self.checkout = dic['checkout']
