@@ -324,7 +324,7 @@ class ProjectBuilder:
                 s += '\t<td>%s<br><a target="_blank" class="lnkp" href="%s">' % (p.title, p.project_page)
                 s += '%s</a></td>'  % p.project_page
 
-                s += '\n<td>%s</td><td>%s</td><td>%s</td>' % (p.version, p.branch, p.date_updated)
+                s += '\n<td>%s</td><td>%s</td><td>%s</td>' % (p.version, p.branch if p.branch else "-", p.date_updated)
                 s += '<td>%s</td>' % (p.checkout)
                 s += '</tr>\n'
         s += "</table>"
