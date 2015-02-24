@@ -3,7 +3,7 @@
  * 
  * \mainpage API Index
  * 
- * The projects below are updated daily at 01, 07, 13 and 19 hrs GMT ish on a cron.
+ * The projects below are regenerated every few hours on a cron.
  * 
  * \htmlinclude projects_index.html
  *
