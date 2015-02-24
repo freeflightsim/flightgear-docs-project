@@ -4,7 +4,7 @@ terragear:
     runlevel: 60
     color: "#9ECC9E"
     version: 
-        number: git
+        file: version
     repo: git
     checkout: git://gitorious.org/fg/terragear.git
     project_page: https://gitorious.org/fg/terragear
