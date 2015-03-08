@@ -135,35 +135,7 @@ def fgdata():
             src_n += src
             #print src_n
             _h.write_file(target_dir + "/" + file_n, src_n)
-        return
-        for root, dirs, files in os.walk(nasal_dir):
-            # print root
-            #print dirs
-            #print files
-            #print "-------"
-            for d in dirs:
-                print "-----------------"
-                print root
-                print root[len_root:]
-                xnasal_dir = projObj.wd() + "Nasal_%s" % root[len_root:]
-                local("mkdir -p " + xnasal_dir)
-            continue
-            for f in files:
-                if f.endswith(".nas"):
-                    print "======="
-                    print root, f
-                    print len_root, root[len_root:]
-                    xnasal_dir = projObj.wd() + "Nasal_" + root[len_root:] 
-                    print  xnasal_dir
-                    src = _h.read_file(root + "/" + f)
-                    ns =  f[:-4]
-                    src_n = "/**\n"
-                    src_n += "  * @namespace Nasal::%s\n" % ns
-                    src_n += "  */\n"
-                    src_n += src
-                    #print src_n
-                    _h.write_file(xnasal_dir + "/" + f, src_n)
-        return
+       
         shaders = []
         verts = []
         frags = []
@@ -220,7 +192,7 @@ def fgdata():
         s += "*/\n"
         #print s
         f = projObj.wd() + "shaders.dox"
-        print f
+        #print f
         _h.write_file(f, s)
         #return
         projObj.prepare()
