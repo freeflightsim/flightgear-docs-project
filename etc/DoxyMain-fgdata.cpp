@@ -6,27 +6,14 @@
  * 
  * FlightGear Data
  * 
- * This is an attempt at extracting some documentation from bits of fgdata.
- * Attempted are documentation for the Shaders and Nasal
+ * This is an attempt at extracting some documentation from bits of fgdata, eg \ref shaders and \ref nasal
  * 
  * 
- * Flight Developer Help:
- *  - http://wiki.flightgear.org/
- * 
- * Source (temporary its svn):
- *  - https://plib.svn.sourceforge.net/svnroot/plib/trunk
- * 
- * \section auttooo Auto Docs
- *   - <a href="dirs.html">Shaders</a>
- *   - <a href="dirs.html">Nasal Doxygen</a>
- *   - <a href="nasal-api-doc.html">Nasal Python flavour</a> (uses nasal-api-doc.py)
+ * \section contents Contents
+ *   - \ref shaders
+ *   - \ref nasal
  *
- *
- * \page shaders Shaders
  * 
- * List of shaders
- * 
- * \htmlinclude shaders.html
  */
 
 

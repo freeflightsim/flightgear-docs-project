@@ -78,6 +78,25 @@ def fg():
         local( projObj.get_build_cmd() )
         projObj.post_build()
 
+def _get_nasal_files(directory):
+    """
+    This function will generate the file names in a directory 
+    tree by walking the tree either top-down or bottom-up. For each 
+    directory in the tree rooted at directory top (including top itself), 
+    it yields a 3-tuple (dirpath, dirnames, filenames).
+    """
+    file_paths = []  # List which will store all of the full filepaths.
+
+    # Walk the tree.
+    for root, directories, files in os.walk(directory):
+        for filename in files:
+            if filename.endswith(".nas"):
+                # Join the two strings in order to form the full filepath.
+                filepath = os.path.join(root, filename)
+                file_paths.append(filepath)  # Add it to the list.
+
+    return file_paths  # Self-explanatory.
+
 def fgdata():
     """flightgear docs build"""
     projObj = _ProjectBuilder(conf, "fgdata")
@@ -86,6 +105,65 @@ def fgdata():
         temp_dir = projObj.wd() + "_examples"
         local("mkdir -p " + temp_dir)
 
+        shades_dir = projObj.wd() + "Shaders_"
+        local("mkdir -p " + shades_dir)
+
+        xnasal_dir = projObj.wd() + "Nasal_"
+        local("mkdir -p " + xnasal_dir)
+        
+        nasal_dir = projObj.wd() + "Nasal"
+        len_root = len(nasal_dir)
+        
+        files = _get_nasal_files(nasal_dir)
+        #print files
+        for f in files:
+            print "---------"
+            print f
+            
+            nas_path = f[len_root:]
+            print nas_path
+            target_dir = projObj.wd() + "Nasal_"  + os.path.dirname(nas_path)
+            print target_dir
+            file_n = os.path.basename(f)
+            print file_n
+            local("mkdir -p " + target_dir)
+            src = _h.read_file( f)
+            ns =  f[:-4]
+            src_n = "/**\n"
+            src_n += "  * @namespace Nasal::%s\n" % file_n[:-4]
+            src_n += "  */\n"
+            src_n += src
+            #print src_n
+            _h.write_file(target_dir + "/" + file_n, src_n)
+        return
+        for root, dirs, files in os.walk(nasal_dir):
+            # print root
+            #print dirs
+            #print files
+            #print "-------"
+            for d in dirs:
+                print "-----------------"
+                print root
+                print root[len_root:]
+                xnasal_dir = projObj.wd() + "Nasal_%s" % root[len_root:]
+                local("mkdir -p " + xnasal_dir)
+            continue
+            for f in files:
+                if f.endswith(".nas"):
+                    print "======="
+                    print root, f
+                    print len_root, root[len_root:]
+                    xnasal_dir = projObj.wd() + "Nasal_" + root[len_root:] 
+                    print  xnasal_dir
+                    src = _h.read_file(root + "/" + f)
+                    ns =  f[:-4]
+                    src_n = "/**\n"
+                    src_n += "  * @namespace Nasal::%s\n" % ns
+                    src_n += "  */\n"
+                    src_n += src
+                    #print src_n
+                    _h.write_file(xnasal_dir + "/" + f, src_n)
+        return
         shaders = []
         verts = []
         frags = []
@@ -95,11 +173,24 @@ def fgdata():
             parts = f.split(".")
             ext = parts[1]
             fp = parts[0]
-            if ext in ["vert", "frag"] and shaders.count(fp) == 0:
-                shaders.append(fp)
-                shade_fn = shades_dir + f
+            if ext in ["vert", "frag"]:
+                shade_fn = shades_dir + "/" + f
                 print shade_fn
                 src = _h.read_file(shade_fn)
+                #print src[0:20]
+                
+                xparts = fp.split("-")
+                #xuparts = [ xp.upper() for xp in xparts]
+                ns = "::".join(xparts)
+                src_n = "/**\n"
+                src_n += "  * @namespace Shaders::%s\n" % ns
+                src_n += "  */\n"
+                src_n += src
+                #print src_n
+                _h.write_file(xshaders_dir + "/" + f, src_n)
+                if shaders.count(fp) == 0:
+                    shaders.append(fp)
+                
             if ext == "frag":
                 frags.append(fp)
             if ext == "vert":
@@ -112,9 +203,11 @@ def fgdata():
         #print "verts=", verts
         #print ""
         #print "frags=", frags
-        return
-        s = "<table>\n"
-        s += "\t<tr><th>Frag</th><th>Vert</th></tr>\n"
+        #return
+        s = "/*!\n"
+        s += "\page shaders Shaders\n\nList of shaders\n\n"
+        s += "<table>\n"
+        s += "<tr><th>Frag</th><th>Vert</th></tr>\n"
         for sh in shaders:
             fr = ""
             if sh in frags:
@@ -122,10 +215,11 @@ def fgdata():
             vr = ""
             if sh in verts:
                 vr = sh + ".vert" 
-            s += "\t<tr><td>%s</td><td>%s</td></tr>\n" % (fr, vr)
-        s += "</table>"
+            s += "<tr><td>%s</td><td>%s</td></tr>\n" % (fr, vr)
+        s += "</table>\n"
+        s += "*/\n"
         #print s
-        f = temp_dir + "/shaders.html"
+        f = projObj.wd() + "shaders.dox"
         print f
         _h.write_file(f, s)
         #return
