@@ -11,6 +11,7 @@ import sys
 import os
 import yaml
 import datetime
+import glob
 
 from fabric.api import env, local, run, cd, lcd, sudo, warn_only
 
@@ -24,8 +25,9 @@ conf = _Config(1)
 
 def checkoutall():
     with lcd(conf.TEMP):
+        local("git clone http://git.code.sf.net/p/flightgear/fgdata")
         local("svn co https://svn.code.sf.net/p/plib/code/trunk plib")
-        local("svn co http://www.openscenegraph.org/svn/osg/OpenSceneGraph/tags/OpenSceneGraph-3.2.1 osg")
+        local("git clone https://github.com/openscenegraph/osg.git")
         local("git clone git://gitorious.org/fg/simgear.git")
         local("git clone git://gitorious.org/fg/flightgear.git")
         local("git clone git://gitorious.org/fg/terragear.git")
@@ -47,8 +49,6 @@ def osg():
         projObj.prepare()
         local( projObj.get_build_cmd() )
         projObj.post_build()
-
-
 
 def sg():
     """simgear docs build"""
@@ -78,6 +78,58 @@ def fg():
         local( projObj.get_build_cmd() )
         projObj.post_build()
 
+def fgdata():
+    """flightgear docs build"""
+    projObj = _ProjectBuilder(conf, "fgdata")
+    with lcd(projObj.wd()):
+        #local("git pull")
+        temp_dir = projObj.wd() + "_examples"
+        local("mkdir -p " + temp_dir)
+
+        shaders = []
+        verts = []
+        frags = []
+        shades_dir = projObj.wd() + "/Shaders"
+        for f in os.listdir(shades_dir):
+            print "f=", f
+            parts = f.split(".")
+            ext = parts[1]
+            fp = parts[0]
+            if ext in ["vert", "frag"] and shaders.count(fp) == 0:
+                shaders.append(fp)
+            if ext == "frag":
+                frags.append(fp)
+            if ext == "vert":
+                verts.append(fp)
+        shaders = sorted(shaders)
+        verts = sorted(verts)
+        frags = sorted(frags)
+        #print "shaders=", shaders
+        #print ""
+        #print "verts=", verts
+        #print ""
+        #print "frags=", frags
+        s = "<table>\n"
+        s += "\t<tr><th>Frag</th><th>Vert</th></tr>\n"
+        for sh in shaders:
+            fr = ""
+            if sh in frags:
+                fr = sh + ".frag"
+            vr = ""
+            if sh in verts:
+                vr = sh + ".vert" 
+            s += "\t<tr><td>%s</td><td>%s</td></tr>\n" % (fr, vr)
+        s += "</table>"
+        #print s
+        f = temp_dir + "/shaders.html"
+        print f
+        _h.write_file(f, s)
+        #return
+        projObj.prepare()
+        local("chmod +x ./glslfilter.py")
+        local( projObj.get_build_cmd() )
+        projObj.post_build()
+        
 def index():
     """Updates Main webpages ie fgdocx  build after others"""
     projObj = _ProjectBuilder(conf, "fgdocx")
@@ -114,7 +166,7 @@ def sitemap():
     _h.write_file(conf.BUILD + "sitemap.xml", s)
 
 def pull():
-    for d in ["simgear", "terragear", "flightgear"]:
+    for d in ["simgear", "terragear", "flightgear", "fgdata"]:
         with lcd(conf.TEMP + d):
             local("git pull")
 

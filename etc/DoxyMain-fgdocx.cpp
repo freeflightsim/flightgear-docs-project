@@ -6,6 +6,8 @@
  * - The projects below are regenerated every few hours on a cron.
  * - IMPORTANT: The docs are generated from latest bleeding edge (next branches) where appropritate.
  * 
+ * \warning The repository source are soon moving from gitorious.org to gitlab.com
+ * 
  * \htmlinclude projects_index.html
  *
  *  For more info see  \ref About

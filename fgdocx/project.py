@@ -164,7 +164,7 @@ class ProjectBuilder:
         
         if self.V > 0:
             print "> Copying extra files:"
-        for f in ["logo-23.png", 'favicon.ico']:
+        for f in ["logo-23.png", 'favicon.ico', "dynsections.js"]:
             if self.V > 0:
                 print ">   copied: %s" % f
             shutil.copyfile( self.conf.ETC + f , self.conf.build_dir + f )
@@ -240,8 +240,9 @@ class ProjectBuilder:
 
         if self.conf.doxy_file:
             if self.V > 0:
-                print "  > using %s project doxy file: %s" % (self.conf.proj, self.conf.doxy_file)
-            dox_contents = h.read_file(self.conf.work_dir + self.conf.doxy_file)
+                doxy_path = self.conf.ROOT + self.conf.doxy_file
+                print "  > using %s project doxy file: %s" % (self.conf.proj, doxy_path )
+            dox_contents = h.read_file(doxy_path)
             
         else:
             dox_contents = h.read_file(self.conf.ETC + self.conf.DEFAULT_DOXY)

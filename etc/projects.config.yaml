@@ -16,6 +16,28 @@ terragear:
         HTML_COLORSTYLE_SAT: 80
         HTML_COLORSTYLE_GAMMA: 220
 
+        
+fgdata:
+    abbrev: FGData
+    title: FG Data 
+    runlevel: 80
+    color: "#6280BA"
+    version: 
+        file: version
+    repo: git
+    checkout: http://git.code.sf.net/p/flightgear/fgdata
+    project_page: http://sf.net/p/flightgear/fgdata
+    branch: next
+    official: 0
+    doxy_file: etc/doxy-fgdata.conf
+    copy: 
+        - etc/DoxyMain-fgdata.cpp
+        - etc/glslfilter.py
+    doxy_args:
+        HTML_COLORSTYLE_HUE: 240
+        HTML_COLORSTYLE_SAT: 40
+        HTML_COLORSTYLE_GAMMA: 180
+        
 osg:
     abbrev: OSG
     title: OpenSceneGraph
@@ -23,10 +45,10 @@ osg:
     color: "#5F89B3"
     version: 
         number: 3.2.1
-    repo: svn
-    checkout: http://www.openscenegraph.org/svn/osg/OpenSceneGraph/tags/OpenSceneGraph-3.2.1
+    repo: git
+    checkout: https://github.com/openscenegraph/osg.git
     project_page: http://www.openscenegraph.org/
-    branch: stable
+    branch: OpenSceneGraph-3.2
     official: 1
     copy:
       - etc/DoxyMain-osg.cpp
