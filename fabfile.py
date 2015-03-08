@@ -97,6 +97,9 @@ def fgdata():
             fp = parts[0]
             if ext in ["vert", "frag"] and shaders.count(fp) == 0:
                 shaders.append(fp)
+                shade_fn = shades_dir + f
+                print shade_fn
+                src = _h.read_file(shade_fn)
             if ext == "frag":
                 frags.append(fp)
             if ext == "vert":
@@ -109,6 +112,7 @@ def fgdata():
         #print "verts=", verts
         #print ""
         #print "frags=", frags
+        return
         s = "<table>\n"
         s += "\t<tr><th>Frag</th><th>Vert</th></tr>\n"
         for sh in shaders:
