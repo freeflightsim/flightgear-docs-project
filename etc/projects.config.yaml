@@ -6,7 +6,7 @@ terragear:
     version: 
         file: version
     repo: git
-    checkout: git://gitorious.org/fg/terragear.git
+    checkout: https://gitorious.org/fg/terragear.git
     project_page: https://gitorious.org/fg/terragear
     branch: master
     official: 0
@@ -18,8 +18,8 @@ terragear:
 
         
 fgdata:
-    abbrev: FGData
-    title: FG Data 
+    abbrev: FG Data
+    title: FlightGear Data 
     runlevel: 80
     color: "#6280BA"
     version: 
@@ -40,7 +40,7 @@ fgdata:
         
 osg:
     abbrev: OSG
-    title: OpenSceneGraph
+    title: OSG - Open Scene Graph
     runlevel: 15
     color: "#5F89B3"
     version: 
@@ -59,7 +59,7 @@ osg:
        
 plib:
     abbrev: PLIB
-    title: Portable Game Library
+    title: PLIB - Portable Game Library
     runlevel: 10
     color: "#539053"
     version: 

@@ -18,4 +18,13 @@ def write_file(path_to_file, contents):
     fob = open( path_to_file, "w")
     fob.write(contents)
     fob.close()
-    return
+    return#
+
+def xsplit(v, char):
+    v = v.strip()
+    parts = v.split(char)
+    ret = []
+    for p in parts:
+        if p != "":
+            ret.append(p)
+    return ret

@@ -6,14 +6,13 @@
  * 
  * FlightGear Data
  * 
- * This is an attempt at extracting some documentation from bits of fgdata, eg \ref shaders and \ref nasal
+ * This is an attempt at extracting some documentation from bits of fgdata.
  * 
  * 
  * \section contents Contents
  *   - \ref shaders
- *   - \ref nasal
+ *   - \ref Nasal
  *
- * 
  */
 
 

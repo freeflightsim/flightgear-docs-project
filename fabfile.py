@@ -24,13 +24,15 @@ conf = _Config(1)
 
 
 def checkoutall():
+    """Checks out all repos"""
+    # Need to read repos from projects_config.yaml
     with lcd(conf.TEMP):
         local("git clone http://git.code.sf.net/p/flightgear/fgdata")
         local("svn co https://svn.code.sf.net/p/plib/code/trunk plib")
         local("git clone https://github.com/openscenegraph/osg.git")
-        local("git clone git://gitorious.org/fg/simgear.git")
-        local("git clone git://gitorious.org/fg/flightgear.git")
-        local("git clone git://gitorious.org/fg/terragear.git")
+        local("git clone https://gitorious.org/fg/simgear.git")
+        local("git clone https://gitorious.org/fg/flightgear.git")
+        local("git clone https://gitorious.org/fg/terragear.git")
         
 
 
@@ -105,8 +107,8 @@ def fgdata():
         temp_dir = projObj.wd() + "_examples"
         local("mkdir -p " + temp_dir)
 
-        shades_dir = projObj.wd() + "Shaders_"
-        local("mkdir -p " + shades_dir)
+        xshaders_dir = projObj.wd() + "Shaders_"
+        local("mkdir -p " + xshaders_dir)
 
         xnasal_dir = projObj.wd() + "Nasal_"
         local("mkdir -p " + xnasal_dir)
@@ -118,24 +120,41 @@ def fgdata():
         #print files
         for f in files:
             print "---------"
-            print f
+            #print f
             
             nas_path = f[len_root:]
-            print nas_path
+            #print nas_path
             target_dir = projObj.wd() + "Nasal_"  + os.path.dirname(nas_path)
-            print target_dir
+            #print target_dir
             file_n = os.path.basename(f)
             print file_n
+            
+            bits = os.path.dirname(nas_path)
+            bitp = _h.xsplit(bits, "/")
+            print "bits=", bits, bitp
+            ns =  "Nasal"
+            if len(bitp) > 0:
+                 ns = ns + "::" + "::".join(bitp)
+            print ns
+            classn = "_".join(bitp)
+            classd = ".".join(bitp)
+            #classn += file_n[:-4]
+            defg = "\defgroup %s %s" % ( classn, classd )
+            print defg
             local("mkdir -p " + target_dir)
-            src = _h.read_file( f)
-            ns =  f[:-4]
+            src = _h.read_file( f )
+            
             src_n = "/**\n"
-            src_n += "  * @namespace Nasal::%s\n" % file_n[:-4]
+            src_n += "  * @namespace %s\n" % ns
+            src_n += "  * @file %s \n" % file_n
+            #src_n += "  * @{\n"
+            #src_n += "  * @class %s\n" % classn
             src_n += "  */\n"
             src_n += src
+            #src_n += "/** @}*/\n"
             #print src_n
             _h.write_file(target_dir + "/" + file_n, src_n)
-       
+        #return   
         shaders = []
         verts = []
         frags = []
@@ -177,7 +196,7 @@ def fgdata():
         #print "frags=", frags
         #return
         s = "/*!\n"
-        s += "\page shaders Shaders\n\nList of shaders\n\n"
+        s += "\page shaders Shaders List\n\nList of shader files included\n\n"
         s += "<table>\n"
         s += "<tr><th>Frag</th><th>Vert</th></tr>\n"
         for sh in shaders:

@@ -37,8 +37,9 @@ class ProjectBuilder:
     ## Prepare the project, copying files, setting up doxy etc    
     def prepare(self):
         if self.V > 0:
-            print "================================================================================="
+            print "\n================================================================================="
             print "# Processing: %s" % self.conf.proj
+            print "================================================================================="
                 
         ##===========================================
         if self.V > 1:
@@ -122,7 +123,7 @@ class ProjectBuilder:
         xover.append('HTML_HEADER = fg_docx_header.html')
         xover.append('HTML_FOOTER = fg_docx_footer.html')
         xover.append('HTML_EXTRA_STYLESHEET = "fg_xstyle.css"')
-        xover.append('TREEVIEW_WIDTH = 120')
+        xover.append('TREEVIEW_WIDTH = 250')
         
         #xover.append('CLASS_DIAGRAMS = ')
         xover.append('HAVE_DOT = ')
@@ -164,7 +165,7 @@ class ProjectBuilder:
         
         if self.V > 0:
             print "> Copying extra files:"
-        for f in ["logo-23.png", 'favicon.ico', "dynsections.js"]:
+        for f in ["logo-23.png", 'favicon.ico']: #, "dynsections.js"]:
             if self.V > 0:
                 print ">   copied: %s" % f
             shutil.copyfile( self.conf.ETC + f , self.conf.build_dir + f )

@@ -16,14 +16,12 @@
  * \page About About the FG Docx Project
  * 
  * \section intro Introduction
- * The \a 'tool' of this project is \ref Doxygen, a c++ tool to parse source code and then output
+ * The \a 'tool' of this project is <a href="http://www.stack.nl/~dimitri/doxygen/">Doxygen</a>, a tool to parse source code and then output
  * into various formats; the one we are interested in is \b html.
  * 
- * \ref Doxygen is a very clever application, you can throw anything at it and it tries
- * to make sense of code, create some docmentation out of nothing sometimes.
+ * <a href="http://www.stack.nl/~dimitri/doxygen/">Doxygen</a> is a very clever application, you can throw anything at it and it tries
+ * to make sense of code, create some docmentation out of nothing sometimes; see <a href="fgdata">FG Data</a>.
  * 
- * @note The pages you are looking at now on this website, 
- * were generated from the \b fgdocx project (yes this project is self documenting, and also a doxygen project)
  * 
  * \section Goals Goals
  * - Autocreate the docs from source
