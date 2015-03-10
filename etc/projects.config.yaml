@@ -106,7 +106,7 @@ flightgear:
     version: 
         file: version
     repo: git
-    checkout: git://gitorious.org/fg/flightgear.git
+    checkout: https://gitorious.org/fg/flightgear.git
     project_page: https://gitorious.org/fg/flightgear
     branch: next
     official: 0
