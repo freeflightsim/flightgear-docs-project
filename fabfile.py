@@ -275,6 +275,7 @@ def all():
     sg()
     tg()
     fg()
+    fgdata()
     site()
     sitemap()
     index()
