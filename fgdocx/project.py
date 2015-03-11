@@ -156,7 +156,7 @@ class ProjectBuilder:
         if self.V > 0:
             print "  > curdir: %s" % os.path.abspath( os.curdir )
         
-        dox_cmd =  "doxygen ./%s " % self.conf.TEMP_DOXY
+        dox_cmd =  "/usr/local/bin/doxygen ./%s " % self.conf.TEMP_DOXY
         if self.V > 0:
             print "  > command: %s" % dox_cmd
         return dox_cmd
