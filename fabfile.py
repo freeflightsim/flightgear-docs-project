@@ -255,7 +255,7 @@ def sitemap():
     _h.write_file(conf.BUILD + "sitemap.xml", s)
 
 def pull():
-    for d in ["simgear", "terragear", "flightgear", "fgdata"]:
+    for d in ["fgms", "simgear", "terragear", "flightgear", "fgdata"]:
         with lcd(conf.TEMP + d):
             local("git pull")
 
