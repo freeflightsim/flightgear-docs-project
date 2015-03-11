@@ -277,3 +277,5 @@ def all():
     fg()
     site()
     sitemap()
+    index()
+    
