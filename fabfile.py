@@ -38,17 +38,17 @@ def checkoutall():
 			print cmd
 			if not os.path.exists(path):
 				cmd = "git clone %s" % projObj.conf.checkout
-				print cmd		 
-		return
-
-            
+				local(cmd)	 
+		
+		local("svn co https://svn.code.sf.net/p/plib/code/trunk plib")
+        return    
         
         local("git clone https://github.com/openscenegraph/osg.git")
         local("git clone https://gitorious.org/fg/simgear.git")
         local("git clone https://gitorious.org/fg/flightgear.git")
         local("git clone https://gitorious.org/fg/terragear.git")
         
-        local("svn co https://svn.code.sf.net/p/plib/code/trunk plib")
+        
         
         
         

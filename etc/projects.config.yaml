@@ -21,7 +21,7 @@ openradar:
     title: OpenRadar
     runlevel: 80
     color: "#6280BA"
-    DEDversion: 
+    version: 
         file: version
     repo: git
     checkout: http://git.code.sf.net/p/flightgear/openradar
