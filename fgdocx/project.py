@@ -295,6 +295,9 @@ class ProjectBuilder:
                 )  
         h.write_file(self.conf.json_info_path, json.dumps(dic) )
 
+    def get_projects_dic(self):
+        return self.main_conf.get_projects_dic()
+
     def get_projects_pages_cpp(self):
         projects = self.main_conf.get_projects_index()
         

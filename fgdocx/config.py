@@ -213,6 +213,9 @@ class Config(ConfigCore):
 			lst.append(dic)
 		return lst
 	
+	def get_projects_dic(self):
+		return self.conf
+        
 	## Return the project index 
 	def get_projects_index(self, load_info=True, runlevel=False):
 		

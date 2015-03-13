@@ -6,7 +6,7 @@ terragear:
     version: 
         file: version
     repo: git
-    checkout: https://gitorious.org/fg/terragear.git
+    checkout: http://git.code.sf.net/p/flightgear/flightgear
     project_page: https://gitorious.org/fg/terragear
     branch: master
     official: 0
@@ -16,6 +16,26 @@ terragear:
         HTML_COLORSTYLE_SAT: 80
         HTML_COLORSTYLE_GAMMA: 220
 
+openradar:
+    abbrev: OpenRadar
+    title: OpenRadar
+    runlevel: 80
+    color: "#6280BA"
+    DEDversion: 
+        file: version
+    repo: git
+    checkout: http://git.code.sf.net/p/flightgear/openradar
+    project_page: http://sf.net/p/flightgear/openradar
+    branch: next
+    official: 0
+    DEADdoxy_file: etc/doxy-fgdata.conf
+    DEADcopy: 
+        - etc/DoxyMain-fgdata.cpp
+        - etc/glslfilter.py
+    DEADdoxy_args:
+        HTML_COLORSTYLE_HUE: 240
+        HTML_COLORSTYLE_SAT: 40
+        HTML_COLORSTYLE_GAMMA: 180
         
 fgdata:
     abbrev: FG Data
@@ -87,8 +107,8 @@ simgear:
     version: 
         file: version
     repo: git
-    checkout: git://gitorious.org/fg/simgear.git
-    project_page: https://gitorious.org/fg/simgear
+    checkout: http://git.code.sf.net/p/flightgear/simgear
+    project_page: http://sf.net/p/flightgear/simgear
     branch: next
     official: 1
     doxy_args:
@@ -106,8 +126,8 @@ flightgear:
     version: 
         file: version
     repo: git
-    checkout: https://gitorious.org/fg/flightgear.git
-    project_page: https://gitorious.org/fg/flightgear
+    checkout: http://git.code.sf.net/p/flightgear/flightgear
+    project_page: http://sf.net/p/flightgear/flightgear
     branch: next
     official: 0
     copy: 

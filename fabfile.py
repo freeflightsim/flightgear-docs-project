@@ -24,15 +24,35 @@ conf = _Config(1)
 
 
 def checkoutall():
-    """Checks out all repos"""
+	"""Checks out all repos"""
     # Need to read repos from projects_config.yaml
-    with lcd(conf.TEMP):
-        local("git clone http://git.code.sf.net/p/flightgear/fgdata")
-        local("svn co https://svn.code.sf.net/p/plib/code/trunk plib")
+	with lcd(conf.TEMP):
+		projs = conf.get_projects_dic()
+		print projs.keys()
+		del projs['fgdocx']
+		del projs['plib']
+		for pk in projs.keys():
+			projObj = _ProjectBuilder(conf, pk)
+			path = projObj.wd()
+			cmd = "git clone %s" % projObj.conf.checkout
+			print cmd
+			if not os.path.exists(path):
+				cmd = "git clone %s" % projObj.conf.checkout
+				print cmd		 
+		return
+
+            
+        
         local("git clone https://github.com/openscenegraph/osg.git")
         local("git clone https://gitorious.org/fg/simgear.git")
         local("git clone https://gitorious.org/fg/flightgear.git")
         local("git clone https://gitorious.org/fg/terragear.git")
+        
+        local("svn co https://svn.code.sf.net/p/plib/code/trunk plib")
+        
+        
+        
+        
         
 
 
