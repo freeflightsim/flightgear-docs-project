@@ -19,6 +19,13 @@ from fgdocx.project import ProjectBuilder as _ProjectBuilder
 from fgdocx.config import Config as _Config
 import fgdocx.helpers as _h
 
+env.hosts = [ 'api-docs.freeflightsim.org' ]
+env.user = "fg"
+env.password = "using ssh key"
+env.use_ssh_config = True
+env.shell = "/bin/sh -c"
+
+REMOTE_PATH = "/home/fg/flightgear-docs-project"
 
 conf = _Config(1)
 
@@ -37,7 +44,7 @@ def checkoutall():
 			cmd = "git clone %s" % projObj.conf.checkout
 			print cmd
 			if not os.path.exists(path):
-				cmd = "git clone %s" % projObj.conf.checkout
+				cmd = "git clone --depth 2 %s" % projObj.conf.checkout
 				local(cmd)	 
 		
 		local("svn co https://svn.code.sf.net/p/plib/code/trunk plib")
@@ -52,7 +59,13 @@ def checkoutall():
         
         
         
-        
+def openradar():
+    """openradar build docs"""
+    projObj = _ProjectBuilder(conf, "openradar")
+    with lcd(projObj.wd()):
+        projObj.prepare()
+        local( projObj.get_build_cmd() )
+        projObj.post_build()  
         
 
 
@@ -279,6 +292,14 @@ def pull():
         with lcd(conf.TEMP + d):
             local("git pull")
 
+def up_server():
+	"""Psuh local stuff and update removte code"""
+	local("git push origin master")
+	with cd(REMOTE_PATH):
+		run("git pull")
+		
+	
+
 def update():
     pull()
     sg()
@@ -299,4 +320,24 @@ def all():
     site()
     sitemap()
     index()
+    
+def do_compile():
+	"""Compiles fg"""
+	for d in ["simgear", "flightgear"]:
+		compile_dir = "%s%s_build" % (conf.TEMP, d)
+		
+		if not os.path.exists(compile_dir):
+			with lcd(conf.TEMP):
+				local("mkdir %s_build" % d)
+			
+		with lcd(compile_dir):
+			cmake_config = "cmake ../%s" % (d)
+			print compile_dir, cmake_config
+			
+			local( cmake_config )
+			local( "make" )
+			local( "sudo make install")
+			
+				
+            
     

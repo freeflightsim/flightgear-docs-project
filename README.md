@@ -9,7 +9,7 @@ to build flightgear api documentation and alike.
 
 
 This Project's Code:
--	https://github.com/FreeFlightSim/flightgear-docs-project
+-	https://github.com/freeflightsim/flightgear-docs-project
 
 Current Maintainer:
 	Pedro Morgan - #peteffs on irc or pete at freeflightsim dot org

@@ -31,6 +31,8 @@ class ConfigCore(object):
 	## Location of the build/ output directory WITH TRAILING /
 	BUILD = "/home/fg/api-docs.freeflightsim.org/"
 	
+	CMAKE_BUILD_DIR = TEMP + "cmake_builds/"
+	
 	## Name of the default doxygen file
 	DEFAULT_DOXY = "doxy-default.conf"
 	
