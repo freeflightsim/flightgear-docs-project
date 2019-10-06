@@ -1,6 +1,5 @@
-=====================================================================
-FlightGear API Documentation Project
-=====================================================================
+# FlightGear API Documentation Project
+
 
 This project contains some scripts, and tools
 to build flightgear api documentation and alike.
@@ -9,10 +8,10 @@ to build flightgear api documentation and alike.
 
 
 This Project's Code:
--	https://github.com/freeflightsim/flightgear-docs-project
+    https://github.com/freeflightsim/flightgear-docs-project
 
-Current Maintainer:
-	Pedro Morgan - #peteffs on irc or pete at freeflightsim dot org
+Current Maintainer (help appreciated):
+    Pedro Morgan - pete at freeflightsim dot org
 
 Requirements: doxygen and python+fabric
 
